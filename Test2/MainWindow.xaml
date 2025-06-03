@@ -1,0 +1,83 @@
+﻿<Window x:Class="Test2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nicolas Vins" Height="600" Width="1000"
+        Background="#F5F1E6">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <!-- Style arrondi avec Header bien affiché -->
+        <Style x:Key="RoundedMenuItem" TargetType="MenuItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="Bd"
+                            CornerRadius="20"
+                            Background="Transparent"
+                            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Header"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#9A1F1F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="#6E1414" FontFamily="Segoe UI">
+            <!-- 1. Accueil -->
+            <MenuItem Header="🏠 Accueil" Style="{StaticResource RoundedMenuItem}" Click="Accueil_Click"/>
+
+            <!-- 2. Recherche -->
+            <MenuItem Header="🔍 Rechercher un vin" Style="{StaticResource RoundedMenuItem}" Click="Recherche_Click"/>
+
+            <!-- 3. Commandes -->
+            <MenuItem Header="📦 Commandes" Style="{StaticResource RoundedMenuItem}" Click="Commandes_Click"/>
+
+            <!-- 4. Clients -->
+            <MenuItem Header="👥 Clients" Style="{StaticResource RoundedMenuItem}" Click="Clients_Click"/>
+
+            <!-- 5. Profil / Déconnexion -->
+            <MenuItem Header="👤 Mon profil" Style="{StaticResource RoundedMenuItem}" Click="Profil_Click"/>
+            <MenuItem Header="🔓 Se déconnecter" Style="{StaticResource RoundedMenuItem}" Click="Deconnexion_Click"/>
+
+            <!-- 6. Rôle affiché à droite (désactivé) -->
+            <MenuItem Header="{Binding RoleUtilisateur}" IsEnabled="False"
+              Foreground="White"
+              FontWeight="Bold"
+              HorizontalAlignment="Right"
+              />
+            <MenuItem Style="{StaticResource RoundedMenuItem}">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/logo.jpg" Width="80" Height="40" Margin="0,0,8,0"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+
+        </Menu>
+
+
+
+        <!-- Contenu -->
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
+</Window>
