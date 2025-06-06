@@ -1,9 +1,71 @@
-﻿<Application x:Class="Test2.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Test2"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="AppliNicolas.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:AppliNicolas"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style
+            x:Key="StyleMenuItem"
+            x:Name="StyleMenuItemArrondi"
+            TargetType="MenuItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="Beige" />
+            <Setter Property="Padding" Value="10,10" />
+            <Setter Property="Margin" Value="10,10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border
+                            x:Name="bordureMenuItem"
+                            Padding="{TemplateBinding Padding}"
+                            Background="#9A1F1F"
+                            CornerRadius="20">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ContentSource="Header"
+                                RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="bordureMenuItem" Property="Background" Value="#ad4848" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style
+            x:Key="StyleMenuItemActif"
+            x:Name="StyleMenuItemArrondiActif"
+            TargetType="MenuItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Foreground" Value="#9A1F1F" />
+            <Setter Property="Padding" Value="10,10" />
+            <Setter Property="Margin" Value="10,10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border
+                            x:Name="bordureMenuItem"
+                            Padding="{TemplateBinding Padding}"
+                            Background="Beige"
+                            CornerRadius="20">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                ContentSource="Header"
+                                RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="bordureMenuItem" Property="Background" Value="#c59f9f" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

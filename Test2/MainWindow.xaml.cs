@@ -9,60 +9,83 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Test2
+namespace AppliNicolas
 {
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window
     {
-        public bool IsResponsable { get; set; } = true; // à remplacer dynamiquement selon le login
-        
-        public string RoleUtilisateur => IsResponsable ? "Responsable" : "Vendeur";
+        public bool estResponsable { get; set; }
+
+        public string role_Utilisateur { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this; // permet le binding de IsResponsable
+
+            var ecranLargeur = SystemParameters.PrimaryScreenWidth;
+            var ecranHauteur = SystemParameters.PrimaryScreenHeight;
+
+            this.Width = ecranLargeur;
+            this.Height = ecranHauteur;
+
+            estResponsable = false;
+            if (!estResponsable)
+            {
+                role_Utilisateur = "Vendeur";
+            }
+            else
+            {
+                role_Utilisateur = "Responsable";
+            }
+
+            Selection_Menu_Item(MI_Acceuil);
+
+            MenuPrincipale.DataContext = this;
+
         }
 
-        private void Accueil_Click(object sender, RoutedEventArgs e)
+        private void MI_Acceuil_Click(object sender, RoutedEventArgs e)
         {
+            Selection_Menu_Item(MI_Acceuil);
         }
 
-        private void Recherche_Click(object sender, RoutedEventArgs e)
+        private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
+            Selection_Menu_Item(MI_Vin);
         }
 
-        private void Clients_Click(object sender, RoutedEventArgs e)
+        public void Selection_Menu_Item(MenuItem mi_choisi)
         {
+            //On change le style que si le menu n'est pas celui sélectionné
+            if (mi_choisi.Style != (Style)this.FindResource("StyleMenuItemActif"))
+            {
+                //Mettre tout les menu item en style de base
+                MI_Acceuil.Style = (Style)this.FindResource("StyleMenuItem");
+                MI_Vin.Style = (Style)this.FindResource("StyleMenuItem");
+                MI_Demande.Style = (Style)this.FindResource("StyleMenuItem");
+                MI_Client.Style = (Style)this.FindResource("StyleMenuItem");
+                MI_Deconnection.Style = (Style)this.FindResource("StyleMenuItem");
+
+                //Mettre le menu item actif en style actif
+                mi_choisi.Style = (Style)this.FindResource("StyleMenuItemActif");
+            }
         }
 
-        private void Commandes_Click(object sender, RoutedEventArgs e)
+        private void MI_Demande_Click(object sender, RoutedEventArgs e)
         {
-        }
-        private void Profil_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        private void Demandes_Click(object sender, RoutedEventArgs e)
-        {
+            Selection_Menu_Item(MI_Demande);
         }
 
-        private void CommandesFournisseur_Click(object sender, RoutedEventArgs e)
+        private void MI_Client_Click(object sender, RoutedEventArgs e)
         {
+            Selection_Menu_Item(MI_Client);
         }
 
-        private void APropos_Click(object sender, RoutedEventArgs e)
+        private void MI_Deconnection_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Application Nicolas Vins\nVersion 1.0", "À propos");
-        }
-
-        private void Deconnexion_Click(object sender, RoutedEventArgs e)
-        {
-            // Logique de déconnexion
-            MessageBox.Show("Déconnecté.");
-        }
-
-        private void Quitter_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+            Selection_Menu_Item(MI_Deconnection);
         }
     }
 }
