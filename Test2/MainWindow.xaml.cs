@@ -24,8 +24,8 @@ namespace AppliNicolas
         {
             InitializeComponent();
 
-            var ecranLargeur = SystemParameters.PrimaryScreenWidth;
-            var ecranHauteur = SystemParameters.PrimaryScreenHeight;
+            double ecranLargeur = SystemParameters.PrimaryScreenWidth;
+            double ecranHauteur = SystemParameters.PrimaryScreenHeight;
 
             this.Width = ecranLargeur;
             this.Height = ecranHauteur;
