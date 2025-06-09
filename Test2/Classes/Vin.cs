@@ -20,7 +20,7 @@ namespace AppliNicolas.Classes
 
 
         public Vin(string nom, string appelation, TypeVin type, int millesime, string photo, int stock, double prix,
-                   string reference, string fournisseur, string detail, bool estNouveau)
+                   int reference, string fournisseur, string detail, bool estNouveau)
         {
             Nom = nom;
             Appelation = appelation;
