@@ -35,11 +35,18 @@ namespace AppliNicolas.Classes
 /*            EstNouveau = estNouveau;*/
         }
 
-        public bool EstSimilaireA(Vin autre)
+        public int CalculerDegreRessemblance(Vin autre)
         {
-            return this.NumType == autre.NumType ||
-                   this.NumAppelation == autre.NumAppelation ;
+            int degre = 0;
+            if (this.NumType == autre.NumType)
+                degre++;
+            if (this.NumAppelation == autre.NumAppelation)
+                degre++;
+            if (this.Millesime == autre.Millesime)
+                degre++;
+            return degre;
         }
+
 
         // Encapsulation 
 

@@ -31,12 +31,17 @@ namespace AppliNicolas.ClassesD_exmple
 
         public static List<Vin> TrouverSimilaires(Vin vinPrincipal)
         {
-            List<Vin> similaires = ObtenirExemples().Where(vin => vinPrincipal.EstSimilaireA(vin)).ToList();
+            List<Vin> similaires = ObtenirExemples()
+                .Where(vin => vinPrincipal.CalculerDegreRessemblance(vin) >= 1)
+                .OrderByDescending(vin => vinPrincipal.CalculerDegreRessemblance(vin))
+                .Take(5)
+                .ToList();
 
             similaires.RemoveAll(v => v.Nom == vinPrincipal.Nom);
 
             return similaires;
         }
+
 
 
     }
