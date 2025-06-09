@@ -77,7 +77,18 @@ namespace AppliNicolas.Classes
         public string Photo
         {
             get => photo;
-            set => photo = string.IsNullOrWhiteSpace(value) ? "/Images/Vin.jpg" : value;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    photo = "pack://application:,,,/Images/vin.jpg"; 
+                }
+                
+                else
+                {
+                    photo = value;
+                }
+            }
         }
 
         public int Stock

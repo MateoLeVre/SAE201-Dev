@@ -22,6 +22,7 @@ namespace AppliNicolas.Pages
         public Vin Vin { get; set; }
         public List<Vin> Similaires { get; set; }
 
+        public event Action<Vin> VinSelectionne;
         public FicheVin(Vin vin)
         {
             InitializeComponent();
@@ -29,17 +30,23 @@ namespace AppliNicolas.Pages
             Vin = vin;
             Similaires = CatalogueDeVin.TrouverSimilaires(vin);
 
-            this.DataContext = this; 
+            this.DataContext = this;
         }
 
         private void VoirFiche_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
             Vin vinClique = btn?.Tag as Vin;
-            if (vinClique != null)
+
+            Similaires = CatalogueDeVin.TrouverSimilaires(vinClique);
+            IC_Similaires.ItemsSource = Similaires;
+
+            Window mainWindow = Application.Current.MainWindow;
+            if (mainWindow is MainWindow mw)
             {
-                var nouvelleFiche = new FicheVin(vinClique);
+                mw.MainContent.Content = new FicheVin(vinClique);
             }
+            
         }
     }
 

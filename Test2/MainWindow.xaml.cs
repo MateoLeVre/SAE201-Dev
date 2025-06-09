@@ -78,8 +78,7 @@ namespace AppliNicolas
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Vin); 
-            FicheVin fiche = new FicheVin(CatalogueDeVin.ObtenirExemples()[0]);
-            MainContent.Content = fiche;
+            AfficherFicheVin(CatalogueDeVin.ObtenirExemples()[0]);
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
@@ -100,6 +99,14 @@ namespace AppliNicolas
         private void MI_Commande_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Commande);
+        }
+
+
+        private void AfficherFicheVin(Vin vin)
+        {
+            FicheVin fiche = new FicheVin(vin);
+            fiche.VinSelectionne += AfficherFicheVin; // Permet de changer la fiche vin une fois dans fiche vin
+            MainContent.Content = fiche;
         }
     }
 }
