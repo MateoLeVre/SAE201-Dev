@@ -34,7 +34,7 @@ namespace AppliNicolas.Classes
         public double PrixCommande
         {
             get { return prixCommande; }
-            set { prixCommande = demande.QuantiteDemande * demande.vin.Prix; }
+            set { prixCommande = demande.QuantiteDemande * demande.Vin.Prix; }
         }
     }
 }

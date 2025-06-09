@@ -67,6 +67,7 @@
 
 
         </Menu>
+
         <ContentControl x:Name="MainContent" Background="Beige" />
     </DockPanel>
 

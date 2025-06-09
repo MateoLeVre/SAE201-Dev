@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppliNicolas.Classes
 {
     public enum EtatDemande { Valider, Attente, Supprimer }
+
     public class Demande
     {
         public Demande(int numDemande, Vin vin, int numEmploye, DateTime dateDemande, int quantiteDemande, EtatDemande etat)
         {
             NumDemande = numDemande;
+            Vin = vin;
             NumVin = vin.Reference;
             NumEmploye = numEmploye;
             DateDemande = dateDemande;
@@ -29,54 +27,52 @@ namespace AppliNicolas.Classes
             Etat = etat;
         }
 
-        public Vin vin;
+        // Propriétés
+        public int NumDemande { get; set; }
 
-        private int numDemande;
-        public int NumDemande
-        {
-            get { return numDemande; }
-            set { numDemande = value; }
-        }
+        public int NumVin { get; set; }
 
-        private int numVin;
-        public int NumVin
-        {
-            get { return numVin; }
-            set { numVin = value; }
-        }
+        public int NumEmploye { get; set; }
 
-        private int numEmploye;
-        public int NumEmploye
-        {
-            get { return numEmploye; }
-            set { numEmploye = value; }
-        }
-
-        private DateTime dateDemande;
-        public DateTime DateDemande
-        {
-            get { return dateDemande; }
-            set { dateDemande = value; }
-        }
+        public DateTime DateDemande { get; set; }
 
         private int quantiteDemande;
         public int QuantiteDemande
         {
-            get { return quantiteDemande; }
-            set { quantiteDemande = value; }
+            get => quantiteDemande;
+            set => quantiteDemande = value >= 0 ? value : 0;
         }
 
-        private EtatDemande etat;
-        public EtatDemande Etat
+        public EtatDemande Etat { get; set; }
+
+        public string EtatDemandeToString
         {
-            get { return etat; }
-            set { etat = value; }
+            get
+            {
+                if (this.Etat == EtatDemande.Valider)
+                    return "Validé";
+                else if (this.Etat == EtatDemande.Attente)
+                    return "En Attente";
+                else 
+                    return "Annulé";
+
+            }
         }
+
+        public Vin Vin { get; set; }
+
+        // Montant total = prix du vin * quantité
+        public double MontantTotal => Vin != null ? Math.Round(Vin.Prix * QuantiteDemande, 2) : 0;
 
         public override bool Equals(object? obj)
         {
             return obj is Demande demande &&
                    NumDemande == demande.NumDemande;
+        }
+
+        public override string ToString()
+        {
+            return $"Demande {NumDemande} : {QuantiteDemande} x {Vin?.Nom} le {DateDemande.ToShortDateString()} ({Etat})";
         }
     }
 }

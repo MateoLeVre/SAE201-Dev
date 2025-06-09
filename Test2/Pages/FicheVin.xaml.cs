@@ -41,12 +41,13 @@ namespace AppliNicolas.Pages
             Similaires = CatalogueDeVin.TrouverSimilaires(vinClique);
             IC_Similaires.ItemsSource = Similaires;
 
-            Window mainWindow = Application.Current.MainWindow;
-            if (mainWindow is MainWindow mw)
-            {
-                mw.MainContent.Content = new FicheVin(vinClique);
-            }
-            
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vinClique));
+
+        }
+
+        private void Retour_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).RevenirEnArriere();
         }
     }
 

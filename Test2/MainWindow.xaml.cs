@@ -19,6 +19,7 @@ namespace AppliNicolas
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public bool estResponsable { get; set; }
 
         public string role_Utilisateur { get; set; }
@@ -78,13 +79,13 @@ namespace AppliNicolas
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Vin); 
-            MainContent.Content = new RechercheVin();
-            //AfficherFicheVin(CatalogueDeVin.ObtenirExemples()[0]);
+            NaviguerVers( new RechercheVin());
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Demande);
+            NaviguerVers(new RechercheDemande());
         }
 
         private void MI_Client_Click(object sender, RoutedEventArgs e)
@@ -109,5 +110,33 @@ namespace AppliNicolas
             fiche.VinSelectionne += AfficherFicheVin; // Permet de changer la fiche vin une fois dans fiche vin
             MainContent.Content = fiche;
         }
+
+
+        
+        // Fonctionnement de pile pour l'historique
+        private Stack<UserControl> historiquePages = new Stack<UserControl>();
+
+
+        // Naviguer vers une nouvelle page
+        public void NaviguerVers(UserControl nouvellePage)
+        {
+            if (MainContent.Content is UserControl pageActuelle)
+            {
+                historiquePages.Push(pageActuelle);
+            }
+            MainContent.Content = nouvellePage;
+        }
+
+        // Revenir sur la page précédente
+        public void RevenirEnArriere()
+        {
+            if (historiquePages.Count > 0)
+            {
+                MainContent.Content = historiquePages.Pop();
+            }
+
+        }
+
+        
     }
 }

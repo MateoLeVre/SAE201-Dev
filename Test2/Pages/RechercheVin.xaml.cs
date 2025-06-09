@@ -45,12 +45,9 @@ namespace AppliNicolas.Pages
         private void VoirFiche_Click(object sender, RoutedEventArgs e)
         {
             var vin = (sender as Button)?.Tag as Vin;
-            if (vin != null)
-            {
-                Window mainWindow = Application.Current.MainWindow;
-                if (mainWindow is MainWindow mw)
-                    mw.MainContent.Content = new FicheVin(vin);
-            }
+
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vin));
+            
         }
     }
 }

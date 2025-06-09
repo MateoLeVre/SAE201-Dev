@@ -8,6 +8,17 @@ namespace AppliNicolas.Classes
 {
     public class Commande
     {
+
+        private DetailCommande detail;
+
+        private int numCommande;
+
+        private int numEmploye;
+
+        private DateTime dateCommande;
+
+        private string etatCommande;
+
         public Commande(int numCommande, DetailCommande detail, DateTime dateCommande, string etatCommande)
         {
             NumCommande = numCommande;
@@ -24,30 +35,23 @@ namespace AppliNicolas.Classes
             EtatCommande = etatCommande;
         }
 
-        private DetailCommande detail;
-
-        private int numCommande;
         public int NumCommande
         {
             get { return numCommande; }
             set { numCommande = value; }
         }
-
-        private int numEmploye;
         public int NumEmploye
         {
             get { return numEmploye; }
             set { numEmploye = value; }
         }
 
-        private DateTime dateCommande;
         public DateTime DateCommande
         {
             get { return dateCommande; }
             set { dateCommande = value; }
         }
 
-        private string etatCommande;
         public string EtatCommande
         {
             get { return etatCommande; }
