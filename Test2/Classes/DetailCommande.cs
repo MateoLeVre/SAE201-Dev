@@ -5,7 +5,7 @@ using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppliNicolas
+namespace AppliNicolas.Classes
 {
     public class DetailCommande
     {
@@ -13,28 +13,28 @@ namespace AppliNicolas
         {
             NumVin = demande.NumVin;
             QuantiteCommande = demande.QuantiteDemande;
-			PrixCommande = 0;
+            PrixCommande = 0;
         }
 
-		public Demande demande;
+        public Demande demande;
 
-		public int NumVin
-		{
-			get { return demande.NumVin; }
-			set { demande.NumVin = value; }
-		}
+        public int NumVin
+        {
+            get { return demande.NumVin; }
+            set { demande.NumVin = value; }
+        }
 
-		public int QuantiteCommande
-		{
-			get { return demande.QuantiteDemande; }
-			set { demande.QuantiteDemande = value; }
-		}
+        public int QuantiteCommande
+        {
+            get { return demande.QuantiteDemande; }
+            set { demande.QuantiteDemande = value; }
+        }
 
-		private double prixCommande;
+        private double prixCommande;
         public double PrixCommande
-		{
+        {
             get { return prixCommande; }
             set { prixCommande = demande.QuantiteDemande * demande.vin.Prix; }
-		}
+        }
     }
 }

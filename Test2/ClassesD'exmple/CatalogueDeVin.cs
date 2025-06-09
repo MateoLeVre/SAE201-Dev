@@ -50,5 +50,7 @@ namespace AppliNicolas.ClassesD_exmple
         {
             return ObtenirExemples().Where(vin => vin != vinPrincipal && vinPrincipal.EstSimilaireA(vin)).ToList();
         }
+
+
     }
 }

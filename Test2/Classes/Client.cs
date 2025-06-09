@@ -5,7 +5,7 @@ using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppliNicolas
+namespace AppliNicolas.Classes
 {
     public class Client
     {
@@ -18,32 +18,32 @@ namespace AppliNicolas
         }
 
         private int numClient;
-		public int NumClient
-		{
-			get { return numClient; }
-			set { numClient = value; }
-		}
+        public int NumClient
+        {
+            get { return numClient; }
+            set { numClient = value; }
+        }
 
-		private string nomClient;
-		public string NomClient
-		{
-			get { return nomClient; }
-			set { nomClient = value; }
-		}
+        private string nomClient;
+        public string NomClient
+        {
+            get { return nomClient; }
+            set { nomClient = value; }
+        }
 
-		private string prenomClient;
-		public string PrenomClient
-		{
-			get { return prenomClient; }
-			set { prenomClient = value; }
-		}
+        private string prenomClient;
+        public string PrenomClient
+        {
+            get { return prenomClient; }
+            set { prenomClient = value; }
+        }
 
-		private string mailClient;
+        private string mailClient;
         public string MailClient
-		{
-			get { return mailClient; }
-			set { mailClient = value; }
-		}
+        {
+            get { return mailClient; }
+            set { mailClient = value; }
+        }
 
         public override bool Equals(object? obj)
         {
