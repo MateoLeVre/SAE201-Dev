@@ -7,38 +7,38 @@ namespace AppliNicolas.Classes
     public class Vin
     {
         private string nom;
-        private string appelation;
-        private TypeVin type;
+        private int numAppelation;
+        private int numtype;
         private int millesime;
-        private string photo;
-        private int stock;
+/*        private string photo;*/
+/*        private int stock;*/
         private double prix;
         private int reference;
-        private string fournisseur;
+        private int numFournisseur;
         private string detail;
-        private bool estNouveau;
+/*        private bool estNouveau;*/
 
 
-        public Vin(string nom, string appelation, TypeVin type, int millesime, string photo, int stock, double prix,
-                   int reference, string fournisseur, string detail, bool estNouveau)
+        public Vin(string nom, int numAppelation, int numtype, int millesime/*, string photo*//*, *//*int stock*/, double prix,
+                   int reference, int numFournisseur, string detail/*, *//*bool estNouveau*/)
         {
             Nom = nom;
-            Appelation = appelation;
-            Type = type;
+            NumAppelation = numAppelation;
+            NumType = numtype;
             Millesime = millesime;
-            Photo = photo;
-            Stock = stock;
+/*            Photo = photo;*/
+/*            Stock = stock;*/
             Prix = prix;
             Reference = reference;
-            Fournisseur = fournisseur;
+            NumFournisseur = numFournisseur;
             Detail = detail;
-            EstNouveau = estNouveau;
+/*            EstNouveau = estNouveau;*/
         }
 
         public bool EstSimilaireA(Vin autre)
         {
-            return this.Type == autre.Type &&
-                   this.Appelation == autre.Appelation &&
+            return this.NumType == autre.NumType &&
+                   this.NumAppelation == autre.NumAppelation &&
                    Math.Abs(this.Millesime - autre.Millesime) <= 1;
         }
 
@@ -50,16 +50,16 @@ namespace AppliNicolas.Classes
             set => nom = string.IsNullOrWhiteSpace(value) ? "Non défini" : value;
         }
 
-        public string Appelation
+        public int NumAppelation
         {
-            get => appelation;
-            set => appelation = string.IsNullOrWhiteSpace(value) ? "Non défini" : value;
+            get => numAppelation;
+            set => numAppelation = value;
         }
 
-        public TypeVin Type
+        public int NumType
         {
-            get => type;
-            set => type = value;
+            get => numtype;
+            set => numtype = value;
         }
 
         public int Millesime
@@ -74,28 +74,17 @@ namespace AppliNicolas.Classes
             }
         }
 
-        public string Photo
+/*        public string Photo
         {
             get => photo;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    photo = "pack://application:,,,/Images/vin.jpg"; 
-                }
-                
-                else
-                {
-                    photo = value;
-                }
-            }
-        }
+            set => photo = string.IsNullOrWhiteSpace(value) ? "/Images/Vin.jpg" : value;
+        }*/
 
-        public int Stock
+/*        public int Stock
         {
             get => stock;
             set => stock = value >= 0 ? value : 0;
-        }
+        }*/
 
         public double Prix
         {
@@ -115,10 +104,10 @@ namespace AppliNicolas.Classes
             set => reference = value;
         } 
 
-        public string Fournisseur
+        public int NumFournisseur
         {
-            get => fournisseur;
-            set => fournisseur = string.IsNullOrWhiteSpace(value) ? "Non défini" : value;
+            get => numFournisseur;
+            set => numFournisseur = value;
         }
 
         public string Detail
@@ -126,11 +115,11 @@ namespace AppliNicolas.Classes
             get => detail;
             set => detail = string.IsNullOrWhiteSpace(value) ? "Aucun détail" : value;
         }
-
+/*
         public bool EstNouveau
         {
             get => estNouveau;
             set => estNouveau = value;
-        }
+        }*/
     }
 }

@@ -5,7 +5,7 @@ using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppliNicolas
+namespace AppliNicolas.Classes
 {
     public class Appelation
     {
@@ -16,18 +16,18 @@ namespace AppliNicolas
         }
 
         private int numAppelation;
-		public int NumAppelation
-		{
-			get { return numAppelation; }
-			set { numAppelation = value; }
-		}
+        public int NumAppelation
+        {
+            get { return numAppelation; }
+            set { numAppelation = value; }
+        }
 
-		private string nomAppelation;
+        private string nomAppelation;
         public string NomAppelation
-		{
-			get { return nomAppelation; }
-			set { nomAppelation = value; }
-		}
+        {
+            get { return nomAppelation; }
+            set { nomAppelation = value; }
+        }
 
         public override bool Equals(object? obj)
         {

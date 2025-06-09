@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppliNicolas
+namespace AppliNicolas.Classes
 {
     public class LogError
     {

@@ -55,5 +55,7 @@ namespace AppliNicolas.ClassesD_exmple
 
             return similaires;
         }
+
+
     }
 }
