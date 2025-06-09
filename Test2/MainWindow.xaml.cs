@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using AppliNicolas.Classes;
+using AppliNicolas.ClassesD_exmple;
+using AppliNicolas.Pages;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -74,8 +77,9 @@ namespace AppliNicolas
 
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
-            Selection_Menu_Item(MI_Vin);
-            MainContent.Content = new Pages.FicheVin();
+            Selection_Menu_Item(MI_Vin); 
+            FicheVin fiche = new FicheVin(CatalogueDeVin.ObtenirExemples()[0]);
+            MainContent.Content = fiche;
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)

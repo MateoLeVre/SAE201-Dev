@@ -89,5 +89,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        
+        <!-- Nécessaire pour les users controles -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
     </Application.Resources>
+    
 </Application>
