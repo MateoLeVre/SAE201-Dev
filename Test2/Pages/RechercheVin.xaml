@@ -29,7 +29,8 @@
                     </StackPanel>
                 </Border>
 
-                <Button Content="Filtrer" Width="100" Height="40" Margin="10,0,0,0"/>
+                <Button Style="{StaticResource BoutonArrondi}"
+                    Content="Filtrer" Width="100" Height="40" Margin="10,0,0,0"/>
             </StackPanel>
 
             <!-- En-têtes -->

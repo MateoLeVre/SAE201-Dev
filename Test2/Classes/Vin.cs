@@ -10,7 +10,7 @@ namespace AppliNicolas.Classes
         private int numAppelation;
         private int numtype;
         private int millesime;
-/*        private string photo;*/
+        private string photo;
 /*        private int stock;*/
         private double prix;
         private int reference;
@@ -26,8 +26,8 @@ namespace AppliNicolas.Classes
             NumAppelation = numAppelation;
             NumType = numtype;
             Millesime = millesime;
-/*            Photo = photo;*/
-/*            Stock = stock;*/
+            Photo = "";
+            /*            Stock = stock;*/
             Prix = prix;
             Reference = reference;
             NumFournisseur = numFournisseur;
@@ -37,9 +37,8 @@ namespace AppliNicolas.Classes
 
         public bool EstSimilaireA(Vin autre)
         {
-            return this.NumType == autre.NumType &&
-                   this.NumAppelation == autre.NumAppelation &&
-                   Math.Abs(this.Millesime - autre.Millesime) <= 1;
+            return this.NumType == autre.NumType ||
+                   this.NumAppelation == autre.NumAppelation ;
         }
 
         // Encapsulation 
@@ -74,17 +73,17 @@ namespace AppliNicolas.Classes
             }
         }
 
-/*        public string Photo
+        public string Photo
         {
             get => photo;
             set => photo = string.IsNullOrWhiteSpace(value) ? "/Images/Vin.jpg" : value;
-        }*/
+        }
 
-/*        public int Stock
-        {
-            get => stock;
-            set => stock = value >= 0 ? value : 0;
-        }*/
+        /*        public int Stock
+                {
+                    get => stock;
+                    set => stock = value >= 0 ? value : 0;
+                }*/
 
         public double Prix
         {

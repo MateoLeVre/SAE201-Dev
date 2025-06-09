@@ -12,41 +12,20 @@ namespace AppliNicolas.ClassesD_exmple
     {
         public static List<Vin> ObtenirExemples()
         {
-            return new List<Vin> { };
-            /*
             return new List<Vin>
-                {
-                    new Vin("Esporao Reserva Tinto", "Bourgogne", TypeVin.Rouge, 2020, "/Images/vin.jpg", 12, 19.20,
-                            4, "Domaine Esporao",
-                            "Ce vin rouge portugais d'exception provient du domaine renommé Esporao, situé dans la région de l'Alentejo...",
-                            true),
-
-                    new Vin("Château Margaux", "Margaux", TypeVin.Rouge, 2018, "/Images/vin.jpg", 8, 34.50,
-                            3, "Château Margaux",
-                            "Un grand cru classique, élégant et raffiné, avec des notes de cassis, de cèdre et de truffe.",
-                            false),
-
-                    new Vin("Domaine de la Romanée-Conti", "Bourgogne", TypeVin.Rouge, 2021, "/Images/vin.jpg", 5, 120.00,
-                            6, "Romanée-Conti",
-                            "Un vin mythique aux arômes complexes et à la texture soyeuse, emblématique de la Bourgogne.",
-                            true),
-
-                    new Vin("Chablis Premier Cru", "Chablis", TypeVin.Blanc, 2020, "/Images/vin.jpg", 10, 25.00,
-                            8, "Domaine Laroche",
-                            "Ce Chablis frais et minéral est parfait pour accompagner fruits de mer et poissons grillés.",
-                            false),
-
-                    new Vin("Rosé de Provence", "Provence", TypeVin.Rosé, 2020, "/Images/vin.jpg", 20, 12.90,
-                            9, "Maison Provence",
-                            "Rosé léger et fruité, idéal pour l'été avec des arômes de fraise et de pamplemousse.",
-                            false),
-
-                    new Vin("Château Cheval Blanc", "Saint-Émilion", TypeVin.Rouge, 2020, "/Images/vin.jpg", 6, 98.00,
-                            1, "Cheval Blanc",
-                            "Un grand Saint-Émilion, intense et harmonieux, avec une belle profondeur aromatique.",
-                            true),
-                };*/
-                    }
+    {
+        new Vin("Château Margaux", 1, 0, 2018, 34.50, 1001, 3, "Un grand cru classique, élégant avec des notes de cassis et de truffe."),
+        new Vin("Esporão Reserva", 2, 0, 2020, 19.20, 1002, 4, "Vin rouge portugais issu de l'Alentejo, puissant et fruité."),
+        new Vin("Romanée-Conti", 1, 0, 2021, 120.00, 1003, 6, "Vin de Bourgogne prestigieux, complexe et soyeux."),
+        new Vin("Chablis Premier Cru", 3, 1, 2020, 25.00, 1004, 8, "Chablis frais et minéral, parfait pour fruits de mer."),
+        new Vin("Rosé de Provence", 4, 2, 2020, 12.90, 1005, 9, "Rosé fruité, idéal pour l'été, arômes de fraise et pamplemousse."),
+        new Vin("Cheval Blanc", 5, 0, 2020, 98.00, 1006, 1, "Saint-Émilion harmonieux, intense avec profondeur aromatique."),
+        new Vin("Domaine Tempier", 6, 2, 2019, 17.00, 1007, 2, "Rosé de Bandol de caractère, floral et structuré."),
+        new Vin("Puligny-Montrachet", 7, 1, 2019, 42.50, 1008, 3, "Vin blanc élégant, riche et équilibré, notes de noisette."),
+        new Vin("Côtes-du-Rhône Bio", 8, 0, 2022, 11.00, 1009, 5, "Vin rouge bio facile à boire, arômes de fruits rouges."),
+        new Vin("Sancerre Blanc", 9, 1, 2021, 21.90, 1010, 7, "Blanc sec et expressif de Loire, idéal avec poissons.")
+    };
+        }
 
 
 
