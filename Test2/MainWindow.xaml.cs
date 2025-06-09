@@ -47,15 +47,6 @@ namespace AppliNicolas
 
         }
 
-        private void MI_Acceuil_Click(object sender, RoutedEventArgs e)
-        {
-            Selection_Menu_Item(MI_Acceuil);
-        }
-
-        private void MI_Vin_Click(object sender, RoutedEventArgs e)
-        {
-            Selection_Menu_Item(MI_Vin);
-        }
 
         public void Selection_Menu_Item(MenuItem mi_choisi)
         {
@@ -74,6 +65,17 @@ namespace AppliNicolas
                 //Mettre le menu item actif en style actif
                 mi_choisi.Style = (Style)this.FindResource("StyleMenuItemActif");
             }
+        }
+
+        private void MI_Acceuil_Click(object sender, RoutedEventArgs e)
+        {
+            Selection_Menu_Item(MI_Acceuil);
+        }
+
+        private void MI_Vin_Click(object sender, RoutedEventArgs e)
+        {
+            Selection_Menu_Item(MI_Vin);
+            MainContent.Content = new Pages.FicheVin();
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
