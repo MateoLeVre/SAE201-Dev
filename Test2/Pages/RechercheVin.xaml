@@ -29,7 +29,7 @@
                     </StackPanel>
                 </Border>
 
-                <Button Content="Filtrer" Width="100" Height="40" Margin="10,0,0,0" Click="Filtrer_Click"/>
+                <Button Content="Filtrer" Width="100" Height="40" Margin="10,0,0,0"/>
             </StackPanel>
 
             <!-- En-têtes -->
