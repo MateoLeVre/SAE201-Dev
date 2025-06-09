@@ -41,7 +41,7 @@
     x:Name="MI_Commande"
     Click="MI_Commande_Click"
     Header="📦 Commandes"
-    Style="{StaticResource StyleMenuItem}" />
+    Style="{StaticResource StyleMenuItem}"/>
 
             <MenuItem
                 x:Name="MI_Deconnection"

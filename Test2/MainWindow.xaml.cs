@@ -34,6 +34,7 @@ namespace AppliNicolas
             if (!estResponsable)
             {
                 role_Utilisateur = "Vendeur";
+                MI_Commande.Visibility = Visibility.Collapsed;
             }
             else
             {
