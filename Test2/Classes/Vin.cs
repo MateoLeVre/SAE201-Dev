@@ -13,14 +13,14 @@ namespace AppliNicolas.Classes
         private string photo;
         private int stock;
         private double prix;
-        private string reference;
+        private int reference;
         private string fournisseur;
         private string detail;
         private bool estNouveau;
 
 
         public Vin(string nom, string appelation, TypeVin type, int millesime, string photo, int stock, double prix,
-                   string reference, string fournisseur, string detail, bool estNouveau)
+                   int reference, string fournisseur, string detail, bool estNouveau)
         {
             Nom = nom;
             Appelation = appelation;
@@ -109,11 +109,11 @@ namespace AppliNicolas.Classes
             }
         }
 
-        public string Reference
+        public int Reference
         {
             get => reference;
-            set => reference = string.IsNullOrWhiteSpace(value) ? "Non défini" : value;
-        }
+            set => reference = value;
+        } 
 
         public string Fournisseur
         {
