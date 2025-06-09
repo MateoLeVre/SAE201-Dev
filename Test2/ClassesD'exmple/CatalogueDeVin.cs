@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 namespace AppliNicolas.ClassesD_exmple
 {
@@ -48,7 +49,11 @@ namespace AppliNicolas.ClassesD_exmple
 
         public static List<Vin> TrouverSimilaires(Vin vinPrincipal)
         {
-            return ObtenirExemples().Where(vin => vin != vinPrincipal && vinPrincipal.EstSimilaireA(vin)).ToList();
+            List<Vin> similaires = ObtenirExemples().Where(vin => vinPrincipal.EstSimilaireA(vin)).ToList();
+
+            similaires.RemoveAll(v => v.Nom == vinPrincipal.Nom);
+
+            return similaires;
         }
 
 
