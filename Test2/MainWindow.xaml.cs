@@ -78,7 +78,8 @@ namespace AppliNicolas
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Vin); 
-            AfficherFicheVin(CatalogueDeVin.ObtenirExemples()[0]);
+            MainContent.Content = new RechercheVin();
+            //AfficherFicheVin(CatalogueDeVin.ObtenirExemples()[0]);
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
