@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppliNicolas.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,17 @@ namespace AppliNicolas
 	public enum EtatDemande { Valider,Attente,Supprimer }
     public class Demande
     {
-        public Demande(int numDemande, int numVin, int numEmploye, DateTime dateDemande, int quantiteDemande, EtatDemande etat)
+        public Demande(int numDemande, Vin vin, int numEmploye, DateTime dateDemande, int quantiteDemande, EtatDemande etat)
         {
             NumDemande = numDemande;
-            NumVin = numVin;
+            NumVin = vin.Reference;
             NumEmploye = numEmploye;
             DateDemande = dateDemande;
             QuantiteDemande = quantiteDemande;
             Etat = etat;
         }
+
+		public Vin vin;
 
         private int numDemande;
 		public int NumDemande
@@ -29,8 +32,8 @@ namespace AppliNicolas
 		private int numVin;
 		public int NumVin
 		{
-			get { return numVin; }
-			set { numVin = value; }
+			get { return vin.Reference; }
+			set { vin.Reference = value; }
 		}
 
 		private int numEmploye;

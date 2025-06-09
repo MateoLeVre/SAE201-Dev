@@ -9,46 +9,32 @@ namespace AppliNicolas
 {
     public class DetailCommande
     {
-        public DetailCommande(int numVin, int quantiteCommande, double prixCommande, int numDemande)
+        public DetailCommande(Demande demande)
         {
-            NumVin = numVin;
-            QuantiteCommande = quantiteCommande;
-            PrixCommande = prixCommande;
-            NumDemande = numDemande;
+            NumVin = demande.NumVin;
+            QuantiteCommande = demande.QuantiteDemande;
+			PrixCommande = 0;
         }
 
-		private int numDemande;
-		public int NumDemande
-		{
-			get { return numDemande; }
-			set { numDemande = value; }
-		}
+		public Demande demande;
 
-		private int numVin;
 		public int NumVin
 		{
-			get { return numVin; }
-			set { numVin = value; }
+			get { return demande.NumVin; }
+			set { demande.NumVin = value; }
 		}
 
-		private int quantiteCommande;
 		public int QuantiteCommande
 		{
-			get { return quantiteCommande; }
-			set { quantiteCommande = value; }
+			get { return demande.QuantiteDemande; }
+			set { demande.QuantiteDemande = value; }
 		}
 
 		private double prixCommande;
         public double PrixCommande
 		{
-			get { return prixCommande; }
-			set { prixCommande = value; }
+            get { return prixCommande; }
+            set { prixCommande = demande.QuantiteDemande * demande.vin.Prix; }
 		}
-
-        public override bool Equals(object? obj)
-        {
-            return obj is DetailCommande commande &&
-                   NumDemande == commande.NumDemande;
-        }
     }
 }

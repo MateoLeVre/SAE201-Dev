@@ -13,7 +13,7 @@ namespace AppliNicolas.Classes
         private string photo;
         private int stock;
         private double prix;
-        private string reference;
+        private int reference;
         private string fournisseur;
         private string detail;
         private bool estNouveau;
@@ -98,11 +98,11 @@ namespace AppliNicolas.Classes
             }
         }
 
-        public string Reference
+        public int Reference
         {
             get => reference;
-            set => reference = string.IsNullOrWhiteSpace(value) ? "Non défini" : value;
-        }
+            set => reference = value;
+        } 
 
         public string Fournisseur
         {
