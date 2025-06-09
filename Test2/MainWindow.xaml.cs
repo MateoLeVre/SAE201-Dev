@@ -62,6 +62,8 @@ namespace AppliNicolas
             if (mi_choisi.Style != (Style)this.FindResource("StyleMenuItemActif"))
             {
                 //Mettre tout les menu item en style de base
+
+                MI_Commande.Style = (Style)this.FindResource("StyleMenuItem");
                 MI_Acceuil.Style = (Style)this.FindResource("StyleMenuItem");
                 MI_Vin.Style = (Style)this.FindResource("StyleMenuItem");
                 MI_Demande.Style = (Style)this.FindResource("StyleMenuItem");
@@ -86,6 +88,11 @@ namespace AppliNicolas
         private void MI_Deconnection_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Deconnection);
+        }
+
+        private void MI_Commande_Click(object sender, RoutedEventArgs e)
+        {
+            Selection_Menu_Item(MI_Commande);
         }
     }
 }

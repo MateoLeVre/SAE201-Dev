@@ -13,6 +13,7 @@
             <Setter Property="Foreground" Value="Beige" />
             <Setter Property="Padding" Value="10,10" />
             <Setter Property="Margin" Value="10,10" />
+            <Setter Property="Height" Value="50" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
@@ -44,6 +45,7 @@
             <Setter Property="Foreground" Value="#9A1F1F" />
             <Setter Property="Padding" Value="10,10" />
             <Setter Property="Margin" Value="10,10" />
+            <Setter Property="Height" Value="60" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">

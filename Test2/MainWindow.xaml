@@ -30,13 +30,19 @@
             <MenuItem
                 x:Name="MI_Demande"
                 Click="MI_Demande_Click"
-                Header="📦 Commandes"
+                Header="📦 Demandes"
                 Style="{StaticResource StyleMenuItem}" />
             <MenuItem
                 x:Name="MI_Client"
                 Click="MI_Client_Click"
                 Header="👥 Clients"
                 Style="{StaticResource StyleMenuItem}" />
+            <MenuItem
+    x:Name="MI_Commande"
+    Click="MI_Commande_Click"
+    Header="📦 Commandes"
+    Style="{StaticResource StyleMenuItem}" />
+
             <MenuItem
                 x:Name="MI_Deconnection"
                 Click="MI_Deconnection_Click"
@@ -49,7 +55,15 @@
                 FontWeight="Bold"
                 Foreground="Beige"
                 Header="{Binding role_Utilisateur}"
-                IsEnabled="False" />
+                IsEnabled="False" Margin="10,0,10,0" />
+
+            <MenuItem x:Name="Logo" >
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/Images/logo.jpg"  Width="100" Height="80" Margin="10,0,10,0"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
 
 
         </Menu>
