@@ -32,12 +32,9 @@ namespace AppliNicolas.Pages
                 return ;
 
             string filtre = TxtRecherche.Text.ToLower();
-
-            VinsFiltres = TousLesVins
-                .Where(v => v.Nom.ToLower().Contains(filtre) || v.Appelation.ToLower().Contains(filtre))
-                .OrderBy(v => v.Nom)
-                .ToList();
-
+            /*
+                        VinsFiltres = TousLesVins.Where(v => v.Nom.ToLower().Contains(filtre) || v.Appelation.ToLower().Contains(filtre)).OrderBy(v => v.Nom).ToList();*/
+            VinsFiltres = TousLesVins.Where(v => v.Nom.ToLower().Contains(filtre)).OrderBy(v => v.Nom).ToList();
             IC_Vins.ItemsSource = VinsFiltres;
             return ;
         }

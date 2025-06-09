@@ -12,6 +12,8 @@ namespace AppliNicolas.ClassesD_exmple
     {
         public static List<Vin> ObtenirExemples()
         {
+            return new List<Vin> { };
+            /*
             return new List<Vin>
                 {
                     new Vin("Esporao Reserva Tinto", "Bourgogne", TypeVin.Rouge, 2020, "/Images/vin.jpg", 12, 19.20,
@@ -43,8 +45,9 @@ namespace AppliNicolas.ClassesD_exmple
                             1, "Cheval Blanc",
                             "Un grand Saint-Émilion, intense et harmonieux, avec une belle profondeur aromatique.",
                             true),
-                };
+                };*/
                     }
+
 
 
         public static List<Vin> TrouverSimilaires(Vin vinPrincipal)
