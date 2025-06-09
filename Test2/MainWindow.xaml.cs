@@ -34,6 +34,7 @@ namespace AppliNicolas
             if (!estResponsable)
             {
                 role_Utilisateur = "Vendeur";
+                MI_Commande.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -46,15 +47,6 @@ namespace AppliNicolas
 
         }
 
-        private void MI_Acceuil_Click(object sender, RoutedEventArgs e)
-        {
-            Selection_Menu_Item(MI_Acceuil);
-        }
-
-        private void MI_Vin_Click(object sender, RoutedEventArgs e)
-        {
-            Selection_Menu_Item(MI_Vin);
-        }
 
         public void Selection_Menu_Item(MenuItem mi_choisi)
         {
@@ -62,6 +54,8 @@ namespace AppliNicolas
             if (mi_choisi.Style != (Style)this.FindResource("StyleMenuItemActif"))
             {
                 //Mettre tout les menu item en style de base
+
+                MI_Commande.Style = (Style)this.FindResource("StyleMenuItem");
                 MI_Acceuil.Style = (Style)this.FindResource("StyleMenuItem");
                 MI_Vin.Style = (Style)this.FindResource("StyleMenuItem");
                 MI_Demande.Style = (Style)this.FindResource("StyleMenuItem");
@@ -71,6 +65,17 @@ namespace AppliNicolas
                 //Mettre le menu item actif en style actif
                 mi_choisi.Style = (Style)this.FindResource("StyleMenuItemActif");
             }
+        }
+
+        private void MI_Acceuil_Click(object sender, RoutedEventArgs e)
+        {
+            Selection_Menu_Item(MI_Acceuil);
+        }
+
+        private void MI_Vin_Click(object sender, RoutedEventArgs e)
+        {
+            Selection_Menu_Item(MI_Vin);
+            MainContent.Content = new Pages.FicheVin();
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
@@ -86,6 +91,11 @@ namespace AppliNicolas
         private void MI_Deconnection_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Deconnection);
+        }
+
+        private void MI_Commande_Click(object sender, RoutedEventArgs e)
+        {
+            Selection_Menu_Item(MI_Commande);
         }
     }
 }
