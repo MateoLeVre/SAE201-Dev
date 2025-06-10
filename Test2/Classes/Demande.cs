@@ -4,7 +4,6 @@ using System.Data;
 
 namespace AppliNicolas.Classes
 {
-    public enum Etat { Valider, Attente, Supprimer }
     public class Demande
     {
         private int numDemande;
@@ -12,13 +11,13 @@ namespace AppliNicolas.Classes
         private int numEmploye;
         private DateTime dateDemande;
         private int quantiteDemande;
-        private Etat etat;
+        private string etat;
 
         public Demande()
         {
 
         }
-        public Demande(int numDemande, int numVin, int numEmploye, int quantiteDemande, Etat etat)
+        public Demande(int numDemande, int numVin, int numEmploye, int quantiteDemande, string etat)
         {
             this.NumDemande = numDemande;
             this.NumVin = numVin;
@@ -27,7 +26,7 @@ namespace AppliNicolas.Classes
             this.QuantiteDemande = quantiteDemande;
             this.Etat = etat;
         }
-        public Demande(int numDemande, int numVin, int numEmploye, DateTime dateDemande, int quantiteDemande, Etat etat)
+        public Demande(int numDemande, int numVin, int numEmploye, DateTime dateDemande, int quantiteDemande, string etat)
         {
             this.NumDemande = numDemande;
             this.NumVin = numVin;
@@ -102,7 +101,7 @@ namespace AppliNicolas.Classes
             }
         }
 
-        public Etat Etat
+        public string Etat
         {
             get
             {
@@ -125,7 +124,7 @@ namespace AppliNicolas.Classes
                 {
                     lesDemandes.Add(new Demande((Int32)dr["numdemande"], (Int32)dr["numVin"],
                         (Int32)dr["numemploye"], (DateTime)dr["datedemande"],
-                        (Int32)dr["quantitedemande"], (Etat)(Int32)dr["etat"]));
+                        (Int32)dr["quantitedemande"], (string)dr["etat"]));
                 }
             }
             return lesDemandes;

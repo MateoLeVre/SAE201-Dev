@@ -13,7 +13,7 @@ namespace AppliNicolas.Classes
         private int numCommande;
         private int numEmploye;
         private DateTime dateCommande;
-        private Etat etatCommande;
+        private string etatCommande;
         private double prixTotal;
 
         public virtual ICollection<Demande> Demandes { get; set; }
@@ -24,7 +24,7 @@ namespace AppliNicolas.Classes
             Demandes = new List<Demande>();
             DetailCommandes = new List<DetailCommande>();
         }
-        public Commande(int numCommande, int numEmploye, Etat etatCommande)
+        public Commande(int numCommande, int numEmploye, string etatCommande)
         {
             this.NumCommande = numCommande;
             this.NumEmploye = numEmploye;
@@ -34,7 +34,7 @@ namespace AppliNicolas.Classes
             DetailCommandes = new List<DetailCommande>();
         }
 
-        public Commande(int numCommande, int numEmploye, DateTime dateCommande, Etat etatCommande)
+        public Commande(int numCommande, int numEmploye, DateTime dateCommande, string etatCommande)
         {
             this.NumCommande = numCommande;
             this.NumEmploye = numEmploye;
@@ -83,7 +83,7 @@ namespace AppliNicolas.Classes
             }
         }
 
-        public Etat EtatCommande
+        public string EtatCommande
         {
             get
             {
@@ -141,7 +141,7 @@ namespace AppliNicolas.Classes
                 foreach (DataRow dr in dt.Rows)
                 {
                     lesCommandes.Add(new Commande((Int32)dr["numcommande"], (Int32)dr["numemploye"],
-                        (DateTime)dr["datecommande"], (Etat)dr["etat"]));
+                        (DateTime)dr["datecommande"], (string)dr["etat"]));
                 }
             }
             return lesCommandes;

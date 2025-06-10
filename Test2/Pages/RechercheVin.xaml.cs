@@ -15,10 +15,10 @@ namespace AppliNicolas.Pages
         public RechercheVin()
         {
             InitializeComponent();
-
+/*
             TousLesVins = CatalogueDeVin.ObtenirExemples()
                                         .OrderBy(v => v.Nom)
-                                        .ToList();
+                                        .ToList();*/
 
             VinsFiltres = new List<Vin>(TousLesVins);
             DataContext = this;

@@ -28,7 +28,7 @@ namespace AppliNicolas.Pages
             InitializeComponent();
 
             Vin = vin;
-            Similaires = CatalogueDeVin.TrouverSimilaires(vin);
+/*            Similaires = CatalogueDeVin.TrouverSimilaires(vin);*/
 
             this.DataContext = this;
         }
@@ -37,8 +37,8 @@ namespace AppliNicolas.Pages
         {
             Button btn = sender as Button;
             Vin vinClique = btn?.Tag as Vin;
-
-            Similaires = CatalogueDeVin.TrouverSimilaires(vinClique);
+/*
+            Similaires = CatalogueDeVin.TrouverSimilaires(vinClique);*/
             IC_Similaires.ItemsSource = Similaires;
 
             ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vinClique));

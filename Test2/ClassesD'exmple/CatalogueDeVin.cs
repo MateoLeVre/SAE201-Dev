@@ -10,7 +10,7 @@ namespace AppliNicolas.ClassesD_exmple
 {
     public static class CatalogueDeVin
     {
-        public static List<Vin> ObtenirExemples()
+/*        public static List<Vin> ObtenirExemples()
         {
             return new List<Vin>
     {
@@ -25,19 +25,19 @@ namespace AppliNicolas.ClassesD_exmple
         new Vin("Côtes-du-Rhône Bio", 8, 0, 2022, 11.00, 1009, 5, "Vin rouge bio facile à boire, arômes de fruits rouges."),
         new Vin("Sancerre Blanc", 9, 1, 2021, 21.90, 1010, 7, "Blanc sec et expressif de Loire, idéal avec poissons.")
     };
-        }
+        }*/
 
 
-
-        public static List<Vin> TrouverSimilaires(Vin vinPrincipal)
-        {
-            return ObtenirExemples()
-                .Where(vin => vin.Nom != vinPrincipal.Nom &&
-                              vinPrincipal.CalculerDegreRessemblance(vin) >= 1)
-                .OrderByDescending(vin => vinPrincipal.CalculerDegreRessemblance(vin))
-                .Take(5)
-                .ToList();
-        }
+        /*
+                public static List<Vin> TrouverSimilaires(Vin vinPrincipal)
+                {
+                    return ObtenirExemples()
+                        .Where(vin => vin.Nom != vinPrincipal.Nom &&
+                                      vinPrincipal.CalculerDegreRessemblance(vin) >= 1)
+                        .OrderByDescending(vin => vinPrincipal.CalculerDegreRessemblance(vin))
+                        .Take(5)
+                        .ToList();
+                }*/
 
 
 

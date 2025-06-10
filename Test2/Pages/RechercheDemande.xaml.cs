@@ -18,8 +18,8 @@ namespace AppliNicolas.Pages
             InitializeComponent();
 
             //  données de test
-            var vin1 = new Vin("Château Margaux", 1, 0, 2018, 34.50, 1, 1, "Grand vin de Bordeaux.");
-            var vin2 = new Vin("Esporão Reserva", 2, 0, 2020, 19.90, 2, 2, "Vin portugais.");
+/*            var vin1 = new Vin("Château Margaux", 1, 0, 2018, 3450, 1, 1, "Grand vin de Bordeaux.");
+            var vin2 = new Vin("Esporão Reserva", 2, 0, 2020, 1990, 2, 2, "Vin portugais.");
             ToutesLesDemandes = new List<Demande>
             {
                 new Demande(101, vin1.Reference, 1, DateTime.Now.AddDays(-1), 2, Etat.Attente),
@@ -29,14 +29,14 @@ namespace AppliNicolas.Pages
 
             DemandesFiltres = ToutesLesDemandes.OrderBy(d => d.DateDemande).ToList();
             this.DataContext = this;
-            IC_Demandes.ItemsSource = DemandesFiltres;
+            IC_Demandes.ItemsSource = DemandesFiltres;*/
         }
 
         private void TxtRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filtre = TxtRecherche.Text?.ToLower() ?? "";
 
-            DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null &&  (d.Vin.Nom.ToLower().Contains(filtre) || d.Vin.Detail.ToLower().Contains(filtre))).ToList();
+            /*DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null &&  (d.Vin.Nom.ToLower().Contains(filtre) || d.Vin.Detail.ToLower().Contains(filtre))).ToList();*/
 
             IC_Demandes.ItemsSource = DemandesFiltres;
         }
