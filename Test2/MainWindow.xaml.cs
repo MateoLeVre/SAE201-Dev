@@ -22,7 +22,6 @@ namespace AppliNicolas
 
         public bool estResponsable { get; set; }
 
-        public string role_Utilisateur { get; set; }
 
         public MainWindow()
         {
@@ -34,20 +33,30 @@ namespace AppliNicolas
             this.Width = ecranLargeur;
             this.Height = ecranHauteur;
 
-            estResponsable = false;
+
+
+            MenuPrincipale.DataContext = this;
+
+            NaviguerVers(new Connection());
+
+
+
+        }
+
+        public void Connection()
+        {
             if (!estResponsable)
             {
-                role_Utilisateur = "Vendeur";
                 MI_Commande.Visibility = Visibility.Collapsed;
+                MI_Role.Header= "Vendeur";
+                MI_Role.FontSize = 25;
             }
             else
             {
-                role_Utilisateur = "Responsable";
+                MI_Commande.Visibility = Visibility.Visible;
+                MI_Role.Header = "Responsable";
+                MI_Role.FontSize = 18;
             }
-
-            Selection_Menu_Item(MI_Acceuil);
-
-            MenuPrincipale.DataContext = this;
 
         }
 
@@ -74,6 +83,7 @@ namespace AppliNicolas
         private void MI_Acceuil_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Acceuil);
+            NaviguerVers(new Acceuil());
         }
 
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
@@ -96,22 +106,13 @@ namespace AppliNicolas
         private void MI_Deconnection_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Deconnection);
+            NaviguerVers(new Connection());
         }
 
         private void MI_Commande_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Commande);
         }
-
-
-        private void AfficherFicheVin(Vin vin)
-        {
-            FicheVin fiche = new FicheVin(vin);
-            fiche.VinSelectionne += AfficherFicheVin; // Permet de changer la fiche vin une fois dans fiche vin
-            MainContent.Content = fiche;
-        }
-
-
         
         // Fonctionnement de pile pour l'historique
         private Stack<UserControl> historiquePages = new Stack<UserControl>();

@@ -11,7 +11,8 @@
     mc:Ignorable="d">
 
 
-    <DockPanel>
+    <DockPanel >
+        
         <Menu
             x:Name="MenuPrincipale"
             Background="#6E1414"
@@ -38,10 +39,10 @@
                 Header="👥 Clients"
                 Style="{StaticResource StyleMenuItem}" />
             <MenuItem
-    x:Name="MI_Commande"
-    Click="MI_Commande_Click"
-    Header="📦 Commandes"
-    Style="{StaticResource StyleMenuItem}"/>
+                x:Name="MI_Commande"
+                Click="MI_Commande_Click"
+                Header="📦 Commandes"
+                Style="{StaticResource StyleMenuItem}"/>
 
             <MenuItem
                 x:Name="MI_Deconnection"
@@ -54,7 +55,7 @@
                 FontSize="25"
                 FontWeight="Bold"
                 Foreground="Beige"
-                Header="{Binding role_Utilisateur}"
+                Header=""
                 IsEnabled="False" Margin="10,0,10,0" />
 
             <MenuItem x:Name="Logo" >
