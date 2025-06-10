@@ -1,78 +1,134 @@
-﻿using System;
+﻿using Npgsql;
+using System;
+using System.Data;
 
 namespace AppliNicolas.Classes
 {
-    public enum EtatDemande { Valider, Attente, Supprimer }
-
+    public enum Etat { Valider, Attente, Supprimer }
     public class Demande
     {
-        public Demande(int numDemande, Vin vin, int numEmploye, DateTime dateDemande, int quantiteDemande, EtatDemande etat)
-        {
-            NumDemande = numDemande;
-            Vin = vin;
-            NumVin = vin.Reference;
-            NumEmploye = numEmploye;
-            DateDemande = dateDemande;
-            QuantiteDemande = quantiteDemande;
-            Etat = etat;
-        }
-
-        public Demande(int numDemande, int numVin, int numEmploye, DateTime dateDemande, int quantiteDemande, EtatDemande etat)
-        {
-            NumDemande = numDemande;
-            NumVin = numVin;
-            NumEmploye = numEmploye;
-            DateDemande = dateDemande;
-            QuantiteDemande = quantiteDemande;
-            Etat = etat;
-        }
-
-        // Propriétés
-        public int NumDemande { get; set; }
-
-        public int NumVin { get; set; }
-
-        public int NumEmploye { get; set; }
-
-        public DateTime DateDemande { get; set; }
-
+        private int numDemande;
+        private int numVin;
+        private int numEmploye;
+        private DateTime dateDemande;
         private int quantiteDemande;
-        public int QuantiteDemande
+        private Etat etat;
+
+        public Demande()
         {
-            get => quantiteDemande;
-            set => quantiteDemande = value >= 0 ? value : 0;
+
+        }
+        public Demande(int numDemande, int numVin, int numEmploye, int quantiteDemande, Etat etat)
+        {
+            this.NumDemande = numDemande;
+            this.NumVin = numVin;
+            this.NumEmploye = numEmploye;
+            this.DateDemande = DateTime.Now;
+            this.QuantiteDemande = quantiteDemande;
+            this.Etat = etat;
+        }
+        public Demande(int numDemande, int numVin, int numEmploye, DateTime dateDemande, int quantiteDemande, Etat etat)
+        {
+            this.NumDemande = numDemande;
+            this.NumVin = numVin;
+            this.NumEmploye = numEmploye;
+            this.DateDemande = dateDemande;
+            this.QuantiteDemande = quantiteDemande;
+            this.Etat = etat;
         }
 
-        public EtatDemande Etat { get; set; }
-
-        public string EtatDemandeToString
+        public int NumDemande
         {
             get
             {
-                if (this.Etat == EtatDemande.Valider)
-                    return "Validé";
-                else if (this.Etat == EtatDemande.Attente)
-                    return "En Attente";
-                else 
-                    return "Annulé";
+                return numDemande;
+            }
 
+            set
+            {
+                numDemande = value;
             }
         }
 
-        public Vin Vin { get; set; }
-
-        // Montant total = prix du vin * quantité
-        public double MontantTotal => Vin != null ? Math.Round(Vin.Prix * QuantiteDemande, 2) : 0;
-
-        public override bool Equals(object? obj)
+        public int NumVin
         {
-            return obj is Demande demande &&
-                   NumDemande == demande.NumDemande;
+            get
+            {
+                return numVin;
+            }
+
+            set
+            {
+                numVin = value;
+            }
         }
 
-        public override string ToString()
+        public int NumEmploye
         {
-            return $"Demande {NumDemande} : {QuantiteDemande} x {Vin?.Nom} le {DateDemande.ToShortDateString()} ({Etat})";
+            get
+            {
+                return numEmploye;
+            }
+
+            set
+            {
+                numEmploye = value;
+            }
+        }
+
+        public DateTime DateDemande
+        {
+            get
+            {
+                return dateDemande;
+            }
+
+            set
+            {
+                dateDemande = value;
+            }
+        }
+
+        public int QuantiteDemande
+        {
+            get
+            {
+                return quantiteDemande;
+            }
+
+            set
+            {
+                quantiteDemande = value;
+            }
+        }
+
+        public Etat Etat
+        {
+            get
+            {
+                return this.etat;
+            }
+
+            set
+            {
+                this.etat = value;
+            }
+        }
+
+        public List<Demande> RecupereDemandeDansBDD()
+        {
+            List<Demande> lesDemandes = new List<Demande>();
+            using (NpgsqlCommand demandeSelect = new NpgsqlCommand("select * from Demande;"))
+            {
+                DataTable dt = ConnexionBD.Instance.ExecuteSelect(demandeSelect);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    lesDemandes.Add(new Demande((Int32)dr["numdemande"], (Int32)dr["numVin"],
+                        (Int32)dr["numemploye"], (DateTime)dr["datedemande"],
+                        (Int32)dr["quantitedemande"], (Etat)(Int32)dr["etat"]));
+                }
+            }
+            return lesDemandes;
         }
     }
 }

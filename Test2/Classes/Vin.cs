@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Npgsql;
+using System;
+using System.Data;
 
 namespace AppliNicolas.Classes
 {
@@ -6,33 +8,33 @@ namespace AppliNicolas.Classes
 
     public class Vin
     {
+        //rajoutez un constructeur de vin a partir juste du numero du vi n qui va rechercher le vin dans la bd 
+
         private string nom;
         private int numAppelation;
-        private int numtype;
+        private int numType;
         private int millesime;
         private string photo;
-/*        private int stock;*/
         private double prix;
         private int reference;
         private int numFournisseur;
         private string detail;
-/*        private bool estNouveau;*/
 
+        public Vin()
+        {
+        }
 
-        public Vin(string nom, int numAppelation, int numtype, int millesime/*, string photo*//*, *//*int stock*/, double prix,
-                   int reference, int numFournisseur, string detail/*, *//*bool estNouveau*/)
+        public Vin(string nom, int numAppelation, int numtype, int millesime, double prix, int reference, int numFournisseur, string detail)
         {
             Nom = nom;
             NumAppelation = numAppelation;
             NumType = numtype;
             Millesime = millesime;
             Photo = "";
-            /*            Stock = stock;*/
             Prix = prix;
             Reference = reference;
             NumFournisseur = numFournisseur;
             Detail = detail;
-/*            EstNouveau = estNouveau;*/
         }
 
         public int CalculerDegreRessemblance(Vin autre)
@@ -64,8 +66,8 @@ namespace AppliNicolas.Classes
 
         public int NumType
         {
-            get => numtype;
-            set => numtype = value;
+            get => numType;
+            set => numType = value;
         }
 
         public int Millesime
@@ -86,12 +88,6 @@ namespace AppliNicolas.Classes
             set => photo = string.IsNullOrWhiteSpace(value) ? "/Images/Vin.jpg" : value;
         }
 
-        /*        public int Stock
-                {
-                    get => stock;
-                    set => stock = value >= 0 ? value : 0;
-                }*/
-
         public double Prix
         {
             get => prix;
@@ -108,7 +104,7 @@ namespace AppliNicolas.Classes
         {
             get => reference;
             set => reference = value;
-        } 
+        }
 
         public int NumFournisseur
         {
@@ -121,11 +117,19 @@ namespace AppliNicolas.Classes
             get => detail;
             set => detail = string.IsNullOrWhiteSpace(value) ? "Aucun détail" : value;
         }
-/*
-        public bool EstNouveau
+
+        public List<Vin> RecupereVinDansBDD()
         {
-            get => estNouveau;
-            set => estNouveau = value;
-        }*/
+            List<Vin> lesVins = new List<Vin>();
+            using (NpgsqlCommand vinSelect = new NpgsqlCommand("select * from Vin;"))
+            {
+                DataTable dt = ConnexionBD.Instance.ExecuteSelect(vinSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesVins.Add(new Vin((string)dr["nomvin"], (Int32)dr["numtype2"], (Int32)dr["numtype"],
+                    (Int32)dr["millesime"], (double)dr["prixvin"], (Int32)dr["numvin"], (Int32)dr["numfournisseur"],
+                    (string)dr["descriptif"]));
+            }
+            return lesVins;
+        }
     }
 }

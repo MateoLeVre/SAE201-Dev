@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime;
 using System.Text;
@@ -9,6 +11,11 @@ namespace AppliNicolas.Classes
 {
     public class Client
     {
+        public Client()
+        {
+
+        }
+
         public Client(int numClient, string nomClient, string prenomClient, string mailClient)
         {
             NumClient = numClient;
@@ -49,6 +56,21 @@ namespace AppliNicolas.Classes
         {
             return obj is Client client &&
                    NumClient == client.NumClient;
+        }
+
+        public List<Client> RecupereClientDansBDD()
+        {
+            List<Client> lesClients = new List<Client>();
+            using (NpgsqlCommand commandeSelect = new NpgsqlCommand("select * from Client;"))
+            {
+                DataTable dt = ConnexionBD.Instance.ExecuteSelect(commandeSelect);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    lesClients.Add(new Client((Int32)dr["numclient"], (string)dr["nomclient"],
+                        (string)dr["prenomclient"], (string)dr["mailclient"]));
+                }
+            }
+            return lesClients;
         }
     }
 }
