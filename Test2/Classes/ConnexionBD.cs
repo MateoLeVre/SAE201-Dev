@@ -11,7 +11,7 @@ namespace AppliNicolas.Classes
     public class ConnexionBD
     {
         private static readonly ConnexionBD instance = new ConnexionBD();
-        private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=gibertk;Password=TfRfKc\r\n;Database=bd_nicolas;Options='-c search_path=nicolas'";
+        private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=gibertk;Password=TfRfKc;Database=bd_nicolas;Options='-c search_path=nicolas'";
         private NpgsqlConnection connection;
 
         public static ConnexionBD Instance

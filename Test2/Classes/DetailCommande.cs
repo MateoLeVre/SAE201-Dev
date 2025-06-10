@@ -9,32 +9,71 @@ namespace AppliNicolas.Classes
 {
     public class DetailCommande
     {
-        public DetailCommande(Demande demande)
+        private int numCommande;
+        private int numVin;
+        private int quantite;
+        private double prixDetail;
+
+        //Pour le prix du vin il faut que je code le truc du vin// 
+
+        public DetailCommande(int numCommande, int numVin, int quantite)
         {
-            NumVin = demande.NumVin;
-            QuantiteCommande = demande.QuantiteDemande;
-            PrixCommande = 0;
+            this.NumCommande = numCommande;
+            this.NumVin = numVin;
+            this.Quantite = quantite;
+            PrixDetail = 0;
         }
 
-        public Demande demande;
+        public int NumCommande
+        {
+            get
+            {
+                return numCommande;
+            }
+
+            set
+            {
+                numCommande = value;
+            }
+        }
 
         public int NumVin
         {
-            get { return demande.NumVin; }
-            set { demande.NumVin = value; }
+            get
+            {
+                return numVin;
+            }
+
+            set
+            {
+                numVin = value;
+            }
         }
 
-        public int QuantiteCommande
+        public int Quantite
         {
-            get { return demande.QuantiteDemande; }
-            set { demande.QuantiteDemande = value; }
+            get
+            {
+                return quantite;
+            }
+
+            set
+            {
+                quantite = value;
+            }
         }
 
-        private double prixCommande;
-        public double PrixCommande
+        public double PrixDetail
         {
-            get { return prixCommande; }
-            set { prixCommande = demande.QuantiteDemande * demande.Vin.Prix; }
+            get
+            {
+                return this.prixDetail;
+            }
+
+            set
+            {
+                this.prixDetail = value;
+            }
         }
     }
 }

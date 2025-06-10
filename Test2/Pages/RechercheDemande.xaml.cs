@@ -22,9 +22,9 @@ namespace AppliNicolas.Pages
             var vin2 = new Vin("Esporão Reserva", 2, 0, 2020, 19.90, 2, 2, "Vin portugais.");
             ToutesLesDemandes = new List<Demande>
             {
-                new Demande(101, vin1, 1, DateTime.Now.AddDays(-1), 2, EtatDemande.Attente),
-                new Demande(102, vin2, 1, DateTime.Now.AddDays(-3), 4, EtatDemande.Valider),
-                new Demande(103, vin1, 2, DateTime.Now.AddDays(-7), 1, EtatDemande.Supprimer),
+                new Demande(101, vin1.Reference, 1, DateTime.Now.AddDays(-1), 2, Etat.Attente),
+                new Demande(102, vin2.Reference, 1, DateTime.Now.AddDays(-3), 4, Etat.Valider),
+                new Demande(103, vin1.Reference, 2, DateTime.Now.AddDays(-7), 1, Etat.Supprimer),
             };
 
             DemandesFiltres = ToutesLesDemandes.OrderBy(d => d.DateDemande).ToList();

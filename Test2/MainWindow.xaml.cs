@@ -22,9 +22,10 @@ namespace AppliNicolas
 
         public bool estResponsable { get; set; }
 
-
+        public GestionVin GestionVin { get; set; }
         public MainWindow()
         {
+            ChargeData();
             InitializeComponent();
 
             double ecranLargeur = SystemParameters.PrimaryScreenWidth;
@@ -33,14 +34,22 @@ namespace AppliNicolas
             this.Width = ecranLargeur;
             this.Height = ecranHauteur;
 
-
-
             MenuPrincipale.DataContext = this;
 
             NaviguerVers(new Connection());
-
-            //yuyu//
-
+        }
+        public void ChargeData()
+        {
+            try
+            {
+                GestionVin = new GestionVin();
+                this.DataContext = GestionVin;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problème lors de récupération des données, veuillez consulter votre admin");
+                Application.Current.Shutdown();
+            }
         }
 
         public void Connection()
@@ -48,7 +57,7 @@ namespace AppliNicolas
             if (!estResponsable)
             {
                 MI_Commande.Visibility = Visibility.Collapsed;
-                MI_Role.Header= "Vendeur";
+                MI_Role.Header = "Vendeur";
                 MI_Role.FontSize = 25;
             }
             else
@@ -88,8 +97,8 @@ namespace AppliNicolas
 
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
-            Selection_Menu_Item(MI_Vin); 
-            NaviguerVers( new RechercheVin());
+            Selection_Menu_Item(MI_Vin);
+            NaviguerVers(new RechercheVin());
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
@@ -113,7 +122,7 @@ namespace AppliNicolas
         {
             Selection_Menu_Item(MI_Commande);
         }
-        
+
         // Fonctionnement de pile pour l'historique
         private Stack<UserControl> historiquePages = new Stack<UserControl>();
 
@@ -137,7 +146,5 @@ namespace AppliNicolas
             }
 
         }
-
-        
     }
 }
