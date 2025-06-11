@@ -32,7 +32,7 @@ namespace AppliNicolas.Pages
 
             string filtre = TxtRecherche.Text.ToLower();
 
-            VinsFiltres = TousLesVins.Where(v => v.Nom.ToLower().Contains(filtre) || v.AppelationVin.ToLower().Contains(filtre)).OrderBy(v => v.Nom).ToList();
+            VinsFiltres = TousLesVins.Where(v => v.Nom.ToLower().Contains(filtre) || v.TypeVin.ToLower().Contains(filtre) || v.AppelationVin.ToLower().Contains(filtre)).OrderBy(v => v.Nom).ToList();
             
             IC_Vins.ItemsSource = VinsFiltres;
             return ;
@@ -43,7 +43,7 @@ namespace AppliNicolas.Pages
 
         private void VoirFiche_Click(object sender, RoutedEventArgs e)
         {
-            var vin = (sender as Button)?.Tag as Vin;
+            Vin vin = (sender as Button)?.Tag as Vin;
 
             ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vin));
             

@@ -9,7 +9,7 @@ namespace AppliNicolas.Classes
 {
     public class GestionVin
     {
-        public ObservableCollection<Vin> lesVins;
+        private ObservableCollection<Vin> lesVins;
         private ObservableCollection<Commande> lesCommandes;
         private ObservableCollection<Demande> lesDemandes;
         private ObservableCollection<Client> lesClients;

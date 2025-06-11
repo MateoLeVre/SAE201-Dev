@@ -109,11 +109,11 @@
                                 <TextBlock
                                     Width="150"
                                     FontSize="14"
-                                    Text="{Binding Appelation}" />
+                                    Text="{Binding AppelationVin}" />
                                 <TextBlock
                                     Width="100"
                                     FontSize="14"
-                                    Text="{Binding Type}" />
+                                    Text="{Binding TypeVin}" />
                                 <TextBlock
                                     Width="100"
                                     FontSize="14"
