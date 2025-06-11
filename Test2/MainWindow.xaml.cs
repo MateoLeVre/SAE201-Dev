@@ -20,7 +20,7 @@ namespace AppliNicolas
     public partial class MainWindow : Window
     {
 
-        public bool estResponsable { get; set; }
+        public bool estResponsable { get; set; } //test
 
         public GestionVin GestionVin { get; set; }
         public MainWindow()
