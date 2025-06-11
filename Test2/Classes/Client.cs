@@ -11,6 +11,7 @@ namespace AppliNicolas.Classes
 {
     public class Client
     {
+
         public Client()
         {
 
@@ -23,6 +24,7 @@ namespace AppliNicolas.Classes
             PrenomClient = prenomClient;
             MailClient = mailClient;
         }
+
 
         private int numClient;
         public int NumClient

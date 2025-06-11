@@ -17,19 +17,11 @@ namespace AppliNicolas.Pages
         {
             InitializeComponent();
 
-            //  données de test
-/*            var vin1 = new Vin("Château Margaux", 1, 0, 2018, 3450, 1, 1, "Grand vin de Bordeaux.");
-            var vin2 = new Vin("Esporão Reserva", 2, 0, 2020, 1990, 2, 2, "Vin portugais.");
-            ToutesLesDemandes = new List<Demande>
-            {
-                new Demande(101, vin1.Reference, 1, DateTime.Now.AddDays(-1), 2, Etat.Attente),
-                new Demande(102, vin2.Reference, 1, DateTime.Now.AddDays(-3), 4, Etat.Valider),
-                new Demande(103, vin1.Reference, 2, DateTime.Now.AddDays(-7), 1, Etat.Supprimer),
-            };
+            ToutesLesDemandes =new Demande().RecupereDemandeDansBDD();        
 
             DemandesFiltres = ToutesLesDemandes.OrderBy(d => d.DateDemande).ToList();
             this.DataContext = this;
-            IC_Demandes.ItemsSource = DemandesFiltres;*/
+            IC_Demandes.ItemsSource = DemandesFiltres;
         }
 
         private void TxtRecherche_TextChanged(object sender, TextChangedEventArgs e)
@@ -46,14 +38,7 @@ namespace AppliNicolas.Pages
             MessageBox.Show("Filtrage par statut ou date à implémenter.");
         }
 
-        private void VoirFiche_Click(object sender, RoutedEventArgs e)
-        {
-            var vin = (sender as Button)?.Tag as Vin;
-            if (Application.Current.MainWindow is MainWindow mw)
-            {
-                mw.MainContent.Content = new FicheVin(vin);
-            }
-        }
+        
 
         private void VoirDemande_Click(object sender, RoutedEventArgs e)
         {

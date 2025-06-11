@@ -110,6 +110,7 @@ namespace AppliNicolas
         private void MI_Client_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Client);
+            NaviguerVers(new RechercherClients());
         }
 
         private void MI_Deconnection_Click(object sender, RoutedEventArgs e)

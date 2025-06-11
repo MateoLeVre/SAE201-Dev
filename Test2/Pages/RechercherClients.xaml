@@ -1,8 +1,12 @@
 ﻿<UserControl
-    x:Class="AppliNicolas.Pages.RechercheDemande"
+    x:Class="AppliNicolas.Pages.RechercherClients"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Background="Beige">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AppliNicolas.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="Beige"
+    mc:Ignorable="d">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20" HorizontalAlignment="Center">
 
@@ -12,7 +16,7 @@
                 HorizontalAlignment="Center"
                 FontSize="32"
                 FontWeight="Bold"
-                Text="Recherche de demandes" />
+                Text="Recherche de clients" />
 
             <!--  Recherche  -->
             <StackPanel
@@ -60,22 +64,22 @@
                         Width="150"
                         FontSize="16"
                         FontWeight="Bold"
-                        Text="Date" />
+                        Text="Numéro" />
                     <TextBlock
                         Width="200"
                         FontSize="16"
                         FontWeight="Bold"
-                        Text="Vin" />
+                        Text="Nom" />
                     <TextBlock
                         Width="150"
                         FontSize="16"
                         FontWeight="Bold"
-                        Text="Montant total" />
+                        Text="Prénom" />
                     <TextBlock
-                        Width="150"
+                        Width="218"
                         FontSize="16"
                         FontWeight="Bold"
-                        Text="État" />
+                        Text="Mail" />
                     <TextBlock
                         Width="200"
                         FontSize="16"
@@ -84,7 +88,7 @@
                 </StackPanel>
 
                 <!--  Liste des demandes  -->
-                <ItemsControl x:Name="IC_Demandes" ItemsSource="{Binding DemandesFiltres}">
+                <ItemsControl x:Name="IC_Client" ItemsSource="{Binding ClientsFiltres}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
@@ -92,27 +96,24 @@
                                     Width="150"
                                     Margin="-1,0,0,0"
                                     FontSize="14"
-                                    Text="{Binding DateDemande, StringFormat='dd/MM/yyyy'}" />
-                                <Button
-                                    Width="200"
-                                    Margin="-30,0,30,0"
-                                    Click="VoirDemande_Click"
-                                    Content="{Binding Vin.Nom}"
+                                    Text="{Binding NumClient}" />
+                                <TextBlock
+                                    Width="150"
+                                    Margin="-1,0,0,0"
                                     FontSize="14"
-                                    Style="{StaticResource BoutonArrondi}"
-                                    Tag="{Binding Vin}" />
+                                    Text="{Binding NomClient}" />
                                 <TextBlock
                                     Width="150"
                                     FontSize="14"
-                                    Text="{Binding MontantTotal, StringFormat='{}{0:N2} €'}" />
+                                    Text="{Binding PrenomClient}" />
                                 <TextBlock
-                                    Width="150"
+                                    Width="218"
                                     FontSize="14"
-                                    Text="{Binding Etat}" />
+                                    Text="{Binding MailClient}" />
                                 <Button
                                     Width="150"
-                                    Click="VoirDemande_Click"
-                                    Content="Voir la demande"
+                                    Click="VoirClient_Click"
+                                    Content="Voir la fiche"
                                     Style="{StaticResource BoutonArrondi}"
                                     Tag="{Binding}" />
                             </StackPanel>
