@@ -31,7 +31,7 @@ namespace AppliNicolas.Classes
             this.DateCommande = DateTime.Now;
             this.EtatCommande = etatCommande;
             Demandes = new List<Demande>();
-            DetailCommandes = new List<DetailCommande>();
+            DetailCommandes = DetailCommande.ChargerDetailsParCommande(this.NumCommande);
         }
 
         public Commande(int numCommande, int numEmploye, DateTime dateCommande, string etatCommande)
@@ -41,9 +41,24 @@ namespace AppliNicolas.Classes
             this.DateCommande = dateCommande;
             this.EtatCommande = etatCommande;
             Demandes = new List<Demande>();
-            DetailCommandes = new List<DetailCommande>();
+            DetailCommandes = DetailCommande.ChargerDetailsParCommande(this.NumCommande);
         }
 
+
+
+        public string NomFournisseur
+        {
+            get
+            {
+                List<string> fournisseurs = DetailCommandes
+                            .Select(dc => dc.Vin.NomFournisseur)
+                            .Distinct()
+                            .ToList();
+
+                return fournisseurs.Count == 1  ? fournisseurs[0] : "Erreur Fournisseurs multiples pour une commande";
+
+            }
+        }
         public int NumCommande
         {
             get
@@ -100,13 +115,15 @@ namespace AppliNicolas.Classes
         {
             get
             {
-                return this.prixTotal;
+                double prix = 0;
+                foreach (DetailCommande dc in DetailCommandes)
+                {
+                    prix += dc.PrixDetail;
+                }
+
+                return prix;
             }
 
-            set
-            {
-                this.prixTotal = value;
-            }
         }
 
         public void AjouterDemande(Demande demande)
@@ -124,14 +141,7 @@ namespace AppliNicolas.Classes
             DetailCommandes.Add(detail);
         }
 
-        public void CalculPrix()
-        {
-            PrixTotal = 0;
-            foreach (DetailCommande detail in DetailCommandes)
-            {
-                PrixTotal += detail.PrixDetail;
-            }
-        }
+        
         public List<Commande> RecupereCommandeDansBDD()
         {
             List<Commande> lesCommandes = new List<Commande>();
@@ -152,5 +162,9 @@ namespace AppliNicolas.Classes
             return obj is Commande commande &&
                    NumCommande == commande.NumCommande;
         }
+
+        
+
+
     }
 }

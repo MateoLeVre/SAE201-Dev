@@ -121,6 +121,7 @@ namespace AppliNicolas
         private void MI_Commande_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Commande);
+            NaviguerVers(new RechercheCommande());
         }
 
         // Fonctionnement de pile pour l'historique

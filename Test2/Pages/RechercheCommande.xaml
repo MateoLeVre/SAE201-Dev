@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="AppliNicolas.Pages.RechercheCommande"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Beige">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20" HorizontalAlignment="Center">
+
+                <!-- Titre -->
+                <TextBlock Text="Recherche de commandes"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
+
+                <!-- Barre de recherche -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,20" Height="40">
+                    <Border Background="#FFE5B4" CornerRadius="10" Padding="10" Width="1000" Height="40">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🔍" VerticalAlignment="Center" FontSize="18" Margin="0,0,10,0"/>
+                            <Border BorderThickness="1,1,1,1" BorderBrush="Black" Opacity="0.5">
+                                <TextBox x:Name="TxtRecherche"
+                                         Width="900"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         FontSize="16"
+                                         Text=""
+                                         TextChanged="TxtRecherche_TextChanged"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Style="{StaticResource BoutonArrondi}"
+                            Content="Filtrer"
+                            Width="100"
+                            Height="40"
+                            Margin="10,0,0,0"
+                            Click="Filtrer_Click"/>
+                </StackPanel>
+
+                <!-- En-tête -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="N° Commande" Width="150" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Date" Width="200" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="État" Width="150" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Montant (€)" Width="150" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Détail" Width="150" FontWeight="Bold" FontSize="16"/>
+                </StackPanel>
+
+                <!-- Liste des commandes -->
+                <ItemsControl x:Name="IC_Commandes" ItemsSource="{Binding CommandesFiltrees}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                <TextBlock Text="{Binding NumCommande}" Width="150" FontSize="14"/>
+                                <TextBlock Text="{Binding DateCommande, StringFormat='dd/MM/yyyy'}" Width="200" FontSize="14"/>
+                                <TextBlock Text="{Binding EtatCommande}" Width="150" FontSize="14"/>
+                                <TextBlock Text="{Binding PrixTotal, StringFormat='{}{0:N2}'}" Width="150" FontSize="14"/>
+                                <Button Content="Voir la commande"
+                                        Width="150"
+                                        Style="{StaticResource BoutonArrondi}"
+                                        Click="VoirCommande_Click"
+                                        Tag="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Width="140"
+                Height="40"
+                Margin="5,5,130,30"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Content="Rafraîchir"
+                Cursor="Hand"
+                Style="{StaticResource BoutonArrondi}"
+                Click="Rafraichir_Click"/>
+    </Grid>
+</UserControl>
