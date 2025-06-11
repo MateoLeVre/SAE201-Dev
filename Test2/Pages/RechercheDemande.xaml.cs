@@ -1,7 +1,7 @@
 ﻿using AppliNicolas.Classes;
-using AppliNicolas.ClassesD_exmple;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +17,7 @@ namespace AppliNicolas.Pages
         {
             InitializeComponent();
 
-            ToutesLesDemandes =new Demande().RecupereDemandeDansBDD();        
+            ToutesLesDemandes = ((MainWindow)Application.Current.MainWindow).GestionVin.LesDemandes.ToList();        
 
             DemandesFiltres = ToutesLesDemandes.OrderBy(d => d.DateDemande).ToList();
             this.DataContext = this;
@@ -28,8 +28,10 @@ namespace AppliNicolas.Pages
         {
             string filtre = TxtRecherche.Text?.ToLower() ?? "";
 
-           /* DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null && (d.Vin.Nom.ToLower().Contains(filtre) || d.Vin.Detail.ToLower().Contains(filtre))).ToList();
-*/
+            DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null && (d.Vin.Nom.ToLower().Contains(filtre) || d.DateDemandeFormatted.ToLower().Contains(filtre)
+            || d.Etat.ToLower().Contains(filtre)
+            )).ToList();
+
             IC_Demandes.ItemsSource = DemandesFiltres;
         }
 
@@ -49,5 +51,17 @@ namespace AppliNicolas.Pages
             }
         }
 
+        private void VoirVin_Click(object sender, RoutedEventArgs e)
+        {
+            Vin vin = (sender as Button)?.Tag as Vin;
+
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vin));
+        }
+
+        private void Rafraichir_click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).GestionVin.LesDemandes = new ObservableCollection<Demande>(new Demande().RecupereDemandeDansBDD());
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercheDemande());
+        }
     }
 }

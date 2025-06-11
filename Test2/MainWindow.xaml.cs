@@ -1,5 +1,4 @@
 ﻿using AppliNicolas.Classes;
-using AppliNicolas.ClassesD_exmple;
 using AppliNicolas.Pages;
 using System.Text;
 using System.Windows;

@@ -17,7 +17,7 @@ namespace AppliNicolas.Pages
 
         private void VoirFicheVin_Click(object sender, RoutedEventArgs e)
         {
-            /*((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(demande.Vin));*/
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(demande.Vin));
         }
 
         private void Retour_Click(object sender, RoutedEventArgs e)
