@@ -41,7 +41,7 @@ namespace AppliNicolas.Pages
         {
             string filtre = TxtRecherche.Text?.ToLower() ?? "";
 
-            /*DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null &&  (d.Vin.Nom.ToLower().Contains(filtre) || d.Vin.Detail.ToLower().Contains(filtre))).ToList();*/
+            ClientsFiltres = ToutsLesClients.Where(d => d != null && (d.NomClient.ToLower().Contains(filtre) || d.PrenomClient.ToLower().Contains(filtre))).ToList();
 
             IC_Client.ItemsSource = ClientsFiltres;
         }

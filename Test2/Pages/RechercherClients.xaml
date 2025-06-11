@@ -7,120 +7,137 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="Beige"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20" HorizontalAlignment="Center">
+    <Grid Cursor="">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20" HorizontalAlignment="Center">
 
-            <!--  Titre  -->
-            <TextBlock
-                Margin="0,0,0,20"
-                HorizontalAlignment="Center"
-                FontSize="32"
-                FontWeight="Bold"
-                Text="Recherche de clients" />
+                <!--  Titre  -->
+                <TextBlock
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                    FontSize="32"
+                    FontWeight="Bold"
+                    Text="Recherche de clients" />
 
-            <!--  Recherche  -->
-            <StackPanel
-                Height="40"
-                Margin="0,0,0,20"
-                Orientation="Horizontal">
-                <Border
-                    Width="1000"
+                <!--  Recherche  -->
+                <StackPanel
                     Height="40"
-                    Padding="10"
-                    Background="#FFE5B4"
-                    CornerRadius="10">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Center"
-                            FontSize="18"
-                            Text="🔍" />
-                        <Border BorderBrush="Black" BorderThickness="1,1,1,1">
-                            <TextBox
-                                x:Name="TxtRecherche"
-                                Width="900"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontSize="16"
-                                TextChanged="TxtRecherche_TextChanged" />
-                        </Border>
-                    </StackPanel>
-                </Border>
+                    Margin="0,0,0,20"
+                    Orientation="Horizontal">
+                    <Border
+                        Width="1000"
+                        Height="40"
+                        Padding="10"
+                        Background="#FFE5B4"
+                        CornerRadius="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Text="🔍" />
+                            <Border BorderBrush="Black" BorderThickness="1,1,1,1">
+                                <TextBox
+                                    x:Name="TxtRecherche"
+                                    Width="900"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    FontSize="16"
+                                    TextChanged="TxtRecherche_TextChanged" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
 
-                <Button
-                    Width="100"
-                    Height="40"
-                    Margin="10,0,0,0"
-                    Click="Filtrer_Click"
-                    Content="Filtrer"
-                    Style="{StaticResource BoutonArrondi}" />
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Center">
-
-                <!--  En tetes  -->
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Width="150"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Text="Numéro" />
-                    <TextBlock
-                        Width="200"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Text="Nom" />
-                    <TextBlock
-                        Width="150"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Text="Prénom" />
-                    <TextBlock
-                        Width="218"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Text="Mail" />
-                    <TextBlock
-                        Width="200"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Text="Action" />
+                    <Button
+                        Width="100"
+                        Height="40"
+                        Margin="10,0,0,0"
+                        Click="Filtrer_Click"
+                        Content="Filtrer"
+                        Style="{StaticResource BoutonArrondi}" />
                 </StackPanel>
 
-                <!--  Liste des demandes  -->
-                <ItemsControl x:Name="IC_Client" ItemsSource="{Binding ClientsFiltres}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                                <TextBlock
-                                    Width="150"
-                                    Margin="-1,0,0,0"
-                                    FontSize="14"
-                                    Text="{Binding NumClient}" />
-                                <TextBlock
-                                    Width="150"
-                                    Margin="-1,0,0,0"
-                                    FontSize="14"
-                                    Text="{Binding NomClient}" />
-                                <TextBlock
-                                    Width="150"
-                                    FontSize="14"
-                                    Text="{Binding PrenomClient}" />
-                                <TextBlock
-                                    Width="218"
-                                    FontSize="14"
-                                    Text="{Binding MailClient}" />
-                                <Button
-                                    Width="150"
-                                    Click="VoirClient_Click"
-                                    Content="Voir la fiche"
-                                    Style="{StaticResource BoutonArrondi}"
-                                    Tag="{Binding}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <StackPanel HorizontalAlignment="Center">
+
+                    <!--  En tetes  -->
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Width="150"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Numéro" />
+                        <TextBlock
+                            Width="200"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Nom" />
+                        <TextBlock
+                            Width="150"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Prénom" />
+                        <TextBlock
+                            Width="218"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Mail" />
+                        <TextBlock
+                            Width="200"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Action" />
+
+                    </StackPanel>
+
+                    <!--  Liste des demandes  -->
+                    <ItemsControl x:Name="IC_Client" ItemsSource="{Binding ClientsFiltres}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                                    <TextBlock
+                                        Width="150"
+                                        Margin="-1,0,0,0"
+                                        FontSize="14"
+                                        Text="{Binding NumClient}" />
+                                    <TextBlock
+                                        Width="150"
+                                        Margin="-1,0,0,0"
+                                        FontSize="14"
+                                        Text="{Binding NomClient}" />
+                                    <TextBlock
+                                        Width="150"
+                                        FontSize="14"
+                                        Text="{Binding PrenomClient}" />
+                                    <TextBlock
+                                        Width="218"
+                                        FontSize="14"
+                                        Text="{Binding MailClient}" />
+                                    <Button
+                                        Width="150"
+                                        Click="VoirClient_Click"
+                                        Content="Voir la fiche"
+                                        Style="{StaticResource BoutonArrondi}"
+                                        Tag="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+
+
             </StackPanel>
-        </StackPanel>
-    </ScrollViewer>
+
+        </ScrollViewer>
+        <Button
+            Width="150"
+            Height="40"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="Filtrer_Click"
+            Content="Créer fiche client"
+            Cursor="Hand"
+            Style="{StaticResource BoutonArrondi}" Margin="5,5,200,30" />
+    </Grid>
+
 </UserControl>

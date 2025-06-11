@@ -28,8 +28,8 @@ namespace AppliNicolas.Pages
         {
             string filtre = TxtRecherche.Text?.ToLower() ?? "";
 
-            /*DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null &&  (d.Vin.Nom.ToLower().Contains(filtre) || d.Vin.Detail.ToLower().Contains(filtre))).ToList();*/
-
+           /* DemandesFiltres = ToutesLesDemandes.Where(d => d.Vin != null && (d.Vin.Nom.ToLower().Contains(filtre) || d.Vin.Detail.ToLower().Contains(filtre))).ToList();
+*/
             IC_Demandes.ItemsSource = DemandesFiltres;
         }
 

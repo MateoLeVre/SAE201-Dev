@@ -60,6 +60,11 @@
                         Width="150"
                         FontSize="16"
                         FontWeight="Bold"
+                        Text="Numéro" />
+                    <TextBlock
+                        Width="150"
+                        FontSize="16"
+                        FontWeight="Bold"
                         Text="Date" />
                     <TextBlock
                         Width="200"
@@ -88,6 +93,11 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                                <TextBlock
+                                    Width="150"
+                                    Margin="-1,0,0,0"
+                                    FontSize="14"
+                                    Text="{Binding NumDemande}" />
                                 <TextBlock
                                     Width="150"
                                     Margin="-1,0,0,0"
