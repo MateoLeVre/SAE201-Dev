@@ -24,18 +24,17 @@
                 <StackPanel Margin="30,0" Width="356" Height="335">
                     <TextBlock Text="{Binding Vin.Nom}" FontSize="24" FontWeight="Bold" Margin="0,10,0,0" TextTrimming="CharacterEllipsis"  TextWrapping="NoWrap"/>
                     <TextBlock Text="{Binding Vin.Reference, StringFormat='Référence : {0}'}" FontSize="16" Margin="10,10,0,0" />
-                    <TextBlock Text="{Binding Vin.Type}" FontSize="16" Margin="10,10,0,0" />
-                    <TextBlock Text="{Binding Vin.Appelation, StringFormat='Appelation : {0}'}" FontSize="16" Margin="10,10,0,0" />
+                    <TextBlock Text="{Binding Vin.TypeVin, Mode=OneWay}" FontSize="16" Margin="10,10,0,0" />
+                    <TextBlock Text="{Binding Vin.AppelationVin, StringFormat='Appelation : {0}'}" FontSize="16" Margin="10,10,0,0" />
                     <TextBlock Text="{Binding Vin.Millesime, StringFormat='Millésime : {0}'}" FontSize="16" Margin="10,10,0,0" />
-                    <TextBlock Text="{Binding Vin.Stock, StringFormat='Stock : {0}'}" FontSize="16" Margin="10,10,0,0" />
+                    <TextBlock Text="{Binding Vin.NomFournisseur, StringFormat='Fournisseur : {0}'}" FontSize="16" Margin="10,10,0,0" />
                     <TextBlock FontSize="16" Margin="10,10,0,0">
                         <Run Text="Rayon : "/>
                         <Run Text="{Binding Vin.Millesime}" />
                         <Run Text=" / " />
-                        <Run Text="{Binding Vin.Type}" />
+                        <Run Text="{Binding Vin.TypeVin, Mode=OneWay}" />
                     </TextBlock>
-                    <TextBlock Text="{Binding Vin.Fournisseur, StringFormat='Fournisseur : {0}'}" FontSize="16" Margin="10,10,0,0" />
-                    <TextBlock Text="{Binding Vin.Prix, StringFormat='Prix (€/u) : {0}'}" FontSize="18" FontWeight="Bold" Margin="0,10,0,0" />
+                    <TextBlock Text="{Binding Vin.Prix, StringFormat='Prix : {0} (€/u) '}" FontSize="18" FontWeight="Bold" Margin="0,10,0,0" />
                 </StackPanel>
 
                 <!-- Détail -->
@@ -71,7 +70,6 @@
                 <TextBlock Text="Type" Width="100" FontWeight="Bold" FontSize="18" Margin="20,0"/>
                 <TextBlock Text="Millésime" Width="100" FontWeight="Bold" FontSize="18" Margin="20,0"/>
                 <TextBlock Text="Photo" Width="100" FontWeight="Bold" FontSize="18" Margin="20,0"/>
-                <TextBlock Text="Stock" Width="100" FontWeight="Bold" FontSize="18" Margin="20,0"/>
                 <TextBlock Text="Prix (€/u)" Width="100" FontWeight="Bold" FontSize="18" Margin="20,0"/>
                 <TextBlock Text="Action" Width="100" FontWeight="Bold" FontSize="18" Margin="20,0"/>
             </StackPanel>
@@ -82,11 +80,10 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                             <TextBlock Text="{Binding Nom}" Width="150" FontSize="16" Margin="20,0" TextAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
-                            <TextBlock Text="{Binding Appelation}" Width="150" FontSize="16" Margin="20,0" TextAlignment="Center" />
-                            <TextBlock Text="{Binding Type}" Width="100" FontSize="16" Margin="20,0" TextAlignment="Center" />
+                            <TextBlock Text="{Binding AppelationVin}" Width="150" FontSize="16" Margin="20,0" TextAlignment="Center" />
+                            <TextBlock Text="{Binding TypeVin}" Width="100" FontSize="16" Margin="20,0" TextAlignment="Center" />
                             <TextBlock Text="{Binding Millesime}" Width="100" FontSize="16" Margin="20,0" TextAlignment="Center" />
                             <Image Source="{Binding Photo}" Width="80" Height="80" Margin="20,0" />
-                            <TextBlock Text="{Binding Stock}" Width="100" FontSize="16" Margin="20,0" TextAlignment="Center" />
                             <TextBlock Text="{Binding Prix, StringFormat={}{0}}" Width="100" FontSize="16" Margin="20,0" TextAlignment="Center" />
                             <Button Content="Voir la fiche" Width="99" Height="31" Style="{StaticResource BoutonArrondi}" FontSize="14" Margin="20,0" Tag="{Binding}" Click="VoirFiche_Click" />
                         </StackPanel>
