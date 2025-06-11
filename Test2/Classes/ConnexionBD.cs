@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AppliNicolas.Classes
 {
@@ -85,13 +86,23 @@ namespace AppliNicolas.Classes
             int nb = 0;
             try
             {
-                cmd.Connection = GetConnection();
-                nb = (int)cmd.ExecuteScalar();
+                if (cmd == null)
+                {
+                    throw new ArgumentNullException(nameof(cmd), "La commande ne peut pas être null");
+                }
 
+                var connection = GetConnection();
+                if (connection == null)
+                {
+                    throw new InvalidOperationException("Impossible d'obtenir une connexion à la base de données");
+                }
+
+                cmd.Connection = connection;
+                nb = cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                LogError.Log(ex, "Pb avec une requete insert " + cmd.CommandText);
+                LogError.Log(ex, "Pb avec une requete insert " + cmd?.CommandText);
                 throw;
             }
             return nb;
@@ -125,7 +136,7 @@ namespace AppliNicolas.Classes
             try
             {
                 cmd.Connection = GetConnection();
-                res = cmd.ExecuteScalar();
+                res = cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

@@ -131,5 +131,11 @@ namespace AppliNicolas.Classes
             }
             return lesVins;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Vin vin &&
+                   Reference == vin.Reference;
+        }
     }
 }

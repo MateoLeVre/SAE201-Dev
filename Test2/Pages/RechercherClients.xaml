@@ -129,15 +129,14 @@
             </StackPanel>
 
         </ScrollViewer>
-        <Button
+        <Button x:Name="ButCreerFicheClient"
             Width="150"
             Height="40"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Click="Filtrer_Click"
             Content="Créer fiche client"
             Cursor="Hand"
-            Style="{StaticResource BoutonArrondi}" Margin="5,5,200,30" />
+            Style="{StaticResource BoutonArrondi}" Margin="5,5,200,30" Click="ButCreerFicheClient_Click" />
     </Grid>
 
 </UserControl>

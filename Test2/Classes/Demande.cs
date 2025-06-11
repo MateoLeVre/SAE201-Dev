@@ -114,6 +114,12 @@ namespace AppliNicolas.Classes
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is Demande demande &&
+                   NumDemande == demande.NumDemande;
+        }
+
         public List<Demande> RecupereDemandeDansBDD()
         {
             List<Demande> lesDemandes = new List<Demande>();

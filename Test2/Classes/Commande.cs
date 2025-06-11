@@ -146,5 +146,11 @@ namespace AppliNicolas.Classes
             }
             return lesCommandes;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Commande commande &&
+                   NumCommande == commande.NumCommande;
+        }
     }
 }

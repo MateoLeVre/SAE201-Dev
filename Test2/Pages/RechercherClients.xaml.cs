@@ -1,4 +1,5 @@
 ﻿using AppliNicolas.Classes;
+using AppliNicolas.Fenetre;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,11 +56,16 @@ namespace AppliNicolas.Pages
 
         private void VoirClient_Click(object sender, RoutedEventArgs e)
         {
-            var client = (sender as Button)?.Tag as Client;
+            Client client = (sender as Button)?.Tag as Client;
             if (client != null)
             {
-                /*((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheClient(client));*/
+                new FicheClient(client).Show();
             }
+        }
+
+        private void ButCreerFicheClient_Click(object sender, RoutedEventArgs e)
+        {
+            new FicheAjoutClient().Show();
         }
     }
 }
