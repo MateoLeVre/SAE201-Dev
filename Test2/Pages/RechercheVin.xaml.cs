@@ -15,9 +15,8 @@ namespace AppliNicolas.Pages
         {
             InitializeComponent();
 
-            TousLesVins = new Vin().RecupereVinDansBDD()
-                                        .OrderBy(v => v.Nom)
-                                        .ToList();
+            TousLesVins = ((MainWindow)Application.Current.MainWindow).GestionVin.LesVins.OrderBy(v => v.Nom).ToList();
+            
 
             VinsFiltres = new List<Vin>(TousLesVins);
             DataContext = this;
@@ -33,20 +32,28 @@ namespace AppliNicolas.Pages
             string filtre = TxtRecherche.Text.ToLower();
 
             VinsFiltres = TousLesVins.Where(v => v.Nom.ToLower().Contains(filtre) || v.TypeVin.ToLower().Contains(filtre) || v.AppelationVin.ToLower().Contains(filtre)).OrderBy(v => v.Nom).ToList();
-            
+
             IC_Vins.ItemsSource = VinsFiltres;
             return ;
         }
 
 
-        
+
 
         private void VoirFiche_Click(object sender, RoutedEventArgs e)
         {
             Vin vin = (sender as Button)?.Tag as Vin;
 
             ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vin));
-            
+
+        }
+
+        private void Rafraichir_click(object sender, RoutedEventArgs e)
+        {
+            TousLesVins = new Vin().RecupereVinDansBDD()
+                                        .OrderBy(v => v.Nom)
+                                        .ToList();
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercheVin());
         }
     }
 }

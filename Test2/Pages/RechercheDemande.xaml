@@ -142,9 +142,9 @@
             </StackPanel>
         </ScrollViewer>
         <Button
-            Width="150"
+            Width="140"
             Height="40"
-            Margin="5,5,150,30"
+            Margin="5,5,130,30"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Click="Rafraichir_click"
