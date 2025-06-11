@@ -1,5 +1,4 @@
 ﻿using AppliNicolas.Classes;
-using AppliNicolas.ClassesD_exmple;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -16,7 +15,7 @@ namespace AppliNicolas.Pages
         {
             InitializeComponent();
 
-            TousLesVins = CatalogueDeVin.ObtenirExemples()
+            TousLesVins = new Vin().RecupereVinDansBDD()
                                         .OrderBy(v => v.Nom)
                                         .ToList();
 

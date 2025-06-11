@@ -131,5 +131,18 @@ namespace AppliNicolas.Classes
             }
             return lesVins;
         }
+       
+
+
+
+        public  List<Vin> TrouverSimilaires()
+        {
+            return this.RecupereVinDansBDD()
+                .Where(vin => vin.Nom != this.Nom &&
+                              this.CalculerDegreRessemblance(vin) >= 1)
+                .OrderByDescending(vin => this.CalculerDegreRessemblance(vin))
+                .Take(5)
+                .ToList();
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AppliNicolas.Classes;
-using AppliNicolas.ClassesD_exmple;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +27,7 @@ namespace AppliNicolas.Pages
             InitializeComponent();
 
             Vin = vin;
-/*            Similaires = CatalogueDeVin.TrouverSimilaires(vin);*/
+            Similaires = vin.TrouverSimilaires();
 
             this.DataContext = this;
         }

@@ -1,5 +1,4 @@
 ﻿using AppliNicolas.Classes;
-using AppliNicolas.ClassesD_exmple;
 using System;
 using System.Collections.Generic;
 using System.Linq;
