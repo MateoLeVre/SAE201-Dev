@@ -1,0 +1,54 @@
+﻿<Window x:Class="AppliNicolas.Fenetre.FicheCreationDemande"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Création Demande"
+        Width="350"
+        Height="300"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Beige">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+
+            <Button Content="⬅ Retour"
+                    Width="70"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource BoutonArrondi}"
+                    Click="ButRetour_Click"/>
+
+            <TextBlock Text="{Binding Nom}"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,20,0,10"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Quantité :"
+                           Width="80"
+                           VerticalAlignment="Center"/>
+                <TextBox x:Name="TxtQuantite"
+                         Width="100"
+                         TextChanged="TxtQuantite_TextChanged"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Montant :"
+                           Width="80"
+                           VerticalAlignment="Center"/>
+                <TextBlock x:Name="TxtMontant"
+                           FontWeight="Bold"
+                           Foreground="DarkGreen"
+                           Text="0 €"/>
+            </StackPanel>
+
+            <Button Content="Valider la demande"
+                    Margin="0,30,0,0"
+                    HorizontalAlignment="Center"
+                    Width="200"
+                    Style="{StaticResource BoutonArrondi}"
+                    Click="ButValider_Click"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -27,7 +27,7 @@ namespace AppliNicolas.Fenetre
         {
             InitializeComponent();
 
-            this.Deactivated += CliqueArrierePlan;
+            //this.Deactivated += CliqueArrierePlan;
         }
         private void CliqueArrierePlan(object sender, EventArgs e)
         {

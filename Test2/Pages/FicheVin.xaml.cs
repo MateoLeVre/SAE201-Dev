@@ -1,4 +1,5 @@
 ﻿using AppliNicolas.Classes;
+using AppliNicolas.Fenetre;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,7 @@ namespace AppliNicolas.Pages
         {
             Button btn = sender as Button;
             Vin vinClique = btn?.Tag as Vin;
-/*
-            Similaires = CatalogueDeVin.TrouverSimilaires(vinClique);*/
+
             IC_Similaires.ItemsSource = Similaires;
 
             ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vinClique));
@@ -48,6 +48,13 @@ namespace AppliNicolas.Pages
         {
             ((MainWindow)Application.Current.MainWindow).RevenirEnArriere();
         }
+
+        private void BtnCreerDemande_Click(object sender, RoutedEventArgs e)
+        {
+            var fenetre = new FicheCreationDemande(this.Vin); 
+            fenetre.ShowDialog();
+        }
+
     }
 
 }

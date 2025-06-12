@@ -68,15 +68,21 @@
 
             </StackPanel>
         </ScrollViewer>
-
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right">
         <Button Width="140"
                 Height="40"
                 Margin="5,5,130,30"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
                 Content="Rafraîchir"
                 Cursor="Hand"
                 Style="{StaticResource BoutonArrondi}"
                 Click="Rafraichir_Click"/>
+        <Button Width="220"
+            Height="40"
+            Margin="5,5,130,30"
+            Content="Générer commandes"
+            Cursor="Hand"
+            Style="{StaticResource BoutonArrondi}"
+            Click="GenererCommandesAuto_Click"/>
+        </StackPanel>
     </Grid>
 </UserControl>
