@@ -146,6 +146,8 @@ namespace AppliNicolas.Pages
 
             VinsFiltres = new ObservableCollection<Vin>(resultat.OrderBy(v => v.Nom));
             IC_Vins.ItemsSource = VinsFiltres;
+            TrierVins();
+
         }
 
         private void VoirFiche_Click(object sender, RoutedEventArgs e)
@@ -166,6 +168,67 @@ namespace AppliNicolas.Pages
             VinsFiltres = new ObservableCollection<Vin>(TousLesVins);
             IC_Vins.ItemsSource = VinsFiltres;
         }
+
+        // Variable et méthode de tri
+        private bool triDecroissant = false;
+        private string colonneTri = "Nom";
+        private void TrierVins()
+        {
+            if (VinsFiltres == null)
+                return;
+
+            IOrderedEnumerable<Vin> trie;
+
+            switch (colonneTri)
+            {
+                case "Nom":
+                    trie = triDecroissant ? VinsFiltres.OrderByDescending(v => v.Nom) : VinsFiltres.OrderBy(v => v.Nom);
+                    break;
+                case "Type":
+                    trie = triDecroissant ? VinsFiltres.OrderByDescending(v => v.TypeVin) : VinsFiltres.OrderBy(v => v.TypeVin);
+                    break;
+                case "Appellation":
+                    trie = triDecroissant ? VinsFiltres.OrderByDescending(v => v.AppelationVin) : VinsFiltres.OrderBy(v => v.AppelationVin);
+                    break;
+                case "Millesime":
+                    trie = triDecroissant ? VinsFiltres.OrderByDescending(v => v.Millesime) : VinsFiltres.OrderBy(v => v.Millesime);
+                    break;
+                case "Prix":
+                    trie = triDecroissant ? VinsFiltres.OrderByDescending(v => v.Prix) : VinsFiltres.OrderBy(v => v.Prix);
+                    break;
+                default:
+                    trie = VinsFiltres.OrderBy(v => v.Nom);
+                    break;
+            }
+
+            VinsFiltres = new ObservableCollection<Vin>(trie);
+            IC_Vins.ItemsSource = VinsFiltres;
+        }
+        private void cbTriColonne_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTriColonne.SelectedItem is ComboBoxItem item && item.Tag is string tag)
+            {
+                colonneTri = tag;
+                TrierVins();
+            }
+        }
+
+        private void btnTriOrdre_Checked(object sender, RoutedEventArgs e)
+        {
+            triDecroissant = true;
+            btnTriOrdre.Content = "↓";
+            TrierVins();
+        }
+
+        private void btnTriOrdre_Unchecked(object sender, RoutedEventArgs e)
+        {
+            triDecroissant = false;
+            btnTriOrdre.Content = "↑";
+            TrierVins();
+        }
+
+
+
     }
 
     public enum CritereFiltre

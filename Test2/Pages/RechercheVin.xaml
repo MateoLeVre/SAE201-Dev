@@ -49,27 +49,26 @@
                         </StackPanel>
                     </Border>
                     <ToggleButton x:Name="btnFiltres"
-              Content="Filtres ▼"
-              Style="{StaticResource ToggleFiltreCheckableStyle}"
-              Checked="btnFiltres_Checked"
-              Unchecked="btnFiltres_Unchecked" />
+                              Content="Filtres ▼"
+                              Style="{StaticResource ToggleFiltreCheckableStyle}"
+                              Checked="btnFiltres_Checked"
+                              Unchecked="btnFiltres_Unchecked" />
 
                     <Popup x:Name="popupFiltres"
-       PlacementTarget="{Binding ElementName=btnFiltres}"
-       Placement="Bottom"
-       StaysOpen="False"
-       AllowsTransparency="True"
-       PopupAnimation="Fade">
+                               PlacementTarget="{Binding ElementName=btnFiltres}"
+                               Placement="Bottom"
+                               StaysOpen="False"
+                               AllowsTransparency="True">
                         <Border Background="White"
-            BorderBrush="Gray"
-            BorderThickness="1"
-            CornerRadius="10"
-            Padding="10"
-            MinWidth="130">
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="10"
+                                MinWidth="130">
                             <WrapPanel x:Name="wrapFiltres" Orientation="Vertical">
                                 <CheckBox Content="Nom" Tag="Nom" Margin="5"
-                      Style="{StaticResource FiltreCheckBoxStyle}"
-                      Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
+                                      Style="{StaticResource FiltreCheckBoxStyle}"
+                                      Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
                                 <CheckBox Content="Type" Tag="Type" Margin="5"
                       Style="{StaticResource FiltreCheckBoxStyle}"
                       Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
@@ -122,8 +121,43 @@
                         FontSize="16"
                         FontWeight="Bold"
                         Text="Détail" />
-                </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                    
+                        <TextBlock
+                        Width="100"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="Trier" Margin="0,-10,0,0" />
 
+                        <ComboBox x:Name="cbTriColonne"
+                              Width="120"
+                              Margin="10,5,10,0"
+                              VerticalAlignment="Center"
+                              SelectedIndex="0"
+                              SelectionChanged="cbTriColonne_SelectionChanged">
+                            <ComboBoxItem Content="Nom" Tag="Nom" />
+                            <ComboBoxItem Content="Appellation" Tag="Appellation" />
+                            <ComboBoxItem Content="Type" Tag="Type" />
+                            <ComboBoxItem Content="Millésime" Tag="Millesime" />
+                            <ComboBoxItem Content="Prix" Tag="Prix" />
+                            </ComboBox>
+
+                        </StackPanel>
+
+                        <ToggleButton x:Name="btnTriOrdre"
+                                      Width="30"
+                                      Height="30"
+                                      Margin="5,10,5,5"
+                                      Content="↑"
+                                      Checked="btnTriOrdre_Checked"
+                                      Unchecked="btnTriOrdre_Unchecked"
+                                      Style="{StaticResource ToggleFiltreCheckableStyle}" />
+
+                    </StackPanel>
+
+                    
+                    
+                    
                 <!--  Liste des recherches  -->
                 <ItemsControl x:Name="IC_Vins" ItemsSource="{Binding VinsFiltres}">
                     <ItemsControl.ItemTemplate>
