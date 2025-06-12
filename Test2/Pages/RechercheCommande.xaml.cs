@@ -48,7 +48,7 @@ namespace AppliNicolas.Pages
 
         private void VoirCommande_Click(object sender, RoutedEventArgs e)
         {
-            var commande = (sender as Button)?.Tag as Commande;
+            Commande commande = (sender as Button)?.Tag as Commande;
             if (commande != null)
             {
                 ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheCommande(commande));

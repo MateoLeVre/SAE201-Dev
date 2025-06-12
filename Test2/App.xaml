@@ -5,6 +5,11 @@
     xmlns:local="clr-namespace:AppliNicolas"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
+
+        <!-- Nécessaire pour les users controles -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+
         <Style
             x:Key="StyleMenuItem"
             x:Name="StyleMenuItemArrondi"
@@ -102,10 +107,92 @@
             </Setter>
         </Style>
 
+        <Style x:Key="ToggleFiltreCheckableStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="Orange"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="DarkOrange"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="border"
+                        CornerRadius="10"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="10,2"
+                                      RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFC97C00"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB96B00"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB76000"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF974800"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#999"/>
+                                <Setter TargetName="border" Property="Background" Value="#EEE"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#DDD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
+        <Style x:Key="FiltreCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#FFE5B4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="8"
+                        BorderBrush="DarkOrange"
+                        BorderThickness="1"
+                        Padding="8,4">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="16" Height="16" Stroke="Black" StrokeThickness="1" Margin="0,0,6,0"
+                                   Fill="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFD89C4C"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB76000"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#AAA"/>
+                                <Setter TargetName="border" Property="Background" Value="#EEE"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#DDD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <!-- Nécessaire pour les users controles -->
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         
     </Application.Resources>
 
