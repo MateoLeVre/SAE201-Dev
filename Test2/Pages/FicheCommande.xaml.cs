@@ -30,5 +30,14 @@ namespace AppliNicolas.Pages
                 ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheVin(vin));
             }
         }
+        private void VoirDemande_Click(object sender, RoutedEventArgs e)
+        {
+            Demande demande = (sender as Button)?.Tag as Demande;
+            if (demande != null)
+            {
+                ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheDemande(demande));
+            }
+        }
+
     }
 }

@@ -35,12 +35,13 @@ namespace AppliNicolas.Classes
 
         public DetailCommande(){ }
 
-        public DetailCommande(int numCommande, int numVin, int quantite, double prix)
+        public DetailCommande(int numCommande, int numVin, int quantite, double prix, int numDemande)
         {
             this.NumCommande = numCommande;
             this.NumVin = numVin;
             this.Quantite = quantite;
             this.Prix = prix;
+            this.NumDemande = numDemande;
         }
 
         // Prix unitaire
@@ -95,13 +96,33 @@ namespace AppliNicolas.Classes
                 quantite = value;
             }
         }
-        
+
+        private int numDemande;
+        public int NumDemande
+        {
+            get => numDemande;
+            set => numDemande = value;
+        }
+
+
         // Prix total de l'association vin/commande
         public double PrixDetail
         {
             get
             {
                 return Quantite * Prix;
+            }
+        }
+        private Demande demandeDeDetail;
+        public Demande DemandeDeDetail
+        {
+            get
+            {
+                demandeDeDetail = ((MainWindow)System.Windows.Application.Current.MainWindow)
+                            .GestionVin.LesDemandes
+                            .FirstOrDefault(d => d.NumDemande == NumDemande);
+                
+                return demandeDeDetail;
             }
         }
 
@@ -140,17 +161,22 @@ namespace AppliNicolas.Classes
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    details.Add(new DetailCommande(
+                    var detail = new DetailCommande(
                         (int)row["numcommande"],
                         (int)row["numvin"],
                         (int)row["quantite"],
-                        Convert.ToDouble(row["prix"])
-                    ));
+                        Convert.ToDouble(row["prix"]),
+                        (int)row["numdemande"]
+                    );
+
+
+                    details.Add(detail);
                 }
             }
 
             return details;
         }
+
 
         public override string? ToString()
         {

@@ -19,7 +19,7 @@ namespace AppliNicolas
     public partial class MainWindow : Window
     {
 
-        public bool estResponsable { get; set; } //test
+        public bool estResponsable { get; set; } 
 
         public GestionVin GestionVin { get; set; }
         public MainWindow()
@@ -92,36 +92,42 @@ namespace AppliNicolas
         {
             Selection_Menu_Item(MI_Acceuil);
             NaviguerVers(new Acceuil());
+            historiquePages = new Stack<UserControl>();
         }
 
         private void MI_Vin_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Vin);
             NaviguerVers(new RechercheVin());
+            historiquePages = new Stack<UserControl>();
         }
 
         private void MI_Demande_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Demande);
             NaviguerVers(new RechercheDemande());
+            historiquePages = new Stack<UserControl>();
         }
 
         private void MI_Client_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Client);
             NaviguerVers(new RechercherClients());
+            historiquePages = new Stack<UserControl>();
         }
 
         private void MI_Deconnection_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Deconnection);
             NaviguerVers(new Connection());
+            historiquePages = new Stack<UserControl>();
         }
 
         private void MI_Commande_Click(object sender, RoutedEventArgs e)
         {
             Selection_Menu_Item(MI_Commande);
             NaviguerVers(new RechercheCommande());
+            historiquePages = new Stack<UserControl>();
         }
 
         // Fonctionnement de pile pour l'historique

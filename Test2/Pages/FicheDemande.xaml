@@ -28,8 +28,8 @@
                 <StackPanel>
                     <TextBlock Text="{Binding NumDemande, StringFormat=Numéro : {0}}" FontSize="16" Margin="0,0,0,5" />
                     <TextBlock Text="{Binding DateDemande, StringFormat=Date : {0:dd/MM/yyyy}}" FontSize="16" Margin="0,0,0,5" />
-                    <TextBlock Text="{Binding NumEmploye, StringFormat=Référence client : {0}}" FontSize="16" Margin="0,0,0,5" />
-                    <TextBlock Text="{Binding QuantiteDemande, StringFormat=Quantité commandée : {0}}" FontSize="16" Margin="0,0,0,5" />
+                    <TextBlock Text="{Binding NumEmploye, StringFormat=Numéro employe : {0}}" FontSize="16" Margin="0,0,0,5" />
+                    <TextBlock Text="{Binding QuantiteDemande, StringFormat=Quantité demandée : {0}}" FontSize="16" Margin="0,0,0,5" />
                     <TextBlock Text="{Binding MontantTotal, StringFormat=Montant total : {0:N2} €}" FontSize="16" Margin="0,0,0,5" />
                     <TextBlock Text="{Binding EtatDemandeToString, StringFormat=État : {0}}" FontSize="16" Margin="0,0,0,5" />
                 </StackPanel>

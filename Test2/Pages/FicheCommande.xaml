@@ -31,54 +31,32 @@
                     <TextBlock Text="{Binding NomFournisseur, StringFormat=Fournisseur : {0}}" FontSize="16" Margin="0,0,0,5" />
                 </StackPanel>
             </GroupBox>
-            
-            
+
             <GroupBox Header="Détail de la commande" FontWeight="Bold" Padding="15" Margin="0,20,0,0">
                 <ItemsControl ItemsSource="{Binding DetailCommandes}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="5" Margin="0,0,0,5">
                                 <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock Text="{Binding DemandeDeDetail.DateDemande, StringFormat=Date : {0:dd/MM/yyyy}}" Width="150"/>
+                                    <TextBlock Text="{Binding DemandeDeDetail.NumDemande, StringFormat=Numéro : {0}}" Width="150"/>
                                     <TextBlock Text="{Binding Vin.Nom}" FontWeight="Bold" Width="200" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
                                     <TextBlock Text="{Binding Quantite, StringFormat=Quantité : {0}}" Width="160" Margin="10,0,0,0"/>
                                     <TextBlock Text="{Binding Prix, StringFormat=Prix/u : {0:N2} €}" Width="120"/>
-                                    <TextBlock Text="{Binding PrixDetail, StringFormat=Total : {0:N2} €}" Width="150"/>
-                                    <!-- Le fournisseur de chaque vin est la pour debug et verif-->
-                                    <TextBlock Text="{Binding Vin.NomFournisseur, StringFormat=Fournisseur : {0}}" Width="200" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding PrixDetail, StringFormat=Total : {0:N2} €}" Width="100"/>
+                                    <Button Content="Voir demande"
+                                        Width="120"
+                                        Style="{StaticResource BoutonArrondi}"
+                                        Click="VoirDemande_Click"
+                                        Tag="{Binding DemandeDeDetail}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </GroupBox>
 
-                                    <Button Content="Voir vin"
-                                Width="100"
-                                Style="{StaticResource BoutonArrondi}"
-                                Click="VoirVin_Click"
-                                Tag="{Binding Vin}"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </GroupBox>
-            <!-- Liste des demandes -->
-            <GroupBox Header="Demandes associées" FontWeight="Bold" Padding="15">
-                <ItemsControl ItemsSource="{Binding Demandes}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="5" Margin="0,0,0,5">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Vin.Nom}" FontWeight="Bold" Width="200"/>
-                                    <TextBlock Text="{Binding QuantiteDemande, StringFormat=Qté : {0}}" Width="100"/>
-                                    <TextBlock Text="{Binding MontantTotal, StringFormat=Total : {0:N2} €}" Width="150"/>
-                                    <Button Content="Voir vin"
-                                            Width="100"
-                                            Style="{StaticResource BoutonArrondi}"
-                                            Click="VoirVin_Click"
-                                            Tag="{Binding Vin}"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </GroupBox>
-            
         </StackPanel>
     </ScrollViewer>
 </UserControl>

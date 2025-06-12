@@ -62,6 +62,8 @@ namespace AppliNicolas.Pages
 
             CommandesFiltrees = ToutesLesCommandes;
             IC_Commandes.ItemsSource = CommandesFiltrees;
+
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercheCommande());
         }
     }
 }
