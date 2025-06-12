@@ -193,9 +193,5 @@ namespace AppliNicolas.Classes
             return obj is Commande commande &&
                    NumCommande == commande.NumCommande;
         }
-
-        
-
-
     }
 }

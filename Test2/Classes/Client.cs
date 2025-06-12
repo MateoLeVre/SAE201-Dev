@@ -5,7 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Runtime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace AppliNicolas.Classes
 {
@@ -37,27 +39,44 @@ namespace AppliNicolas.Classes
         public string NomClient
         {
             get { return nomClient; }
-            set { nomClient = value; }
+            set 
+            { 
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("le nom ne peut pas être vide");
+                }
+
+                nomClient = value;
+            }
         }
 
         private string prenomClient;
         public string PrenomClient
         {
             get { return prenomClient; }
-            set { prenomClient = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("le prénom ne peut pas être vide");
+                }
+
+                prenomClient = value;
+            }
         }
 
         private string mailClient;
         public string MailClient
         {
             get { return mailClient; }
-            set { mailClient = value; }
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return obj is Client client &&
-                   NumClient == client.NumClient;
+            set 
+            {
+                if (!Regex.IsMatch(value, @"^[a-z0-9]{1,25}(\.[a-z0-9]{1,25})?@[a-z0-9.-]{1,20}\.[a-z]{2,6}$"))
+                {
+                    throw new ArgumentException("mail invalide");
+                }
+                mailClient = value;
+            }
         }
 
         public List<Client> RecupereClientDansBDD()

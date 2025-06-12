@@ -12,11 +12,11 @@ namespace AppliNicolas.Classes
     public class ConnexionBD
     {
         private static readonly ConnexionBD instance = new ConnexionBD();
-        //private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=gibertk;Password=TfRfKc;Database=bd_nicolas;Options='-c search_path=nicolas'";
-        
-        
+        private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=gibertk;Password=TfRfKc;Database=bd_nicolas;Options='-c search_path=nicolas'";
+
+
         //Chaine de connection bdd local 
-        private readonly string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=SAE201";
+        /*private readonly string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=SAE201";*/
 
 
         private NpgsqlConnection connection;
@@ -113,9 +113,6 @@ namespace AppliNicolas.Classes
             }
             return nb;
         }
-
-
-
 
         //  pour requêtes UPDATE, DELETE
         public int ExecuteSet(NpgsqlCommand cmd)
