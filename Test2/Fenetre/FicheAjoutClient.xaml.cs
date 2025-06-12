@@ -47,43 +47,32 @@ namespace AppliNicolas.Fenetre
 
         public void ValiderAjoutClient()
         {
-            List<string> lesMails = new List<string>();
-            try
+            string emailRecherche = TxtBoxMailClient.Text.Trim();
+    
             {
-                string sql = "SELECT mailclient from client";
-
-                using (NpgsqlCommand commandeInsert = new NpgsqlCommand(sql))
+                string sql = "SELECT COUNT(*) from client WHERE LOWER(mailclient) = LOWER(@email)";
+                using (NpgsqlCommand commande = new NpgsqlCommand(sql))
                 {
-                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commandeInsert);
+                    commande.Parameters.AddWithValue("@email", emailRecherche);
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commande);
+                    int count = Convert.ToInt32(dt.Rows[0][0]);
 
-                    foreach (DataRow dr in dt.Rows)
-                        lesMails.Add((string)dr["mailclient"]);
+                    if (count > 0)
+                    {
+                        MessageBox.Show(this, "Cette adresse email existe déjà !", "Email existant",MessageBoxButton.OK, MessageBoxImage.Warning);
+                        Console.WriteLine(count);
+                        return;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors des récupération de mail : {ex.Message}");
-            }
-
-            string emailRecherche = TxtBoxMailClient.Text;
-            string emailTrouve = lesMails.Find(mail => mail == emailRecherche);
-
-            if (emailTrouve != null)
-            {
-                MessageBox.Show("Cette adresse email existe déjà !");
-                Console.WriteLine("2");
-            }
-            else
-            {
                 try
                 {
                     string nom = TxtBoxNom.Text;
                     string prenom = TxtBoxPrenomClient.Text;
                     string mail = TxtBoxMailClient.Text;
 
-                    string sql = "INSERT INTO Client (nomClient, prenomClient, mailClient) VALUES (@nom, @prenom, @mail)";
+                    string sql2 = "INSERT INTO Client (nomClient, prenomClient, mailClient) VALUES (@nom, @prenom, @mail)";
 
-                    using (NpgsqlCommand commandeInsert = new NpgsqlCommand(sql))
+                    using (NpgsqlCommand commandeInsert = new NpgsqlCommand(sql2))
                     {
                         commandeInsert.Parameters.AddWithValue("@nom", nom);
                         commandeInsert.Parameters.AddWithValue("@prenom", prenom);
