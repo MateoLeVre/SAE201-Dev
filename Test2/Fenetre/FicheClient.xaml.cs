@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,20 +32,34 @@ namespace AppliNicolas.Fenetre
 
             LeMec = client;
 
-            this.DataContext = client;   
+            Client clientModifie = new Client {NumClient = client.NumClient, NomClient = client.NomClient, PrenomClient = client.PrenomClient, MailClient = client.MailClient };
 
-            this.TxtBoxNom.Text = client.NomClient;
-            this.TxtBoxPrenomClient.Text = client.PrenomClient;
-            this.TxtBoxMailClient.Text = client.MailClient;
-            this.TxtBlockNumClient.Text = client.NumClient.ToString();
+            this.DataContext = clientModifie;
+
+            this.Deactivated += CliqueArrierePlan;
+        }
+        private void CliqueArrierePlan(object sender, EventArgs e)
+        {
+             this.Close();
         }
 
         private void ButRetour_Click(object sender, RoutedEventArgs e)
         {
+            this.Deactivated -= CliqueArrierePlan;
             this.Close();
         }
 
         private void ButValider_Click(object sender, RoutedEventArgs e)
+        {
+            ValiderModificationClient();
+        }
+
+        private void ButSuprimer_Click(object sender, RoutedEventArgs e)
+        {
+            SupprimerClient();
+        }
+
+        public void ValiderModificationClient()
         {
             string nom = this.TxtBoxNom.Text;
             string prenom = this.TxtBoxPrenomClient.Text;
@@ -64,18 +79,21 @@ namespace AppliNicolas.Fenetre
                     ConnexionBD.Instance.ExecuteSet(commandeSelect);
                 }
 
+                this.Deactivated -= CliqueArrierePlan;
+
                 MessageBox.Show("Client modifié avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                this.Close();
                 ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Problème avec les modifications client", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
 
-        private void ButSuprimer_Click(object sender, RoutedEventArgs e)
+        public void SupprimerClient()
         {
             try
             {
@@ -86,12 +104,14 @@ namespace AppliNicolas.Fenetre
                     commandeDelete.Parameters.AddWithValue("@numclient", numClient);
 
                     ConnexionBD.Instance.ExecuteSet(commandeDelete);
-
-                    this.Close();
-                    ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
                 }
 
+                this.Deactivated -= CliqueArrierePlan;
+
                 MessageBox.Show("Client supprimé avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
+                this.Close();
             }
             catch (Exception ex)
             {
