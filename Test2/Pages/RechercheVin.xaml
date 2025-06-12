@@ -16,28 +16,28 @@
                 Text="Recherche de vin" />
 
             <!--  Barre de recherche  -->
-            <StackPanel
+                <StackPanel
                 Height="40"
                 Margin="0,0,0,20"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
-                <Border
+                    <Border
                     Width="1000"
                     Height="40"
                     Padding="10"
                     Background="#FFE5B4"
                     CornerRadius="10">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
                             Margin="0,0,10,0"
                             VerticalAlignment="Center"
                             FontSize="18"
                             Text="🔍" />
-                        <Border
+                            <Border
                             BorderBrush="Black"
                             BorderThickness="1,1,1,1"
                             Opacity="0.5">
-                            <TextBox
+                                <TextBox
                                 x:Name="TxtRecherche"
                                 Width="900"
                                 Background="Transparent"
@@ -45,19 +45,46 @@
                                 FontSize="16"
                                 Text=""
                                 TextChanged="TxtRecherche_TextChanged" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                    <ToggleButton x:Name="btnFiltres"
+              Content="Filtres ▼"
+              Style="{StaticResource ToggleFiltreCheckableStyle}"
+              Checked="btnFiltres_Checked"
+              Unchecked="btnFiltres_Unchecked" />
+
+                    <Popup x:Name="popupFiltres"
+       PlacementTarget="{Binding ElementName=btnFiltres}"
+       Placement="Bottom"
+       StaysOpen="False"
+       AllowsTransparency="True"
+       PopupAnimation="Fade">
+                        <Border Background="White"
+            BorderBrush="Gray"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="10"
+            MinWidth="130">
+                            <WrapPanel x:Name="wrapFiltres" Orientation="Vertical">
+                                <CheckBox Content="Nom" Tag="Nom" Margin="5"
+                      Style="{StaticResource FiltreCheckBoxStyle}"
+                      Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
+                                <CheckBox Content="Type" Tag="Type" Margin="5"
+                      Style="{StaticResource FiltreCheckBoxStyle}"
+                      Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
+                                <CheckBox Content="Appellation" Tag="Appellation" Margin="5"
+                      Style="{StaticResource FiltreCheckBoxStyle}"
+                      Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
+                                <CheckBox Content="Millésime" Tag="Millesime" Margin="5"
+                      Style="{StaticResource FiltreCheckBoxStyle}"
+                      Checked="Filtre_Checked" Unchecked="Filtre_Unchecked"/>
+                            </WrapPanel>
                         </Border>
-                    </StackPanel>
-                </Border>
+                    </Popup>
+                </StackPanel>
 
-                <Button
-                    Width="100"
-                    Height="40"
-                    Margin="10,0,0,0"
-                    Content="Filtrer"
-                    Style="{StaticResource BoutonArrondi}" />
-            </StackPanel>
-
-            <StackPanel HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center">
                 <!--  En tete  -->
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
@@ -164,6 +191,7 @@
                 </ItemsControl>
             </StackPanel>
         </StackPanel>
+            
     </ScrollViewer>
         <Button
     Width="120"
