@@ -22,6 +22,8 @@ namespace AppliNicolas
         public bool estResponsable { get; set; } 
 
         public GestionVin GestionVin { get; set; }
+
+
         public MainWindow()
         {
             InitializeComponent();

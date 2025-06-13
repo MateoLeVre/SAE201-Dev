@@ -22,7 +22,7 @@ namespace AppliNicolas.Fenetre
         {
             InitializeComponent();
             LoadDemandes();
-            this.ShowDialog(); // Ouvre la fenêtre modale
+            this.ShowDialog();
         }
 
         private void LoadDemandes()
@@ -33,7 +33,7 @@ namespace AppliNicolas.Fenetre
 
             //  uniquement celles "en attente" ou "supprimée"
             demandesDisponibles = toutesLesDemandes
-                .Where(d => d.Etat.ToLower() == "en attente" || d.Etat.ToLower() == "supprimée")
+                .Where(d => d.Etat.ToLower() == "en attente" )
                 .ToList();
 
             demandesSelectionnees = new List<Demande>();

@@ -31,6 +31,8 @@ namespace AppliNicolas.Pages
             Similaires = vin.TrouverSimilaires();
 
             this.DataContext = this;
+
+            ((MainWindow)Application.Current.MainWindow).EmployeConnecte.HistoriqueRecherches.Add(new VinRecherche(vin, DateTime.Now));
         }
 
         private void VoirFiche_Click(object sender, RoutedEventArgs e)

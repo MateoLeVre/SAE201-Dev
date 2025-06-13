@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace AppliNicolas.Classes
         public string Prenom { get; set; }
         public string Login { get; set; }
         public string MotDePasse { get; set; }
+
+        public ObservableCollection<VinRecherche> HistoriqueRecherches { get; set; } = new ObservableCollection<VinRecherche>();
 
         public bool EstResponsable => NumRole == 2;
 

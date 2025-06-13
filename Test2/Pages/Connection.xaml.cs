@@ -82,6 +82,7 @@ namespace AppliNicolas.Pages
                     mw.EmployeConnecte = employe;
                     mw.estResponsable = employe.EstResponsable;
 
+                    mw.GestionVin = new GestionVin();
 
                     mw.NaviguerVers(new Acceuil());
                     mw.Selection_Menu_Item(mw.MI_Acceuil);
