@@ -28,7 +28,7 @@ namespace AppliNicolas.Classes
 
                 DataTable dt = ConnexionBD.Instance.ExecuteSelect(cmd);
 
-                if (dt.Rows.Count == 1)
+                if (dt.Rows.Count >= 1)
                 {
                     DataRow row = dt.Rows[0];
                     return new Employe
