@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppliNicolas.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,43 +63,44 @@ namespace AppliNicolas.Pages
             AddText(TxtPassword);
         }
 
+
         private void SeConnecter_Click(object sender, RoutedEventArgs e)
         {
-            string login = TxtLogin.Text;
-            string password = TxtPassword.Text;
+            string login = TxtLogin.Text.Trim();
+            string password = TxtPassword.Text.Trim();
 
-
-            if (login == "admin" && password == "admin")
+            try
             {
-                
-                ((MainWindow)Application.Current.MainWindow).estResponsable = true;
+                ConnexionBD.Instance.ConfigurerConnexion(login, password);
 
+                Employe employe = Employe.Connexion(login, password);
+                if (employe != null)
+                {
+                    MainWindow mw = (MainWindow)Application.Current.MainWindow;
+                    mw.EmployeConnecte = employe;
+                    mw.estResponsable = employe.EstResponsable;
+
+
+                    mw.NaviguerVers(new Acceuil());
+                    mw.Selection_Menu_Item(mw.MI_Acceuil);
+                    mw.MenuPrincipale.Visibility = Visibility.Visible;
+                    mw.Connection();
+                }
+                else
+                {
+                    TxtErreur.Text = "Login ou mot de passe incorrect. (mot de passe incorrect)";
+                    TxtPassword.Text = "";
+                    AddText(TxtPassword);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ((MainWindow)Application.Current.MainWindow).estResponsable = false;
+                TxtErreur.Text = "Login ou mot de passe incorrect. (login inccorect)";
+                TxtPassword.Text = "";
+                AddText(TxtPassword);
             }
-            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new Acceuil());
-
-            ((MainWindow)Application.Current.MainWindow).Selection_Menu_Item(((MainWindow)Application.Current.MainWindow).MI_Acceuil);
-
-            ((MainWindow)Application.Current.MainWindow).MenuPrincipale.Visibility = Visibility.Visible;
-
-            ((MainWindow)Application.Current.MainWindow).Connection();
         }
 
-        private void SeConnecterRapide_Click(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)Application.Current.MainWindow).estResponsable = true;
-
-            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new Acceuil());
-
-            ((MainWindow)Application.Current.MainWindow).Selection_Menu_Item(((MainWindow)Application.Current.MainWindow).MI_Acceuil);
-
-            ((MainWindow)Application.Current.MainWindow).MenuPrincipale.Visibility = Visibility.Visible;
-
-            ((MainWindow)Application.Current.MainWindow).Connection();
-        }
 
         }
 }

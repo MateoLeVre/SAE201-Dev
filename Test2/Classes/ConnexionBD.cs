@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,17 @@ namespace AppliNicolas.Classes
 {
     public class ConnexionBD
     {
+        private string login;
+        private string password;
+
+        
+
         private static readonly ConnexionBD instance = new ConnexionBD();
         //private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=gibertk;Password=TfRfKc;Database=bd_nicolas;Options='-c search_path=nicolas'";
 
 
         //Chaine de connection bdd local 
-        private readonly string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=SAE201";
+        private string connectionString;
 
 
         private NpgsqlConnection connection;
@@ -29,20 +35,27 @@ namespace AppliNicolas.Classes
             }
         }
 
+        public void ConfigurerConnexion(string login, string password)
+        {
+            if (login == "home")
+                connectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=SAE201";
+            else
+                    { if (login == "bourdima")
+                        {
+                            password = "owY7SW";
+                        }
+                        else if (login == "gibertk")
+                            password = "TfRfKc";
+
+                        string chaine = $"Host=srv-peda-new;Port=5433;Username={login};Password={password};Database=bd_nicolas;Options='-c search_path=nicolas'";
+
+                        connectionString = chaine; }
+            connection = new NpgsqlConnection(connectionString);
+        }
+
         //  Constructeur privé pour empêcher l'instanciation multiple
         private ConnexionBD()
-        {
-
-            try
-            {
-                connection = new NpgsqlConnection(connectionString);
-            }
-            catch (Exception ex)
-            {
-                LogError.Log(ex, "Pb de connexion GetConnection \n" + connectionString);
-                throw;
-            }
-        }
+        {  }
 
 
         // pour récupérer la connexion (et l'ouvrir si nécessaire)

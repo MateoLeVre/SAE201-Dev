@@ -18,13 +18,12 @@ namespace AppliNicolas
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public Employe EmployeConnecte { get; set; }
         public bool estResponsable { get; set; } 
 
         public GestionVin GestionVin { get; set; }
         public MainWindow()
         {
-            ChargeData();
             InitializeComponent();
 
             double ecranLargeur = SystemParameters.PrimaryScreenWidth;
@@ -36,6 +35,7 @@ namespace AppliNicolas
             MenuPrincipale.DataContext = this;
 
             NaviguerVers(new Connection());
+
         }
         public void ChargeData()
         {
@@ -53,6 +53,7 @@ namespace AppliNicolas
 
         public void Connection()
         {
+            ChargeData();
             if (!estResponsable)
             {
                 MI_Commande.Visibility = Visibility.Collapsed;
@@ -63,7 +64,7 @@ namespace AppliNicolas
             {
                 MI_Commande.Visibility = Visibility.Visible;
                 MI_Role.Header = "Responsable";
-                MI_Role.FontSize = 18;
+                MI_Role.FontSize = 16;
             }
 
         }
