@@ -117,6 +117,14 @@ namespace AppliNicolas.Classes
             }
         }
 
+        public string Description
+        {
+            get
+            {
+                return $"Vin : {Vin.Nom} \n Fournisseur : {Vin.NomFournisseur} \n Qté : {QuantiteDemande} \n État : {Etat} \n Prix : {MontantTotal} €";
+            }
+        }
+
 
         private Vin RecupereVinParId(int idVin)
         {
