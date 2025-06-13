@@ -4,8 +4,6 @@ using System.Data;
 
 namespace AppliNicolas.Classes
 {
-    public enum TypeVin { Rouge, Blanc, Rosé }
-
     public class Vin
     {
         //rajoutez un constructeur de vin a partir juste du numero du vi n qui va rechercher le vin dans la bd 
