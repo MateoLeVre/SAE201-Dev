@@ -21,11 +21,10 @@ namespace AppliNicolas.Classes
 
         public static Employe Connexion(string login, string password)
         {
-            string sql = "SELECT * FROM employe WHERE login = @login AND mdp = @mdp";
+            string sql = "SELECT * FROM employe WHERE login = @login";
             using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
             {
                 cmd.Parameters.AddWithValue("@login", login);
-                cmd.Parameters.AddWithValue("@mdp", password);
 
                 DataTable dt = ConnexionBD.Instance.ExecuteSelect(cmd);
 
