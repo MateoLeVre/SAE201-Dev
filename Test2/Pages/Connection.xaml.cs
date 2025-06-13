@@ -73,6 +73,8 @@ namespace AppliNicolas.Pages
             {
                 ConnexionBD.Instance.ConfigurerConnexion(login, password);
 
+                Console.WriteLine(login + " : "+ password);
+
                 Employe employe = Employe.Connexion(login, password);
                 if (employe != null)
                 {

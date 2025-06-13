@@ -115,15 +115,24 @@ namespace AppliNicolas.Fenetre
                 return;
             }
 
+            double prixTotal = 0;
+
+            foreach (Demande de in demandesSelectionnees)
+            {
+                prixTotal += de.MontantTotal;
+            }
+
+
             int numEmploye = ((MainWindow)Application.Current.MainWindow).EmployeConnecte.NumEmploye;
 
             // Insertion commande
             int numCommande;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO commande (numemploye, datecommande, etat) VALUES (@emp, @date, @etat) RETURNING numcommande"))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO commande (numemploye, datecommande, etat, prixtotal) VALUES (@emp, @date, @etat, @prix) RETURNING numcommande"))
             {
                 cmd.Parameters.AddWithValue("@emp", numEmploye);
                 cmd.Parameters.AddWithValue("@date", DateTime.Now);
                 cmd.Parameters.AddWithValue("@etat", etat);
+                cmd.Parameters.AddWithValue("@prix",prixTotal);
 
                 DataTable dt = ConnexionBD.Instance.ExecuteSelect(cmd);
                 numCommande = Convert.ToInt32(dt.Rows[0]["numcommande"]);
@@ -132,12 +141,13 @@ namespace AppliNicolas.Fenetre
             // Insertion détails
             foreach (var d in demandesSelectionnees)
             {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO detailcommande (numcommande, numvin, quantite, prix) VALUES (@cmd, @vin, @qte, @prix)"))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO detailcommande (numcommande, numvin, numdemande, quantite, prix) VALUES (@cmd, @vin, @numd, @qte, @prix)"))
                 {
                     cmd.Parameters.AddWithValue("@cmd", numCommande);
                     cmd.Parameters.AddWithValue("@vin", d.NumVin);
                     cmd.Parameters.AddWithValue("@qte", d.QuantiteDemande);
                     cmd.Parameters.AddWithValue("@prix", d.Vin.Prix);
+                    cmd.Parameters.AddWithValue("@numd", d.NumDemande);
 
                     ConnexionBD.Instance.ExecuteInsert(cmd);
                 }
@@ -153,11 +163,9 @@ namespace AppliNicolas.Fenetre
             MessageBox.Show($"Commande {etat.ToLower()} avec succès.");
 
             // Redirection vers la fiche commande
-            var nouvelleCommande = new Commande().RecupereCommandeDansBDD().FirstOrDefault(c => c.NumCommande == numCommande);
-            if (nouvelleCommande != null)
-            {
-                ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheCommande(nouvelleCommande));
-            }
+            Commande nouvelleCommande = new Commande().RecupereCommandeDansBDD().FirstOrDefault(c => c.NumCommande == numCommande);
+            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheCommande(nouvelleCommande));
+            
 
             this.Close();
         }
