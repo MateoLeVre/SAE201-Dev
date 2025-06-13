@@ -31,7 +31,7 @@ namespace AppliNicolas.Fenetre
                                         .GestionVin
                                         .LesDemandes;
 
-            // Filtrage : uniquement celles "en attente" ou "supprimée"
+            //  uniquement celles "en attente" ou "supprimée"
             demandesDisponibles = toutesLesDemandes
                 .Where(d => d.Etat.ToLower() == "en attente" || d.Etat.ToLower() == "supprimée")
                 .ToList();
@@ -45,35 +45,25 @@ namespace AppliNicolas.Fenetre
         private void AjouterDemande_Click(object sender, RoutedEventArgs e)
         {
             Demande d = (sender as Button)?.Tag as Demande;
-            if (d != null && !demandesSelectionnees.Contains(d))
+            if (d == null || demandesSelectionnees.Contains(d))
+                return;
+
+            if (fournisseurActif == null)
             {
-                if (fournisseurActif == null)
-                {
-                    // Premier ajout → on fixe le fournisseur actif
-                    fournisseurActif = d.Vin.NomFournisseur;
-                }
+                fournisseurActif = d.Vin.NomFournisseur;
+            }
 
-                if (d.Vin.NomFournisseur == fournisseurActif)
-                {
-                    // Ajouter toutes les demandes du même fournisseur
-                    var memesFournisseur = demandesDisponibles
-                        .Where(x => x.Vin.NomFournisseur == fournisseurActif)
-                        .ToList();
-
-                    foreach (var demande in memesFournisseur)
-                    {
-                        if (!demandesSelectionnees.Contains(demande))
-                            demandesSelectionnees.Add(demande);
-                    }
-
-                    RefreshListes();
-                }
-                else
-                {
-                    MessageBox.Show($"Impossible d’ajouter une demande d’un autre fournisseur ({d.Vin.NomFournisseur}).\nFournisseur actif : {fournisseurActif}");
-                }
+            if (d.Vin.NomFournisseur == fournisseurActif)
+            {
+                demandesSelectionnees.Add(d);
+                RefreshListes();
+            }
+            else
+            {
+                MessageBox.Show($"Cette demande appartient à un autre fournisseur ({d.Vin.NomFournisseur}).\nFournisseur actif : {fournisseurActif}", "Fournisseur différent", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
 
 
         private void RefreshListes()

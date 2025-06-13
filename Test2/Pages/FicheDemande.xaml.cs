@@ -64,7 +64,7 @@ namespace AppliNicolas.Pages
                 demande.Etat = nouvelEtat;
                 MessageBox.Show($"Demande mise à jour : {nouvelEtat}", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheDemande(demande));
+                ((MainWindow)Application.Current.MainWindow).RefreshPage(new FicheDemande(demande));
             }
             catch (Exception ex)
             {
