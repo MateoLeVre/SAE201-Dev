@@ -1,14 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="AppliNicolas.Classes.Appelation" Collapsed="true">
-    <Position X="9.75" Y="2" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.Appelation">
+    <Position X="7" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAEAgAAAAAAAAAAAAAQAAAAAAAAAAQA=</HashCode>
       <FileName>Classes\Appelation.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.Client" Collapsed="true">
-    <Position X="11.5" Y="2" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.Client">
+    <Position X="17.25" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AgAAIAIIACAAAAAAgAAAAAAIAAgAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Classes\Client.cs</FileName>
