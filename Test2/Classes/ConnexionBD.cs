@@ -40,11 +40,11 @@ namespace AppliNicolas.Classes
             if (login == "home")
                 connectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=SAE201";
             else
-                    { if (login == "bourdima")
+                    { if (login == "bourdima" && password=="mmm")
                         {
                             password = "owY7SW";
                         }
-                        else if (login == "gibertk")
+                        else if (login == "gibertk" && password=="mmm")
                             password = "TfRfKc";
 
                         string chaine = $"Host=srv-peda-new;Port=5433;Username={login};Password={password};Database=bd_nicolas;Options='-c search_path=nicolas'";
