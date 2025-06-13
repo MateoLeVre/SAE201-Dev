@@ -79,7 +79,7 @@ namespace AppliNicolas.Pages
 
                 commande.EtatCommande = nouvelEtat;
                 MessageBox.Show("Etat de la commande mis à jour.", "succes", MessageBoxButton.OK, MessageBoxImage.Information);
-                //((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheCommande(commande));
+                ((MainWindow)Application.Current.MainWindow).RefreshPage(new FicheCommande(commande));
             }
             catch (Exception ex)
             {

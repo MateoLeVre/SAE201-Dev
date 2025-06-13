@@ -154,5 +154,14 @@ namespace AppliNicolas
             }
 
         }
+
+        public void RefreshPage (UserControl nouvellePage)
+        {
+            if (historiquePages.Count > 0)
+            {
+                MainContent.Content = historiquePages.Pop();
+            }
+            NaviguerVers(nouvellePage);
+        }
     }
 }
