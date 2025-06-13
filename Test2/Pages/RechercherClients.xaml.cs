@@ -33,10 +33,7 @@ namespace AppliNicolas.Pages
             ClientsFiltres = ToutsLesClients.OrderBy(d => d.NumClient).ToList();
             this.DataContext = this;
             IC_Client.ItemsSource = ClientsFiltres;
-        }
-
-
-        
+        }    
 
         private void TxtRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -52,8 +49,7 @@ namespace AppliNicolas.Pages
             MessageBox.Show("Filtrage par statut ou date à implémenter.");
         }
 
-        
-
+       
         private void VoirClient_Click(object sender, RoutedEventArgs e)
         {
             Client client = (sender as Button)?.Tag as Client;

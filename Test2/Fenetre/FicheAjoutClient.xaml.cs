@@ -36,7 +36,6 @@ namespace AppliNicolas.Fenetre
 
         private void ButRetour_Click(object sender, RoutedEventArgs e)
         {
-            this.Deactivated -= CliqueArrierePlan;
             this.Close();
         }
 
@@ -81,8 +80,7 @@ namespace AppliNicolas.Fenetre
                         ConnexionBD.Instance.ExecuteInsert(commandeInsert);
                     }
 
-                    this.Deactivated -= CliqueArrierePlan;
-
+                    
                     MessageBox.Show("Client ajouté avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                     ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
                     this.Close();

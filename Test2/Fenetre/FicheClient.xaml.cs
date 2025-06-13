@@ -36,16 +36,10 @@ namespace AppliNicolas.Fenetre
 
             this.DataContext = clientModifie;
 
-            this.Deactivated += CliqueArrierePlan;
-        }
-        private void CliqueArrierePlan(object sender, EventArgs e)
-        {
-             this.Close();
         }
 
         private void ButRetour_Click(object sender, RoutedEventArgs e)
         {
-            this.Deactivated -= CliqueArrierePlan;
             this.Close();
         }
 
@@ -79,7 +73,6 @@ namespace AppliNicolas.Fenetre
                     ConnexionBD.Instance.ExecuteSet(commandeSelect);
                 }
 
-                this.Deactivated -= CliqueArrierePlan;
 
                 MessageBox.Show("Client modifié avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -106,7 +99,6 @@ namespace AppliNicolas.Fenetre
                     ConnexionBD.Instance.ExecuteSet(commandeDelete);
                 }
 
-                this.Deactivated -= CliqueArrierePlan;
 
                 MessageBox.Show("Client supprimé avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 

@@ -41,7 +41,6 @@ namespace AppliNicolas.Classes
             else
             {
                 string chaine = $"Host=srv-peda-new;Port=5433;Username={login};Password={password};Database=bd_nicolas;Options='-c search_path=nicolas'";
-                chaine = $"Host=srv-peda-new;Port=5433;Username=bourdima;Password=owY7SW;Database=bd_nicolas;Options='-c search_path=nicolas'";
                 connectionString = chaine;
             }
             
