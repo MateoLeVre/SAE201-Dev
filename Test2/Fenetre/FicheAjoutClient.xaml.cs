@@ -27,11 +27,6 @@ namespace AppliNicolas.Fenetre
         {
             InitializeComponent();
 
-            //this.Deactivated += CliqueArrierePlan;
-        }
-        private void CliqueArrierePlan(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void ButRetour_Click(object sender, RoutedEventArgs e)
