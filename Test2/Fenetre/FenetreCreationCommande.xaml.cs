@@ -14,9 +14,7 @@ namespace AppliNicolas.Fenetre
     {
         private List<Demande> demandesDisponibles;
         private List<Demande> demandesSelectionnees;
-
         private string fournisseurActif = null;
-
 
         public FenetreCreationCommande()
         {
@@ -31,7 +29,7 @@ namespace AppliNicolas.Fenetre
                                         .GestionVin
                                         .LesDemandes;
 
-            //  uniquement celles "en attente" ou "supprimée"
+            // Uniquement celles "en attente" ou "supprimée"
             demandesDisponibles = toutesLesDemandes
                 .Where(d => d.Etat.ToLower() == "en attente" || d.Etat.ToLower() == "supprimée")
                 .ToList();
@@ -64,8 +62,6 @@ namespace AppliNicolas.Fenetre
             }
         }
 
-
-
         private void RefreshListes()
         {
             LB_Disponibles.ItemsSource = null;
@@ -86,7 +82,6 @@ namespace AppliNicolas.Fenetre
             LB_Commande.ItemsSource = demandesSelectionnees;
         }
 
-
         private void ValiderCommande_Click(object sender, RoutedEventArgs e)
         {
             CreerCommande("Validée");
@@ -105,59 +100,27 @@ namespace AppliNicolas.Fenetre
                 return;
             }
 
-            double prixTotal = 0;
-
-            foreach (Demande de in demandesSelectionnees)
+            try
             {
-                prixTotal += de.MontantTotal;
+                double prixTotal = CalculerPrixTotal();
+                int numEmploye = ((MainWindow)Application.Current.MainWindow).EmployeConnecte.NumEmploye;
+
+                int numCommande = InsererNouvelleCommande(numEmploye, etat, prixTotal);
+                InsererDetailsCommande(numCommande);
+                MettreAJourEtatDemandes();
+
+                MessageBox.Show($"Commande {etat.ToLower()} avec succès.");
+
+                // Redirection vers la fiche commande
+                Commande nouvelleCommande = new Commande().RecupereCommandeDansBDD().FirstOrDefault(c => c.NumCommande == numCommande);
+                ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheCommande(nouvelleCommande));
+
+                this.Close();
             }
-
-
-            int numEmploye = ((MainWindow)Application.Current.MainWindow).EmployeConnecte.NumEmploye;
-
-            // Insertion commande
-            int numCommande;
-            using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO commande (numemploye, datecommande, etat, prixtotal) VALUES (@emp, @date, @etat, @prix) RETURNING numcommande"))
+            catch (Exception ex)
             {
-                cmd.Parameters.AddWithValue("@emp", numEmploye);
-                cmd.Parameters.AddWithValue("@date", DateTime.Now);
-                cmd.Parameters.AddWithValue("@etat", etat);
-                cmd.Parameters.AddWithValue("@prix",prixTotal);
-
-                DataTable dt = ConnexionBD.Instance.ExecuteSelect(cmd);
-                numCommande = Convert.ToInt32(dt.Rows[0]["numcommande"]);
+                MessageBox.Show($"Erreur lors de la création de la commande : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            // Insertion détails
-            foreach (var d in demandesSelectionnees)
-            {
-                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO detailcommande (numcommande, numvin, numdemande, quantite, prix) VALUES (@cmd, @vin, @numd, @qte, @prix)"))
-                {
-                    cmd.Parameters.AddWithValue("@cmd", numCommande);
-                    cmd.Parameters.AddWithValue("@vin", d.NumVin);
-                    cmd.Parameters.AddWithValue("@qte", d.QuantiteDemande);
-                    cmd.Parameters.AddWithValue("@prix", d.Vin.Prix);
-                    cmd.Parameters.AddWithValue("@numd", d.NumDemande);
-
-                    ConnexionBD.Instance.ExecuteInsert(cmd);
-                }
-
-                // Mise à jour de l'état de la demande
-                using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE demande SET etat = 'Validée' WHERE numdemande = @id"))
-                {
-                    cmd.Parameters.AddWithValue("@id", d.NumDemande);
-                    ConnexionBD.Instance.ExecuteSet(cmd);
-                }
-            }
-
-            MessageBox.Show($"Commande {etat.ToLower()} avec succès.");
-
-            // Redirection vers la fiche commande
-            Commande nouvelleCommande = new Commande().RecupereCommandeDansBDD().FirstOrDefault(c => c.NumCommande == numCommande);
-            ((MainWindow)Application.Current.MainWindow).NaviguerVers(new FicheCommande(nouvelleCommande));
-            
-
-            this.Close();
         }
 
         private void Annuler_Click(object sender, RoutedEventArgs e)
@@ -172,5 +135,79 @@ namespace AppliNicolas.Fenetre
             RefreshListes();
         }
 
+        // Méthodes dédiées pour les requêtes SQL
+        private double CalculerPrixTotal()
+        {
+            double prixTotal = 0;
+            foreach (Demande de in demandesSelectionnees)
+            {
+                prixTotal += de.MontantTotal;
+            }
+            return prixTotal;
+        }
+
+        private int InsererNouvelleCommande(int numEmploye, string etat, double prixTotal)
+        {
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO commande (numemploye, datecommande, etat, prixtotal) VALUES (@emp, @date, @etat, @prix) RETURNING numcommande"))
+                {
+                    cmd.Parameters.AddWithValue("@emp", numEmploye);
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@etat", etat);
+                    cmd.Parameters.AddWithValue("@prix", prixTotal);
+
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(cmd);
+                    return Convert.ToInt32(dt.Rows[0]["numcommande"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de l'insertion de la commande : {ex.Message}");
+            }
+        }
+
+        private void InsererDetailsCommande(int numCommande)
+        {
+            try
+            {
+                foreach (var d in demandesSelectionnees)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO detailcommande (numcommande, numvin, numdemande, quantite, prix) VALUES (@cmd, @vin, @numd, @qte, @prix)"))
+                    {
+                        cmd.Parameters.AddWithValue("@cmd", numCommande);
+                        cmd.Parameters.AddWithValue("@vin", d.NumVin);
+                        cmd.Parameters.AddWithValue("@qte", d.QuantiteDemande);
+                        cmd.Parameters.AddWithValue("@prix", d.Vin.Prix);
+                        cmd.Parameters.AddWithValue("@numd", d.NumDemande);
+
+                        ConnexionBD.Instance.ExecuteInsert(cmd);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de l'insertion des détails de commande : {ex.Message}");
+            }
+        }
+
+        private void MettreAJourEtatDemandes()
+        {
+            try
+            {
+                foreach (var d in demandesSelectionnees)
+                {
+                    using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE demande SET etat = 'Validée' WHERE numdemande = @id"))
+                    {
+                        cmd.Parameters.AddWithValue("@id", d.NumDemande);
+                        ConnexionBD.Instance.ExecuteSet(cmd);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de la mise à jour des demandes : {ex.Message}");
+            }
+        }
     }
 }

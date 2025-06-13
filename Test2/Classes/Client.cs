@@ -13,10 +13,13 @@ namespace AppliNicolas.Classes
 {
     public class Client
     {
+        private int numClient;
+        private string nomClient;
+        private string prenomClient;
+        private string mailClient;
 
         public Client()
         {
-
         }
 
         public Client(int numClient, string nomClient, string prenomClient, string mailClient)
@@ -27,30 +30,36 @@ namespace AppliNicolas.Classes
             MailClient = mailClient;
         }
 
-
-        private int numClient;
         public int NumClient
         {
             get { return numClient; }
-            set { numClient = value; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Le numéro client doit être positif");
+                }
+                numClient = value;
+            }
         }
 
-        private string nomClient;
         public string NomClient
         {
             get { return nomClient; }
-            set 
-            { 
+            set
+            {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("le nom ne peut pas être vide");
+                    throw new ArgumentException("Le nom ne peut pas être vide");
                 }
-
+                if (value.Length > 50)
+                {
+                    throw new ArgumentException("Le nom ne peut pas dépasser 50 caractères");
+                }
                 nomClient = value;
             }
         }
 
-        private string prenomClient;
         public string PrenomClient
         {
             get { return prenomClient; }
@@ -58,22 +67,32 @@ namespace AppliNicolas.Classes
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("le prénom ne peut pas être vide");
+                    throw new ArgumentException("Le prénom ne peut pas être vide");
                 }
-
+                if (value.Length > 50)
+                {
+                    throw new ArgumentException("Le prénom ne peut pas dépasser 50 caractères");
+                }
                 prenomClient = value;
             }
         }
 
-        private string mailClient;
         public string MailClient
         {
             get { return mailClient; }
-            set 
+            set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("L'email ne peut pas être vide");
+                }
+                if (value.Length > 100)
+                {
+                    throw new ArgumentException("L'email ne peut pas dépasser 100 caractères");
+                }
                 if (!Regex.IsMatch(value, @"^[a-z0-9]{1,25}(\.[a-z0-9]{1,25})?@[a-z0-9.-]{1,20}\.[a-z]{2,6}$"))
                 {
-                    throw new ArgumentException("mail invalide");
+                    throw new ArgumentException("Format d'email invalide");
                 }
                 mailClient = value;
             }
@@ -82,15 +101,24 @@ namespace AppliNicolas.Classes
         public List<Client> RecupereClientDansBDD()
         {
             List<Client> lesClients = new List<Client>();
-            using (NpgsqlCommand commandeSelect = new NpgsqlCommand("select * from Client;"))
+
+            try
             {
-                DataTable dt = ConnexionBD.Instance.ExecuteSelect(commandeSelect);
-                foreach (DataRow dr in dt.Rows)
+                using (NpgsqlCommand commandeSelect = new NpgsqlCommand("select * from Client;"))
                 {
-                    lesClients.Add(new Client((Int32)dr["numclient"], (string)dr["nomclient"],
-                        (string)dr["prenomclient"], (string)dr["mailclient"]));
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commandeSelect);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        lesClients.Add(new Client((Int32)dr["numclient"], (string)dr["nomclient"],
+                            (string)dr["prenomclient"], (string)dr["mailclient"]));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de la récupération des clients : {ex.Message}");
+            }
+
             return lesClients;
         }
     }

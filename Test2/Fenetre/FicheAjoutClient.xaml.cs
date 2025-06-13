@@ -26,7 +26,6 @@ namespace AppliNicolas.Fenetre
         public FicheAjoutClient()
         {
             InitializeComponent();
-
         }
 
         private void ButRetour_Click(object sender, RoutedEventArgs e)
@@ -41,49 +40,111 @@ namespace AppliNicolas.Fenetre
 
         public void ValiderAjoutClient()
         {
-            string emailRecherche = TxtBoxMailClient.Text.Trim();
-    
+            try
             {
-                string sql = "SELECT COUNT(*) from client WHERE LOWER(mailclient) = LOWER(@email)";
-                using (NpgsqlCommand commande = new NpgsqlCommand(sql))
+                string nom = TxtBoxNom.Text.Trim();
+                string prenom = TxtBoxPrenomClient.Text.Trim();
+                string mail = TxtBoxMailClient.Text.Trim();
+
+                // Validation des champs obligatoires
+                if (string.IsNullOrWhiteSpace(nom))
                 {
-                    commande.Parameters.AddWithValue("@email", emailRecherche);
+                    MessageBox.Show("Le nom ne peut pas être vide.", "Champ obligatoire", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(prenom))
+                {
+                    MessageBox.Show("Le prénom ne peut pas être vide.", "Champ obligatoire", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(mail))
+                {
+                    MessageBox.Show("L'email ne peut pas être vide.", "Champ obligatoire", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Validation de la longueur des champs
+                if (nom.Length > 50)
+                {
+                    MessageBox.Show("Le nom ne peut pas dépasser 50 caractères.", "Champ trop long", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (prenom.Length > 50)
+                {
+                    MessageBox.Show("Le prénom ne peut pas dépasser 50 caractères.", "Champ trop long", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (mail.Length > 100)
+                {
+                    MessageBox.Show("L'email ne peut pas dépasser 100 caractères.", "Champ trop long", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Validation du format email
+                if (!mail.Contains("@") || !mail.Contains("."))
+                {
+                    MessageBox.Show("Le format de l'email n'est pas valide.", "Email invalide", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Vérification de l'unicité de l'email
+                if (VerifierEmailExistant(mail))
+                {
+                    MessageBox.Show("Cette adresse email existe déjà !", "Email existant", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Insertion du nouveau client
+                InsererNouveauClient(nom, prenom, mail);
+
+                MessageBox.Show("Client ajouté avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de l'ajout du client : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Méthodes dédiées pour les requêtes SQL
+        private bool VerifierEmailExistant(string email)
+        {
+            try
+            {
+                using (NpgsqlCommand commande = new NpgsqlCommand("SELECT COUNT(*) FROM client WHERE LOWER(mailclient) = LOWER(@email)"))
+                {
+                    commande.Parameters.AddWithValue("@email", email);
                     DataTable dt = ConnexionBD.Instance.ExecuteSelect(commande);
                     int count = Convert.ToInt32(dt.Rows[0][0]);
-
-                    if (count > 0)
-                    {
-                        MessageBox.Show(this, "Cette adresse email existe déjà !", "Email existant",MessageBoxButton.OK, MessageBoxImage.Warning);
-                        Console.WriteLine(count);
-                        return;
-                    }
+                    return count > 0;
                 }
-                try
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private void InsererNouveauClient(string nom, string prenom, string mail)
+        {
+            try
+            {
+                using (NpgsqlCommand commandeInsert = new NpgsqlCommand("INSERT INTO Client (nomClient, prenomClient, mailClient) VALUES (@nom, @prenom, @mail)"))
                 {
-                    string nom = TxtBoxNom.Text;
-                    string prenom = TxtBoxPrenomClient.Text;
-                    string mail = TxtBoxMailClient.Text;
-
-                    string sql2 = "INSERT INTO Client (nomClient, prenomClient, mailClient) VALUES (@nom, @prenom, @mail)";
-
-                    using (NpgsqlCommand commandeInsert = new NpgsqlCommand(sql2))
-                    {
-                        commandeInsert.Parameters.AddWithValue("@nom", nom);
-                        commandeInsert.Parameters.AddWithValue("@prenom", prenom);
-                        commandeInsert.Parameters.AddWithValue("@mail", mail);
-
-                        ConnexionBD.Instance.ExecuteInsert(commandeInsert);
-                    }
-
-                    
-                    MessageBox.Show("Client ajouté avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
-                    ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
-                    this.Close();
+                    commandeInsert.Parameters.AddWithValue("@nom", nom);
+                    commandeInsert.Parameters.AddWithValue("@prenom", prenom);
+                    commandeInsert.Parameters.AddWithValue("@mail", mail);
+                    ConnexionBD.Instance.ExecuteInsert(commandeInsert);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Erreur lors de l'ajout du client : {ex.Message}");
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de l'insertion du client : {ex.Message}");
             }
         }
     }

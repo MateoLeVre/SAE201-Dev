@@ -16,61 +16,110 @@ namespace AppliNicolas.Classes
 
         public GestionVin()
         {
-            this.LesVins = new ObservableCollection<Vin>(new Vin().RecupereVinDansBDD());
-            this.LesCommandes = new ObservableCollection<Commande>(new Commande().RecupereCommandeDansBDD());
-            this.LesDemandes = new ObservableCollection<Demande>(new Demande().RecupereDemandeDansBDD());
-            this.LesClients = new ObservableCollection<Client>(new Client().RecupereClientDansBDD());
+            this.LesVins = ChargerVins();
+            this.LesCommandes = ChargerCommandes();
+            this.LesDemandes = ChargerDemandes();
+            this.LesClients = ChargerClients();
         }
 
         public ObservableCollection<Vin> LesVins
         {
-            get
-            {
-                return lesVins;
-            }
-
+            get { return lesVins; }
             set
             {
+                if (value == null)
+                {
+                    throw new ArgumentException("La collection de vins ne peut pas être null");
+                }
                 lesVins = value;
             }
         }
 
         public ObservableCollection<Commande> LesCommandes
         {
-            get
-            {
-                return lesCommandes;
-            }
-
+            get { return lesCommandes; }
             set
             {
+                if (value == null)
+                {
+                    throw new ArgumentException("La collection de commandes ne peut pas être null");
+                }
                 lesCommandes = value;
             }
         }
 
         public ObservableCollection<Demande> LesDemandes
         {
-            get
-            {
-                return this.lesDemandes;
-            }
-
+            get { return lesDemandes; }
             set
             {
-                this.lesDemandes = value;
+                if (value == null)
+                {
+                    throw new ArgumentException("La collection de demandes ne peut pas être null");
+                }
+                lesDemandes = value;
             }
         }
 
         public ObservableCollection<Client> LesClients
         {
-            get
-            {
-                return this.lesClients;
-            }
-
+            get { return lesClients; }
             set
             {
-                this.lesClients = value;
+                if (value == null)
+                {
+                    throw new ArgumentException("La collection de clients ne peut pas être null");
+                }
+                lesClients = value;
+            }
+        }
+
+        // Méthodes dédiées pour charger les données depuis la BDD
+        private ObservableCollection<Vin> ChargerVins()
+        {
+            try
+            {
+                return new ObservableCollection<Vin>(new Vin().RecupereVinDansBDD());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors du chargement des vins : {ex.Message}");
+            }
+        }
+
+        private ObservableCollection<Commande> ChargerCommandes()
+        {
+            try
+            {
+                return new ObservableCollection<Commande>(new Commande().RecupereCommandeDansBDD());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors du chargement des commandes : {ex.Message}");
+            }
+        }
+
+        private ObservableCollection<Demande> ChargerDemandes()
+        {
+            try
+            {
+                return new ObservableCollection<Demande>(new Demande().RecupereDemandeDansBDD());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors du chargement des demandes : {ex.Message}");
+            }
+        }
+
+        private ObservableCollection<Client> ChargerClients()
+        {
+            try
+            {
+                return new ObservableCollection<Client>(new Client().RecupereClientDansBDD());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors du chargement des clients : {ex.Message}");
             }
         }
     }

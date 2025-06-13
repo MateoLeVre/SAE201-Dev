@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="AppliNicolas.Classes.Appelation">
-    <Position X="7" Y="2" Width="1.5" />
+    <Position X="11.75" Y="0.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -20,57 +20,75 @@
       <FileName>Classes\Client.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.Commande" Collapsed="true">
-    <Position X="13.25" Y="2" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.Commande">
+    <Position X="19.25" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AgQiAAABAAAKACAAiAAsAAAECEACAABAAAEQAAAQAAA=</HashCode>
       <FileName>Classes\Commande.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.ConnexionBD" Collapsed="true">
-    <Position X="15" Y="2" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.ConnexionBD">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAEAAgAAAAAAAAgAAAABIBAAAABAABAAQAgAAhAAEAA=</HashCode>
       <FileName>Classes\ConnexionBD.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.Demande" Collapsed="true">
-    <Position X="9.75" Y="3" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.Demande">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>gAAIhAAAAIAigIAACMAEBAAAAAACAAAAEACUAAAAjAA=</HashCode>
       <FileName>Classes\Demande.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.DetailCommande" Collapsed="true">
-    <Position X="11.5" Y="3" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.DetailCommande">
+    <Position X="6.75" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAABACBAAAAgAAEAIAkBAAAAAAEAAgABQFMAAEAAAA=</HashCode>
       <FileName>Classes\DetailCommande.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.Employe" Collapsed="true">
-    <Position X="13.25" Y="3" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.Employe">
+    <Position X="8.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAACAgAAAAAAAAAAACAAAACAACgQAAAAAAA=</HashCode>
       <FileName>Classes\Employe.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.GestionVin" Collapsed="true">
-    <Position X="15" Y="3" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.GestionVin">
+    <Position X="8.75" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>gAAABAAAAAQAAACAgAAAAAAAAAAAAACEAAAABAAAAAA=</HashCode>
       <FileName>Classes\GestionVin.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.LogError" Collapsed="true">
-    <Position X="9.75" Y="4" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.LogError">
+    <Position X="10" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\LogError.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppliNicolas.Classes.Vin" Collapsed="true">
-    <Position X="11.5" Y="4" Width="1.5" />
+  <Class Name="AppliNicolas.Classes.Vin">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAkAgCAIAAAgiAAABAgIAIQACACAAcCgQAICBECCAA=</HashCode>
       <FileName>Classes\Vin.cs</FileName>

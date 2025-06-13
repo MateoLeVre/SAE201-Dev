@@ -9,15 +9,13 @@ namespace AppliNicolas.Fenetre
     public partial class FicheCreationDemande : Window
     {
         private Vin vin;
-        private int employeId = 1; //Id d'exemple comme les employe ne sont pas a prendre en compte
+        private int employeId = 1; // Id d'exemple comme les employe ne sont pas a prendre en compte
 
         public FicheCreationDemande(Vin vin)
         {
             InitializeComponent();
             this.vin = vin;
             this.DataContext = vin;
-
-            //this.Deactivated += (s, e) => this.Close();
         }
 
         private void ButRetour_Click(object sender, RoutedEventArgs e)
@@ -27,30 +25,63 @@ namespace AppliNicolas.Fenetre
 
         private void TxtQuantite_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (int.TryParse(TxtQuantite.Text, out int qte))
+            CalculerMontantTotal();
+        }
+
+        private void ButValider_Click(object sender, RoutedEventArgs e)
+        {
+            ValiderCreationDemande();
+        }
+
+        private void ValiderCreationDemande()
+        {
+            try
+            {
+                // Validation de la quantité
+                if (!int.TryParse(TxtQuantite.Text, out int quantite) || quantite <= 0)
+                {
+                    MessageBox.Show("Quantité invalide. Veuillez saisir un nombre entier positif.", "Erreur de saisie", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Validation de la quantité maximale
+                if (quantite > 1000)
+                {
+                    MessageBox.Show("La quantité ne peut pas dépasser 1000.", "Quantité trop élevée", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Insertion de la nouvelle demande
+                InsererNouvelleDemande(quantite);
+
+                MessageBox.Show("Demande enregistrée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de la création de la demande : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CalculerMontantTotal()
+        {
+            if (int.TryParse(TxtQuantite.Text, out int qte) && qte > 0)
             {
                 double total = qte * vin.Prix;
                 TxtMontant.Text = $"{total:N2} €";
             }
             else
             {
-                TxtMontant.Text = "0 €";
+                TxtMontant.Text = "0,00 €";
             }
         }
 
-        private void ButValider_Click(object sender, RoutedEventArgs e)
+        // Méthode dédiée pour la requête SQL
+        private void InsererNouvelleDemande(int quantite)
         {
-            if (!int.TryParse(TxtQuantite.Text, out int quantite) || quantite <= 0)
-            {
-                MessageBox.Show("Quantité invalide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
             try
             {
-                string sql = "INSERT INTO Demande (numVin, numEmploye, dateDemande, quantiteDemande, etat) " +
-                             "VALUES (@vin, @employe, @date, @qte, @etat)";
-                using (NpgsqlCommand cmd = new NpgsqlCommand(sql))
+                using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Demande (numVin, numEmploye, dateDemande, quantiteDemande, etat) VALUES (@vin, @employe, @date, @qte, @etat)"))
                 {
                     cmd.Parameters.AddWithValue("@vin", vin.Reference);
                     cmd.Parameters.AddWithValue("@employe", employeId);
@@ -60,13 +91,10 @@ namespace AppliNicolas.Fenetre
 
                     ConnexionBD.Instance.ExecuteInsert(cmd);
                 }
-
-                MessageBox.Show("Demande enregistrée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw new Exception($"Erreur lors de l'insertion de la demande : {ex.Message}");
             }
         }
     }

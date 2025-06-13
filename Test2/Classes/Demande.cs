@@ -3,7 +3,6 @@ using Npgsql;
 using System;
 using System.Data;
 using AppliNicolas.Classes;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -49,52 +48,96 @@ namespace AppliNicolas.Classes
             this.Etat = etat;
         }
 
-        // Propriétés
-
         public int NumDemande
         {
-            get => numDemande;
-            set => numDemande = value;
+            get { return numDemande; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Le numéro de demande doit être positif");
+                }
+                numDemande = value;
+            }
         }
 
         public int NumVin
         {
-            get => numVin;
-            set => numVin = value;
+            get { return numVin; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Le numéro de vin doit être positif");
+                }
+                numVin = value;
+            }
         }
 
         public int NumEmploye
         {
-            get => numEmploye;
-            set => numEmploye = value;
+            get { return numEmploye; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Le numéro d'employé doit être positif");
+                }
+                numEmploye = value;
+            }
         }
 
         public DateTime DateDemande
         {
-            get => dateDemande;
-            set => dateDemande = value;
+            get { return dateDemande; }
+            set
+            {
+                if (value > DateTime.Now)
+                {
+                    throw new ArgumentException("La date de demande ne peut pas être dans le futur");
+                }
+                dateDemande = value;
+            }
         }
 
         public int QuantiteDemande
         {
-            get => quantiteDemande;
-            set => quantiteDemande = value;
+            get { return quantiteDemande; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("La quantité demandée doit être positive");
+                }
+                quantiteDemande = value;
+            }
         }
 
         public string Etat
         {
-            get => etat;
-            set => etat = value;
+            get { return etat; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("L'état ne peut pas être vide");
+                }
+                if (value.Length > 20)
+                {
+                    throw new ArgumentException("L'état ne peut pas dépasser 20 caractères");
+                }
+                etat = value;
+            }
         }
 
         public string NomVin
         {
-            get => Vin.Nom;
+            get { return Vin.Nom; }
         }
 
         public string DateDemandeFormatted
         {
-            get => DateDemande.ToString("dd/MM/yyyy");
+            get { return DateDemande.ToString("dd/MM/yyyy"); }
         }
 
         public double MontantTotal
@@ -125,7 +168,6 @@ namespace AppliNicolas.Classes
             }
         }
 
-
         private Vin RecupereVinParId(int idVin)
         {
             if (!DictionnaireVins.ContainsKey(idVin))
@@ -142,31 +184,36 @@ namespace AppliNicolas.Classes
             }
 
             return DictionnaireVins[idVin];
-
         }
 
-        // Méthode pour récupérer toutes les demandes dans la base de données
         public List<Demande> RecupereDemandeDansBDD()
         {
             List<Demande> lesDemandes = new List<Demande>();
-            using (NpgsqlCommand demandeSelect = new NpgsqlCommand("SELECT * FROM Demande;"))
+
+            try
             {
-                DataTable dt = ConnexionBD.Instance.ExecuteSelect(demandeSelect);
-                foreach (DataRow dr in dt.Rows)
+                using (NpgsqlCommand demandeSelect = new NpgsqlCommand("SELECT * FROM Demande;"))
                 {
-                    lesDemandes.Add(new Demande(
-                        (int)dr["numdemande"],
-                        (int)dr["numVin"],
-                        (int)dr["numemploye"],
-                        (DateTime)dr["datedemande"],
-                        (int)dr["quantitedemande"],
-                        (string)dr["etat"]
-                    ));
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(demandeSelect);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        lesDemandes.Add(new Demande(
+                            (int)dr["numdemande"],
+                            (int)dr["numVin"],
+                            (int)dr["numemploye"],
+                            (DateTime)dr["datedemande"],
+                            (int)dr["quantitedemande"],
+                            (string)dr["etat"]
+                        ));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de la récupération des demandes : {ex.Message}");
+            }
+
             return lesDemandes;
         }
-
-
     }
 }

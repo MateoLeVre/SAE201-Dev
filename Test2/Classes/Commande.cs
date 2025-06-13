@@ -9,16 +9,7 @@ using AppliNicolas.Classes;
 using System.Windows;
 using System.Windows.Controls;
 using AppliNicolas.Pages;
-using Npgsql;
-using System;
-using System.Data;
-using AppliNicolas.Classes;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace AppliNicolas.Classes
 {
@@ -29,6 +20,7 @@ namespace AppliNicolas.Classes
         private DateTime dateCommande;
         private string etatCommande;
         private double prixTotal;
+        private Demande demande;
 
         public virtual ICollection<Demande> Demandes { get; set; }
         public virtual ICollection<DetailCommande> DetailCommandes { get; set; }
@@ -38,6 +30,7 @@ namespace AppliNicolas.Classes
             Demandes = new List<Demande>();
             DetailCommandes = new List<DetailCommande>();
         }
+
         public Commande(int numCommande, int numEmploye, string etatCommande)
         {
             this.NumCommande = numCommande;
@@ -58,9 +51,6 @@ namespace AppliNicolas.Classes
             DetailCommandes = DetailCommande.ChargerDetailsParCommande(this.NumCommande);
         }
 
-
-        private Demande demande;
-
         public int NumDemande { get; set; }
 
         public Demande Demande
@@ -77,6 +67,7 @@ namespace AppliNicolas.Classes
                 return demande;
             }
         }
+
         public string NomFournisseur
         {
             get
@@ -86,58 +77,62 @@ namespace AppliNicolas.Classes
                             .Distinct()
                             .ToList();
 
-                return fournisseurs.Count == 1  ? fournisseurs[0] : "Erreur Fournisseurs multiples pour une commande";
-
+                return fournisseurs.Count == 1 ? fournisseurs[0] : "Erreur Fournisseurs multiples pour une commande";
             }
         }
+
         public int NumCommande
         {
-            get
-            {
-                return numCommande;
-            }
-
+            get { return numCommande; }
             set
             {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Le numéro de commande doit être positif");
+                }
                 numCommande = value;
             }
         }
 
         public int NumEmploye
         {
-            get
-            {
-                return numEmploye;
-            }
-
+            get { return numEmploye; }
             set
             {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Le numéro d'employé doit être positif");
+                }
                 numEmploye = value;
             }
         }
 
         public DateTime DateCommande
         {
-            get
-            {
-                return dateCommande;
-            }
-
+            get { return dateCommande; }
             set
             {
+                if (value > DateTime.Now)
+                {
+                    throw new ArgumentException("La date de commande ne peut pas être dans le futur");
+                }
                 dateCommande = value;
             }
         }
 
         public string EtatCommande
         {
-            get
-            {
-                return etatCommande;
-            }
-
+            get { return etatCommande; }
             set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("L'état de la commande ne peut pas être vide");
+                }
+                if (value.Length > 20)
+                {
+                    throw new ArgumentException("L'état de la commande ne peut pas dépasser 20 caractères");
+                }
                 etatCommande = value;
             }
         }
@@ -151,10 +146,8 @@ namespace AppliNicolas.Classes
                 {
                     prix += dc.PrixDetail;
                 }
-
                 return prix;
             }
-
         }
 
         public void AjouterDemande(Demande demande)
@@ -172,26 +165,33 @@ namespace AppliNicolas.Classes
             DetailCommandes.Add(detail);
         }
 
-        
         public List<Commande> RecupereCommandeDansBDD()
         {
             List<Commande> lesCommandes = new List<Commande>();
-            using (NpgsqlCommand commandeSelect = new NpgsqlCommand("select * from Commande;"))
+
+            try
             {
-                DataTable dt = ConnexionBD.Instance.ExecuteSelect(commandeSelect);
-                foreach (DataRow dr in dt.Rows)
+                using (NpgsqlCommand commandeSelect = new NpgsqlCommand("select * from Commande;"))
                 {
-                    lesCommandes.Add(new Commande((Int32)dr["numcommande"], (Int32)dr["numemploye"],
-                        (DateTime)dr["datecommande"], (string)dr["etat"]));
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commandeSelect);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        lesCommandes.Add(new Commande((Int32)dr["numcommande"], (Int32)dr["numemploye"],
+                            (DateTime)dr["datecommande"], (string)dr["etat"]));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de la récupération des commandes : {ex.Message}");
+            }
+
             return lesCommandes;
         }
 
-        public override bool Equals(object? obj)
+        public override int GetHashCode()
         {
-            return obj is Commande commande &&
-                   NumCommande == commande.NumCommande;
+            return NumCommande.GetHashCode();
         }
     }
 }
