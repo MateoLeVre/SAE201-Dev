@@ -56,7 +56,7 @@ namespace AppliNicolas.Fenetre
                     cmd.Parameters.AddWithValue("@employe", employeId);
                     cmd.Parameters.AddWithValue("@date", DateTime.Now);
                     cmd.Parameters.AddWithValue("@qte", quantite);
-                    cmd.Parameters.AddWithValue("@etat", "en attente");
+                    cmd.Parameters.AddWithValue("@etat", "En attente");
 
                     ConnexionBD.Instance.ExecuteInsert(cmd);
                 }
