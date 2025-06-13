@@ -33,20 +33,20 @@ namespace AppliNicolas.Pages
 
         private void MettreEnAttente_Click(object sender, RoutedEventArgs e)
         {
-            MiseAJourEtatDemande("en attente");
+            MiseAJourEtatDemande("En attente");
         }
 
         private void AnnulerDemande_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Voulez-vous vraiment annuler cette demande ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                MiseAJourEtatDemande("annulée");
+                MiseAJourEtatDemande("Supprimer");
             }
         }
 
         private void ValiderDemande_Click(object sender, RoutedEventArgs e)
         {
-            MiseAJourEtatDemande("validée");
+            MiseAJourEtatDemande("Valider");
         }
 
         private void MiseAJourEtatDemande(string nouvelEtat)

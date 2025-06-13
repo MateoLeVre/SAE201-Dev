@@ -24,7 +24,6 @@ namespace AppliNicolas.Classes
         //Chaine de connection bdd local 
         private string connectionString;
 
-
         private NpgsqlConnection connection;
 
         public static ConnexionBD Instance
@@ -42,6 +41,7 @@ namespace AppliNicolas.Classes
             else
             {
                 string chaine = $"Host=srv-peda-new;Port=5433;Username={login};Password={password};Database=bd_nicolas;Options='-c search_path=nicolas'";
+                chaine = $"Host=srv-peda-new;Port=5433;Username=bourdima;Password=owY7SW;Database=bd_nicolas;Options='-c search_path=nicolas'";
                 connectionString = chaine;
             }
             
@@ -52,7 +52,6 @@ namespace AppliNicolas.Classes
         private ConnexionBD()
         {
         }
-
 
         // pour récupérer la connexion (et l'ouvrir si nécessaire)
         public NpgsqlConnection GetConnection()
