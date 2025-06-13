@@ -20,7 +20,7 @@ namespace AppliNicolas.Fenetre
         {
             InitializeComponent();
             LoadDemandes();
-            this.ShowDialog();
+            this.ShowDialog(); // Ouvre la fenêtre modale
         }
 
         private void LoadDemandes()
@@ -31,7 +31,7 @@ namespace AppliNicolas.Fenetre
 
             // Uniquement celles "en attente" ou "supprimée"
             demandesDisponibles = toutesLesDemandes
-                .Where(d => d.Etat.ToLower() == "en attente" )
+                .Where(d => d.Etat.ToLower() == "en attente" || d.Etat.ToLower() == "supprimée")
                 .ToList();
 
             demandesSelectionnees = new List<Demande>();
@@ -42,23 +42,43 @@ namespace AppliNicolas.Fenetre
 
         private void AjouterDemande_Click(object sender, RoutedEventArgs e)
         {
-            Demande d = (sender as Button)?.Tag as Demande;
-            if (d == null || demandesSelectionnees.Contains(d))
-                return;
+            try
+            {
+                Demande d = (sender as Button)?.Tag as Demande;
+                if (d == null || demandesSelectionnees.Contains(d))
+                    return;
 
-            if (fournisseurActif == null)
-            {
-                fournisseurActif = d.Vin.NomFournisseur;
-            }
+                // Validation de la quantité
+                if (d.QuantiteDemande < 1)
+                {
+                    MessageBox.Show("Impossible d'ajouter une demande avec moins de 1 vin.", "Quantité invalide", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            if (d.Vin.NomFournisseur == fournisseurActif)
-            {
-                demandesSelectionnees.Add(d);
-                RefreshListes();
+                if (d.QuantiteDemande > 100)
+                {
+                    MessageBox.Show("Impossible d'ajouter une demande avec plus de 100 vins.", "Quantité trop élevée", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (fournisseurActif == null)
+                {
+                    fournisseurActif = d.Vin.NomFournisseur;
+                }
+
+                if (d.Vin.NomFournisseur == fournisseurActif)
+                {
+                    demandesSelectionnees.Add(d);
+                    RefreshListes();
+                }
+                else
+                {
+                    MessageBox.Show($"Cette demande appartient à un autre fournisseur ({d.Vin.NomFournisseur}).\nFournisseur actif : {fournisseurActif}", "Fournisseur différent", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"Cette demande appartient à un autre fournisseur ({d.Vin.NomFournisseur}).\nFournisseur actif : {fournisseurActif}", "Fournisseur différent", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Erreur lors de l'ajout de la demande : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

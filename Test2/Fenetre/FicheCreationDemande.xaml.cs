@@ -37,21 +37,18 @@ namespace AppliNicolas.Fenetre
         {
             try
             {
-                // Validation de la quantité
                 if (!int.TryParse(TxtQuantite.Text, out int quantite) || quantite <= 0)
                 {
                     MessageBox.Show("Quantité invalide. Veuillez saisir un nombre entier positif.", "Erreur de saisie", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Validation de la quantité maximale
-                if (quantite > 1000)
+                if (quantite > 100)
                 {
-                    MessageBox.Show("La quantité ne peut pas dépasser 1000.", "Quantité trop élevée", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("La quantité ne peut pas dépasser 100.", "Quantité trop élevée", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Insertion de la nouvelle demande
                 InsererNouvelleDemande(quantite);
 
                 MessageBox.Show("Demande enregistrée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);

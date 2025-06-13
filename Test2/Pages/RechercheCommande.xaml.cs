@@ -183,7 +183,7 @@ namespace AppliNicolas.Pages
             try
             {
                 ChargerDonnees();
-                TxtRecherche.Text = ""; // Réinitialiser la recherche
+                TxtRecherche.Text = ""; 
                 IC_Commandes.ItemsSource = CommandesFiltrees;
             }
             catch (Exception ex)
@@ -198,7 +198,6 @@ namespace AppliNicolas.Pages
             {
                 MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
 
-                // Vérifier que l'utilisateur est connecté
                 if (mainWindow?.EmployeConnecte == null)
                 {
                     return false;
@@ -217,7 +216,6 @@ namespace AppliNicolas.Pages
             try
             {
                 FenetreCreationCommande fenetre = new FenetreCreationCommande();
-                // La fenêtre se gère elle-même avec ShowDialog() dans son constructeur
             }
             catch (Exception ex)
             {
@@ -225,7 +223,7 @@ namespace AppliNicolas.Pages
             }
         }
 
-        // Méthodes dédiées pour les requêtes SQL (encapsulation des appels existants)
+        // Méthodes dédiées pour les requêtes SQL
         private List<Commande> ChargerCommandes()
         {
             try

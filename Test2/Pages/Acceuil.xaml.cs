@@ -21,21 +21,18 @@ namespace AppliNicolas.Pages
         {
             InitializeComponent();
 
-            // Récupérer employé connecté
             employe = ((MainWindow)Application.Current.MainWindow).EmployeConnecte;
 
             // Message d’accueil personnalisé
             MessageBienvenue = $"Bonjour {employe.Prenom} {employe.Nom}, bienvenue dans le système de gestion des vins Nicolas.";
             DateConnexion = $"Connexion le {DateTime.Now:dd MMMM yyyy à HH:mm}";
 
-            // Récupération des demandes de l'employé (non validées)
             ObservableCollection<Demande> toutesLesDemandes = ((MainWindow)Application.Current.MainWindow).GestionVin.LesDemandes;
             DemandesEmploye = toutesLesDemandes
                                 .Where(d => d.NumEmploye == employe.NumEmploye)
                                 .OrderByDescending(d => d.DateDemande)
                                 .ToList();
 
-            // Historique des recherches
             HistoriqueRecherches = new ObservableCollection<VinRecherche>(
                                     employe.HistoriqueRecherches
                                            .OrderByDescending(r => r.HeureRecherche)

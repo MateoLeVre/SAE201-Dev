@@ -201,8 +201,6 @@ namespace AppliNicolas.Pages
                 MessageBox.Show($"Erreur lors du changement d'ordre de tri : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        // Méthodes dédiées pour la logique métier
         private void InitialiserFiltres()
         {
             filtresActifs = new List<CritereFiltre>();

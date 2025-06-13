@@ -46,7 +46,6 @@ namespace AppliNicolas.Fenetre
                 string prenom = TxtBoxPrenomClient.Text.Trim();
                 string mail = TxtBoxMailClient.Text.Trim();
 
-                // Validation des champs obligatoires
                 if (string.IsNullOrWhiteSpace(nom))
                 {
                     MessageBox.Show("Le nom ne peut pas être vide.", "Champ obligatoire", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -65,7 +64,6 @@ namespace AppliNicolas.Fenetre
                     return;
                 }
 
-                // Validation de la longueur des champs
                 if (nom.Length > 50)
                 {
                     MessageBox.Show("Le nom ne peut pas dépasser 50 caractères.", "Champ trop long", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -84,21 +82,18 @@ namespace AppliNicolas.Fenetre
                     return;
                 }
 
-                // Validation du format email
                 if (!mail.Contains("@") || !mail.Contains("."))
                 {
                     MessageBox.Show("Le format de l'email n'est pas valide.", "Email invalide", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Vérification de l'unicité de l'email
                 if (VerifierEmailExistant(mail))
                 {
                     MessageBox.Show("Cette adresse email existe déjà !", "Email existant", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Insertion du nouveau client
                 InsererNouveauClient(nom, prenom, mail);
 
                 MessageBox.Show("Client ajouté avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);

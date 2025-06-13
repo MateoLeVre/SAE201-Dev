@@ -53,7 +53,6 @@ namespace AppliNicolas.Fenetre
 
         private void ButSuprimer_Click(object sender, RoutedEventArgs e)
         {
-            // Demander confirmation avant suppression
             MessageBoxResult result = MessageBox.Show(
                 $"Êtes-vous sûr de vouloir supprimer le client {LeMec.PrenomClient} {LeMec.NomClient} ?",
                 "Confirmation de suppression",
@@ -74,7 +73,6 @@ namespace AppliNicolas.Fenetre
                 string prenom = this.TxtBoxPrenomClient.Text.Trim();
                 string mail = this.TxtBoxMailClient.Text.Trim();
 
-                // Validation des champs obligatoires
                 if (string.IsNullOrWhiteSpace(nom))
                 {
                     MessageBox.Show("Le nom ne peut pas être vide.", "Champ obligatoire", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -93,7 +91,6 @@ namespace AppliNicolas.Fenetre
                     return;
                 }
 
-                // Validation de la longueur des champs
                 if (nom.Length > 50)
                 {
                     MessageBox.Show("Le nom ne peut pas dépasser 50 caractères.", "Champ trop long", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -112,21 +109,18 @@ namespace AppliNicolas.Fenetre
                     return;
                 }
 
-                // Validation du format email (simplifié)
                 if (!mail.Contains("@") || !mail.Contains("."))
                 {
                     MessageBox.Show("Le format de l'email n'est pas valide.", "Email invalide", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Vérification de l'unicité de l'email (sauf pour le client actuel)
                 if (VerifierEmailExistantPourAutreClient(mail, LeMec.NumClient))
                 {
                     MessageBox.Show("Cette adresse email est déjà utilisée par un autre client !", "Email existant", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // Mise à jour du client
                 ModifierClient(LeMec.NumClient, nom, prenom, mail);
 
                 MessageBox.Show("Client modifié avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -171,7 +165,7 @@ namespace AppliNicolas.Fenetre
             }
             catch (Exception ex)
             {
-                // En cas d'erreur, on autorise la modification (pas de blocage)
+               
                 return false;
             }
         }

@@ -107,7 +107,6 @@ namespace AppliNicolas.Pages
             }
         }
 
-        // Méthodes dédiées pour la logique métier
         private void ChargerDonnees()
         {
             try

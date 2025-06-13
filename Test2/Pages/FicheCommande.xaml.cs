@@ -85,28 +85,17 @@ namespace AppliNicolas.Pages
         {
             try
             {
-                // Validation de l'état
                 if (!ValiderNouvelEtat(nouvelEtat))
                 {
                     return;
                 }
 
-                // Vérification des permissions
-                if (!VerifierPermissionsModification())
-                {
-                    MessageBox.Show("Vous n'avez pas les permissions nécessaires pour modifier cette commande.", "Accès refusé", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                // Mise à jour en base de données
                 ModifierEtatCommandeEnBase(nouvelEtat);
 
-                // Mise à jour de l'objet local
                 commande.EtatCommande = nouvelEtat;
 
                 MessageBox.Show("État de la commande mis à jour avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Rafraîchissement de la page
                 ((MainWindow)Application.Current.MainWindow).RefreshPage(new FicheCommande(commande));
             }
             catch (Exception ex)
@@ -115,7 +104,7 @@ namespace AppliNicolas.Pages
             }
         }
 
-        // Méthodes dédiées pour la logique métier et les requêtes SQL
+        // Méthodes dédiées pour les requêtes SQL
         private bool ValiderNouvelEtat(string nouvelEtat)
         {
             if (string.IsNullOrWhiteSpace(nouvelEtat))
@@ -124,29 +113,12 @@ namespace AppliNicolas.Pages
                 return false;
             }
 
-            // Validation des transitions d'état autorisées
             string etatActuel = commande.EtatCommande?.ToLower();
             string etatNouveau = nouvelEtat.ToLower();
 
-            if (etatActuel == "annulée" || etatActuel == "validée")
-            {
-                MessageBox.Show("Impossible de modifier une commande annulée ou validée.", "Modification interdite", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-
             return true;
         }
 
-        private bool VerifierPermissionsModification()
-        {
-            // Seuls les responsables peuvent modifier les commandes
-            if (!estResponsable)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         private void ModifierEtatCommandeEnBase(string nouvelEtat)
         {
