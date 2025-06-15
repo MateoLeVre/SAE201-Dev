@@ -23,6 +23,7 @@ namespace AppliNicolas.Fenetre
     /// </summary>
     public partial class FicheAjoutClient : Window
     {
+        Client client = new Client();
         public FicheAjoutClient()
         {
             InitializeComponent();
@@ -88,13 +89,13 @@ namespace AppliNicolas.Fenetre
                     return;
                 }
 
-                if (VerifierEmailExistant(mail))
+                if (client.VerifierEmailExistant(mail))
                 {
                     MessageBox.Show("Cette adresse email existe déjà !", "Email existant", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                InsererNouveauClient(nom, prenom, mail);
+                client.InsererNouveauClient(nom, prenom, mail);
 
                 MessageBox.Show("Client ajouté avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                 ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
@@ -103,43 +104,6 @@ namespace AppliNicolas.Fenetre
             catch (Exception ex)
             {
                 MessageBox.Show($"Erreur lors de l'ajout du client : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        // Méthodes dédiées pour les requêtes SQL
-        private bool VerifierEmailExistant(string email)
-        {
-            try
-            {
-                using (NpgsqlCommand commande = new NpgsqlCommand("SELECT COUNT(*) FROM client WHERE LOWER(mailclient) = LOWER(@email)"))
-                {
-                    commande.Parameters.AddWithValue("@email", email);
-                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commande);
-                    int count = Convert.ToInt32(dt.Rows[0][0]);
-                    return count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        private void InsererNouveauClient(string nom, string prenom, string mail)
-        {
-            try
-            {
-                using (NpgsqlCommand commandeInsert = new NpgsqlCommand("INSERT INTO Client (nomClient, prenomClient, mailClient) VALUES (@nom, @prenom, @mail)"))
-                {
-                    commandeInsert.Parameters.AddWithValue("@nom", nom);
-                    commandeInsert.Parameters.AddWithValue("@prenom", prenom);
-                    commandeInsert.Parameters.AddWithValue("@mail", mail);
-                    ConnexionBD.Instance.ExecuteInsert(commandeInsert);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Erreur lors de l'insertion du client : {ex.Message}");
             }
         }
     }

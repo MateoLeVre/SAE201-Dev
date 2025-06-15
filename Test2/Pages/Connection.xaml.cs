@@ -103,7 +103,5 @@ namespace AppliNicolas.Pages
                 AddText(TxtPassword);
             }
         }
-
-
-        }
+    }
 }

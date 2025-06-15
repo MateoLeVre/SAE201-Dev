@@ -115,13 +115,13 @@ namespace AppliNicolas.Fenetre
                     return;
                 }
 
-                if (VerifierEmailExistantPourAutreClient(mail, LeMec.NumClient))
+                if (LeMec.VerifierEmailExistantPourAutreClient(mail, LeMec.NumClient))
                 {
                     MessageBox.Show("Cette adresse email est déjà utilisée par un autre client !", "Email existant", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                ModifierClient(LeMec.NumClient, nom, prenom, mail);
+                LeMec.ModifierClient(LeMec.NumClient, nom, prenom, mail);
 
                 MessageBox.Show("Client modifié avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                 ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
@@ -137,7 +137,7 @@ namespace AppliNicolas.Fenetre
         {
             try
             {
-                SupprimerClientDeLaBase(LeMec.NumClient);
+                LeMec.SupprimerClientDeLaBase(LeMec.NumClient);
 
                 MessageBox.Show("Client supprimé avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                 ((MainWindow)Application.Current.MainWindow).NaviguerVers(new RechercherClients());
@@ -149,60 +149,5 @@ namespace AppliNicolas.Fenetre
             }
         }
 
-        // Méthodes dédiées pour les requêtes SQL
-        private bool VerifierEmailExistantPourAutreClient(string email, int numClientActuel)
-        {
-            try
-            {
-                using (NpgsqlCommand commande = new NpgsqlCommand("SELECT COUNT(*) FROM client WHERE LOWER(mailclient) = LOWER(@email) AND numclient != @numClient"))
-                {
-                    commande.Parameters.AddWithValue("@email", email);
-                    commande.Parameters.AddWithValue("@numClient", numClientActuel);
-                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commande);
-                    int count = Convert.ToInt32(dt.Rows[0][0]);
-                    return count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-               
-                return false;
-            }
-        }
-
-        private void ModifierClient(int numClient, string nom, string prenom, string mail)
-        {
-            try
-            {
-                using (NpgsqlCommand commandeUpdate = new NpgsqlCommand("UPDATE Client SET nomclient = @nom, prenomclient = @prenom, mailclient = @mail WHERE numclient = @id"))
-                {
-                    commandeUpdate.Parameters.AddWithValue("@nom", nom);
-                    commandeUpdate.Parameters.AddWithValue("@prenom", prenom);
-                    commandeUpdate.Parameters.AddWithValue("@mail", mail);
-                    commandeUpdate.Parameters.AddWithValue("@id", numClient);
-                    ConnexionBD.Instance.ExecuteSet(commandeUpdate);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Erreur lors de la mise à jour du client : {ex.Message}");
-            }
-        }
-
-        private void SupprimerClientDeLaBase(int numClient)
-        {
-            try
-            {
-                using (NpgsqlCommand commandeDelete = new NpgsqlCommand("DELETE FROM Client WHERE numclient = @numclient"))
-                {
-                    commandeDelete.Parameters.AddWithValue("@numclient", numClient);
-                    ConnexionBD.Instance.ExecuteSet(commandeDelete);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Erreur lors de la suppression du client : {ex.Message}");
-            }
-        }
     }
 }

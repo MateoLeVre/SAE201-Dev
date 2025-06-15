@@ -21,6 +21,13 @@ namespace AppliNicolas.Classes
         public Client()
         {
         }
+        public Client(string nomClient, string prenomClient, string mailClient)
+        {
+            NomClient = nomClient;
+            PrenomClient = prenomClient;
+            MailClient = mailClient;
+        }
+
 
         public Client(int numClient, string nomClient, string prenomClient, string mailClient)
         {
@@ -120,6 +127,103 @@ namespace AppliNicolas.Classes
             }
 
             return lesClients;
+        }
+
+        public bool VerifierEmailExistantPourAutreClient(string email, int numClientActuel)
+        {
+            try
+            {
+                using (NpgsqlCommand commande = new NpgsqlCommand("SELECT COUNT(*) FROM client WHERE LOWER(mailclient) = LOWER(@email) AND numclient != @numClient"))
+                {
+                    commande.Parameters.AddWithValue("@email", email);
+                    commande.Parameters.AddWithValue("@numClient", numClientActuel);
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commande);
+                    int count = Convert.ToInt32(dt.Rows[0][0]);
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+        }
+
+        public void ModifierClient(int numClient, string nom, string prenom, string mail)
+        {
+            try
+            {
+                using (NpgsqlCommand commandeUpdate = new NpgsqlCommand("UPDATE Client SET nomclient = @nom, prenomclient = @prenom, mailclient = @mail WHERE numclient = @id"))
+                {
+                    commandeUpdate.Parameters.AddWithValue("@nom", nom);
+                    commandeUpdate.Parameters.AddWithValue("@prenom", prenom);
+                    commandeUpdate.Parameters.AddWithValue("@mail", mail);
+                    commandeUpdate.Parameters.AddWithValue("@id", numClient);
+                    ConnexionBD.Instance.ExecuteSet(commandeUpdate);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de la mise à jour du client : {ex.Message}");
+            }
+        }
+
+        public void SupprimerClientDeLaBase(int numClient)
+        {
+            try
+            {
+                using (NpgsqlCommand commandeDelete = new NpgsqlCommand("DELETE FROM Client WHERE numclient = @numclient"))
+                {
+                    commandeDelete.Parameters.AddWithValue("@numclient", numClient);
+                    ConnexionBD.Instance.ExecuteSet(commandeDelete);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de la suppression du client : {ex.Message}");
+            }
+        }
+        public void InsererNouveauClient(string nom, string prenom, string mail)
+        {
+            if (VerifierEmailExistant(mail))
+            {
+                throw new ArgumentException("Cette adresse email existe déjà !");
+            }
+            else
+            {
+                try
+                {
+                    using (NpgsqlCommand commandeInsert = new NpgsqlCommand("INSERT INTO Client (nomClient, prenomClient, mailClient) VALUES (@nom, @prenom, @mail)"))
+                    {
+                        commandeInsert.Parameters.AddWithValue("@nom", nom);
+                        commandeInsert.Parameters.AddWithValue("@prenom", prenom);
+                        commandeInsert.Parameters.AddWithValue("@mail", mail);
+                        ConnexionBD.Instance.ExecuteInsert(commandeInsert);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Erreur lors de l'insertion du client : {ex.Message}");
+                }
+            }
+        }
+
+        public bool VerifierEmailExistant(string email)
+        {
+            try
+            {
+                using (NpgsqlCommand commande = new NpgsqlCommand("SELECT COUNT(*) FROM client WHERE LOWER(mailclient) = LOWER(@email)"))
+                {
+                    commande.Parameters.AddWithValue("@email", email);
+                    DataTable dt = ConnexionBD.Instance.ExecuteSelect(commande);
+                    int count = Convert.ToInt32(dt.Rows[0][0]);
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
